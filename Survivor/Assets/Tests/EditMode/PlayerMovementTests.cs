@@ -6,11 +6,11 @@ using NUnit.Framework;
 namespace Tests{
 
 
-    public class MouseViewTests 
+    public class PlayerMovementTests 
     {
         [Test]
         public void MouseViewer_Test(){
-            var mouseView = new MouseView();
+            var playerMovement = new PlayerMovement();
 
         }
 
