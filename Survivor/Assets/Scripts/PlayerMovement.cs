@@ -5,55 +5,61 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-  public Movement Movement;
-  [Header("Movement Types")]
-  public float movementSpeed = 6f;
-  public float movementMultiplier= 10f;
-  float rbDrag = 6f;
+    public Movement Movement;
+    [Header("Movement Types")]
+    public float movementSpeed = 6f;
+    public float movementMultiplier = 10f;
+    float rbDrag = 6f;
 
 
 
-  float horizontalMove;
-  float verticalMove;
+    float horizontalMove;
+    float verticalMove;
 
-  Rigidbody rb;
-  
-  private void Start() {
-    rb = GetComponent<Rigidbody>();
-    Movement = new Movement(movementSpeed);
-    rb.freezeRotation = true;
+    Rigidbody rb;
 
-
-  }
-
-  private void Update() {
-    playerInput();
-    Debug.Log(rb.position);
-  }
-
-  void playerInput(){
-    horizontalMove = Input.GetAxisRaw("Horizontal");
-    verticalMove = Input.GetAxisRaw("Vertical");
-
-    
-
-  }
-
-  void dragControl(){
-    rb.drag = rbDrag;
-  }
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        Movement = new Movement(movementSpeed);
+        rb.freezeRotation = true;
 
 
-  private void FixedUpdate() {
-    PlayerMover();
-    
+    }
 
-  }
+    private void Update()
+    {
+        playerInput();
+        Debug.Log(rb.position);
+    }
 
-  void PlayerMover(){
-    rb.AddForce(Movement.calculate(horizontalMove, verticalMove)*movementMultiplier, ForceMode.Acceleration);
+    void playerInput()
+    {
+        horizontalMove = Input.GetAxisRaw("Horizontal");
+        verticalMove = Input.GetAxisRaw("Vertical");
 
-  }
+
+
+    }
+
+    void dragControl()
+    {
+        rb.drag = rbDrag;
+    }
+
+
+    private void FixedUpdate()
+    {
+        PlayerMover();
+
+
+    }
+
+    void PlayerMover()
+    {
+        rb.AddForce(Movement.calculate(horizontalMove, verticalMove) * movementMultiplier, ForceMode.Acceleration);
+
+    }
 
 
 }
@@ -61,6 +67,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-  
+
 
 
