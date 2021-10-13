@@ -8,9 +8,10 @@ namespace Tests{
 
     public class PlayerMovementTests 
     {
+ 
         [Test]
-        public void MouseViewer_Test(){
-            var playerMovement = new PlayerMovement();
+        public void Moves_On_XAxis_For_Horizontal_Movement(){
+            Assert.AreEqual(1, new Movement(1).calculate(1).x, 0.1f);
 
         }
 
