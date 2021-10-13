@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
   }
 
   void PlayerMover(){
-    rb.AddForce(Movement.calculate(horizontalMove), ForceMode.Acceleration);
+    rb.AddForce(Movement.calculate(horizontalMove, verticalMove), ForceMode.Acceleration);
 
   }
 

@@ -9,9 +9,10 @@ public class Movement
         movementSpeed=MovementSpeed;
     }
 
-    public Vector3 calculate(float horizontalMove){
+    public Vector3 calculate(float horizontalMove, float verticalMove){
         var x = horizontalMove * movementSpeed;
-        return new Vector3(x,0,0);
+        var z = verticalMove * movementSpeed;
+        return new Vector3(x,0,z);
     
     
   }
