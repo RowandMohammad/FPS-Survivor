@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
   public Movement Movement;
   [Header("Movement Types")]
   public float movementSpeed = 6f;
+  public float movementMultiplier= 10f;
   float rbDrag = 6f;
 
 
@@ -50,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
   }
 
   void PlayerMover(){
-    rb.AddForce(Movement.calculate(horizontalMove, verticalMove), ForceMode.Acceleration);
+    rb.AddForce(Movement.calculate(horizontalMove, verticalMove)*movementMultiplier, ForceMode.Acceleration);
 
   }
 
