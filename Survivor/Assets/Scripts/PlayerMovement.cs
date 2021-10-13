@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
   public Movement Movement;
   [Header("Movement Types")]
-  public float movementSpeed = 40f;
+  public float movementSpeed = 6f;
   float rbDrag = 6f;
 
 
