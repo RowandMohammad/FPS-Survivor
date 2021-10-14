@@ -496,7 +496,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746012418}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a4894c65c9407e249a024ff920d3faa9, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -584,6 +584,7 @@ GameObject:
   - component: {fileID: 900658437}
   - component: {fileID: 900658435}
   - component: {fileID: 900658438}
+  - component: {fileID: 900658439}
   m_Layer: 0
   m_Name: First Person Player
   m_TagString: Untagged
@@ -653,6 +654,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSens: 100
   ySens: 100
+--- !u!75 &900658439
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900658434}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0, z: 0}
+  m_RelativeForce: {x: 0, y: -20, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!1 &1139529695 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 622a87b3379022740be7e2efea3ebd33, type: 3}
