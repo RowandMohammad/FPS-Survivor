@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float movementMultiplier = 10f;
     float groundedDrag = 6f;
-
+    float notGroundedDrag = 1f;
     float playerHeight = 2f;
     
 
@@ -61,9 +61,12 @@ public class PlayerMovement : MonoBehaviour
 
     void dragControl()
     {
-
-        rb.drag = groundedDrag;
-
+        if (playerIsGrounded){
+            rb.drag = groundedDrag;
+        }
+        else{
+            rb.drag=notGroundedDrag;
+        }
     }
 
     void Jump(){
