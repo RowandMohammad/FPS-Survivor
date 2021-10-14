@@ -604,6 +604,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 6
+  jumpKey: 32
+  jumpForce: 10
   movementMultiplier: 10
 --- !u!4 &900658436
 Transform:

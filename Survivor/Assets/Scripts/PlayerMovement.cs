@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     [SerializeField]KeyCode jumpKey = KeyCode.Space;
 
-    public float jumpForce = 5f;
+    public float jumpForce = 10f;
 
     public float movementMultiplier = 10f;
     float groundedDrag = 6f;
@@ -83,7 +83,14 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerMover()
     {
-        rb.AddForce(Movement.calculate(horizontalMove, verticalMove) * movementMultiplier, ForceMode.Acceleration);
+        if (playerIsGrounded){
+            rb.AddForce(Movement.calculate(horizontalMove, verticalMove) * movementMultiplier, ForceMode.Acceleration);
+            
+        }
+        else
+        {
+            rb.AddForce(Movement.calculate(horizontalMove, verticalMove) * movementMultiplier * 0.3f, ForceMode.Acceleration);  
+        }
 
     }
 
