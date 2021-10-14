@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour
     float notGroundedDrag = 1f;
     float playerHeight = 2f;
     
-
+    [SerializeField] Transform orientation;
+    Vector3 moveDirection;
 
 
     float horizontalMove;
@@ -83,13 +84,15 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerMover()
     {
+        moveDirection = orientation.forward * Movement.calculate(horizontalMove, verticalMove).z + orientation.right * Movement.calculate(horizontalMove, verticalMove).x;
+        
         if (playerIsGrounded){
-            rb.AddForce(Movement.calculate(horizontalMove, verticalMove) * movementMultiplier, ForceMode.Acceleration);
+            rb.AddForce(moveDirection * movementMultiplier, ForceMode.Acceleration);
             
         }
         else
         {
-            rb.AddForce(Movement.calculate(horizontalMove, verticalMove) * movementMultiplier * 0.3f, ForceMode.Acceleration);  
+            rb.AddForce(moveDirection * movementMultiplier * 0.3f, ForceMode.Acceleration);  
         }
 
     }

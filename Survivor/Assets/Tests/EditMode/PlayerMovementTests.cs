@@ -9,6 +9,7 @@ namespace Tests
 
     public class PlayerMovementTests
     {
+        [SerializeField] Transform orientation;
 
         [Test]
         public void Moves_On_XAxis_For_Horizontal_Movement()

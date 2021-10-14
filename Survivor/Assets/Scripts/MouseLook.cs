@@ -7,7 +7,8 @@ public class MouseLook : MonoBehaviour
     [SerializeField]private float xSens = 100f;
     [SerializeField]private float ySens = 100f;
 
-    Camera camera;
+    [SerializeField] Transform camera;
+    [SerializeField] Transform orientation;
 
     float mouseX;
     float mouseY;
@@ -18,7 +19,6 @@ public class MouseLook : MonoBehaviour
     float yRotation;
 
     private void Start() {
-        camera = GetComponentInChildren<Camera>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -28,8 +28,8 @@ public class MouseLook : MonoBehaviour
     private void Update() {
         playerInput();
 
-        camera.transform.localRotation = Quaternion.Euler(xRotation,0,0);
-        transform.rotation= Quaternion.Euler(0,yRotation,0);
+        camera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        orientation.transform.rotation= Quaternion.Euler(0,yRotation,0);
     }
 
     void playerInput(){
