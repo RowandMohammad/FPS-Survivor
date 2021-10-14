@@ -4,6 +4,7 @@ using UnityEngine;
 public class Movement
 {
     public float movementSpeed;
+
     Vector3 moveDirection;
 
     public Movement(float MovementSpeed)
@@ -21,5 +22,7 @@ public class Movement
 
 
     }
+
+
 
 }

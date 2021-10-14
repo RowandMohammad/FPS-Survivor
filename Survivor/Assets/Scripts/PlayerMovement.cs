@@ -6,10 +6,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Movement Movement;
+
     [Header("Movement Types")]
     public float movementSpeed = 6f;
+
+    [Header("Keybinds")]
+    [SerializeField]KeyCode jumpKey = KeyCode.Space;
+
+    public float jumpForce = 5f;
+
     public float movementMultiplier = 10f;
-    float rbDrag = 6f;
+    float groundedDrag = 6f;
+
+    float playerHeight = 2f;
+    
 
 
 
@@ -17,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     float verticalMove;
 
     Rigidbody rb;
+
+    bool playerIsGrounded;
 
     private void Start()
     {
@@ -29,8 +41,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        playerIsGrounded=Physics.Raycast(transform.position, Vector3.down, playerHeight/2 + 0.1f);
+        print(playerIsGrounded);
         playerInput();
-        Debug.Log(rb.position);
+        dragControl();
+   
     }
 
     void playerInput()
@@ -38,13 +53,21 @@ public class PlayerMovement : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
 
+        if (Input.GetKeyDown(jumpKey) && playerIsGrounded){
 
-
+            Jump();
+        }
     }
 
     void dragControl()
     {
-        rb.drag = rbDrag;
+
+        rb.drag = groundedDrag;
+
+    }
+
+    void Jump(){
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
 

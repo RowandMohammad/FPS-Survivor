@@ -18,7 +18,7 @@ namespace Tests
         }
 
         [Test]
-        public void Moves_On_ZAxis_For_Vertical_Movement()
+        public void Moves_On_ZAxis_For_Vertical_Movement() 
         {
             Assert.AreEqual(1, new Movement(1).calculate(0, 1).z, 0.1f);
 

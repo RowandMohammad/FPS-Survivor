@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d82f135325bffb469eb457c8c06e522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
+  movementSpeed: 6
   movementMultiplier: 10
 --- !u!4 &900658436
 Transform:
@@ -649,8 +649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8ad4ffa5b00fa44be943816a1303f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSens: 0
-  ySens: 0
+  xSens: 100
+  ySens: 100
 --- !u!1 &1139529695 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 622a87b3379022740be7e2efea3ebd33, type: 3}
