@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] Transform orientation;
     Vector3 moveDirection;
+    Vector3 slopeMoveDirection;
 
 
     float horizontalMove;
@@ -29,9 +30,11 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    bool playerIsGrounded;
+    public bool playerIsGrounded;
     [SerializeField] LayerMask groundMask;
     float distancetoGround = 0.4f;
+
+    RaycastHit slopeDetect;
 
 
 
@@ -50,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
         print(playerIsGrounded);
         playerInput();
         dragControl();
-   
+
+        slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeDetect.normal);
     }
 
     void playerInput()
@@ -60,8 +64,26 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(jumpKey) && playerIsGrounded){
 
-            Jump();
+            Jump(rb);
         }
+    }
+
+    private bool slope()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, out slopeDetect, playerHeight / 2 + 0.5f))
+        {
+            if (slopeDetect.normal != Vector3.up)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+         
+
+        }
+        return false;
     }
 
     void dragControl()
@@ -74,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Jump(){
+    public void Jump(Rigidbody rb){
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
@@ -94,7 +116,12 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(moveDirection * movementMultiplier, ForceMode.Acceleration);
             
         }
-        else
+        else if(playerIsGrounded && slope())
+        {
+            rb.AddForce(slopeMoveDirection * movementMultiplier, ForceMode.Acceleration);
+
+        }
+        else if(!playerIsGrounded)
         {
             rb.AddForce(moveDirection * movementMultiplier * 0.3f, ForceMode.Acceleration);  
         }
