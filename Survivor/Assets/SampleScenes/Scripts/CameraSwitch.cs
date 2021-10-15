@@ -1,3 +1,31 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0e65b8af3b1df5329c2be41e8597554742e9b398ea76c41b14355eec7d81ec9d
-size 713
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CameraSwitch : MonoBehaviour
+{
+    public GameObject[] objects;
+    public Text text;
+
+    private int m_CurrentActiveObject;
+
+
+    private void OnEnable()
+    {
+        text.text = objects[m_CurrentActiveObject].name;
+    }
+
+
+    public void NextCamera()
+    {
+        int nextactiveobject = m_CurrentActiveObject + 1 >= objects.Length ? 0 : m_CurrentActiveObject + 1;
+
+        for (int i = 0; i < objects.Length; i++)
+        {
+            objects[i].SetActive(i == nextactiveobject);
+        }
+
+        m_CurrentActiveObject = nextactiveobject;
+        text.text = objects[m_CurrentActiveObject].name;
+    }
+}

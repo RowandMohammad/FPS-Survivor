@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:69750a15a8dc48ed303156fa0f8393da80eb9162bc33b9941c281778d7d455d2
-size 544
+using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SceneAndURLLoader : MonoBehaviour
+{
+    private PauseMenu m_PauseMenu;
+
+
+    private void Awake ()
+    {
+        m_PauseMenu = GetComponentInChildren <PauseMenu> ();
+    }
+
+
+    public void SceneLoad(string sceneName)
+	{
+		//PauseMenu pauseMenu = (PauseMenu)FindObjectOfType(typeof(PauseMenu));
+		m_PauseMenu.MenuOff ();
+		SceneManager.LoadScene(sceneName);
+	}
+
+
+	public void LoadURL(string url)
+	{
+		Application.OpenURL(url);
+	}
+}
+

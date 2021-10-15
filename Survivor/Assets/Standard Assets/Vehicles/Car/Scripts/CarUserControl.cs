@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b2e4fdac5709e27dccdf92524f6e3d621137944b20840b1b7ace0d52a056c980
-size 905
+using System;
+using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
+
+namespace UnityStandardAssets.Vehicles.Car
+{
+    [RequireComponent(typeof (CarController))]
+    public class CarUserControl : MonoBehaviour
+    {
+        private CarController m_Car; // the car controller we want to use
+
+
+        private void Awake()
+        {
+            // get the car controller
+            m_Car = GetComponent<CarController>();
+        }
+
+
+        private void FixedUpdate()
+        {
+            // pass the input to the car!
+            float h = CrossPlatformInputManager.GetAxis("Horizontal");
+            float v = CrossPlatformInputManager.GetAxis("Vertical");
+#if !MOBILE_INPUT
+            float handbrake = CrossPlatformInputManager.GetAxis("Jump");
+            m_Car.Move(h, v, v, handbrake);
+#else
+            m_Car.Move(h, v, v, 0f);
+#endif
+        }
+    }
+}
