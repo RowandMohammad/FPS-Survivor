@@ -25,7 +25,17 @@ namespace Tests
 
         }
 
- 
+        [Test]
+        public void Jump_in_Air()
+        {
+            GameObject myGameObject = GameObject.Find("First Person Player");
+            PlayerMovement playerMovement = myGameObject.AddComponent<PlayerMovement>();
+            Rigidbody rb = myGameObject.GetComponent<Rigidbody>();
+            playerMovement.Jump(rb);
+            Assert.AreEqual(false, playerMovement.playerIsGrounded);
+
+
+        }
 
     }
 }
