@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
 
     bool playerIsGrounded;
+    [SerializeField] LayerMask groundMask;
+    float distancetoGround = 0.4f;
+
+
 
     private void Start()
     {
@@ -42,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        playerIsGrounded=Physics.Raycast(transform.position, Vector3.down, playerHeight/2 + 0.1f);
+        playerIsGrounded=Physics.CheckSphere(transform.position - new Vector3(0,1,0), distancetoGround, groundMask);
         print(playerIsGrounded);
         playerInput();
         dragControl();
