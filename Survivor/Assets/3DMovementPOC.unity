@@ -808,12 +808,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d82f135325bffb469eb457c8c06e522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 6
-  jumpForce: 10
+  movementSpeed: 5
+  jumpForce: 7.5
   movementMultiplier: 10
   jumpKey: 32
-  sprintKey: 304
-  crouchKey: 99
   playerHeight: 2
   orientation: {fileID: 1610272305}
   playerIsGrounded: 0
@@ -878,7 +876,7 @@ ConstantForce:
   m_GameObject: {fileID: 900658434}
   m_Enabled: 1
   m_Force: {x: 0, y: 0, z: 0}
-  m_RelativeForce: {x: 0, y: -20, z: 0}
+  m_RelativeForce: {x: 0, y: -15, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!114 &900658440
@@ -894,11 +892,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprintSpeed: 10
-  walkSpeed: 6
+  walkSpeed: 5
   crouchSpeed: 3
   crouchedHeightModifier: -0.5
-  cameraHeight: {fileID: 668588512}
   standingHeight: 0
+  sprintKey: 304
+  crouchKey: 99
+  cameraHeight: {fileID: 668588512}
   playerCollider: {fileID: 746012420}
 --- !u!1 &1085107168
 GameObject:

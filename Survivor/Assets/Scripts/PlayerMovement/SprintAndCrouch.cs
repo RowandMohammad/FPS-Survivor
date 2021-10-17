@@ -9,7 +9,7 @@ public class SprintAndCrouch : MonoBehaviour
 
     [Header("State Speeds")]
     public float sprintSpeed = 10f;
-    public float walkSpeed = 6f;
+    public float walkSpeed = 5f;
     public float crouchSpeed = 3f;
 
     [Header("State Heights")]
