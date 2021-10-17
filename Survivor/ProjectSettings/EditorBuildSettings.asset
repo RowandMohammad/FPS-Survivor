@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/3DMovementPOC.unity
+    guid: 684badbf397821842a0be8d37399c36a
   m_configObjects: {}
