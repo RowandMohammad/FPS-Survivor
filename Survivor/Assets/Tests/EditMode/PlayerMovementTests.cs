@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
 
+
 namespace Tests
 {
 
 
     public class PlayerMovementTests
     {
-        [SerializeField] Transform orientation;
+        private GameObject player()
+        {
+            GameObject myGameObject = GameObject.Find("First Person Player");
+            return myGameObject;
+
+        }
+        
+
 
         [Test]
         public void Moves_On_XAxis_For_Horizontal_Movement()
@@ -28,14 +36,23 @@ namespace Tests
         [Test]
         public void Jump_in_Air()
         {
-            GameObject myGameObject = GameObject.Find("First Person Player");
-            PlayerMovement playerMovement = myGameObject.AddComponent<PlayerMovement>();
-            Rigidbody rb = myGameObject.GetComponent<Rigidbody>();
+            PlayerMovement playerMovement = player().AddComponent<PlayerMovement>();
+            Rigidbody rb = player().GetComponent<Rigidbody>();
             playerMovement.Jump(rb);
             Assert.AreEqual(false, playerMovement.playerIsGrounded);
-
-
         }
+
+        [Test]
+        public void Sprint_Button_Changes_Movement_Speed()
+        {
+            GameObject playerObject = player();
+            PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
+            SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
+            Assert.AreEqual(6f, playerMovement.movementSpeed);
+            playerMovement.movementSpeed = sprintAndCrouch.Sprint(playerMovement.movementSpeed);
+            Assert.AreEqual(10f, playerMovement.movementSpeed);
+        }
+
 
     }
 }

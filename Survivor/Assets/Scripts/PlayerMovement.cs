@@ -6,42 +6,44 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Movement Movement;
+    
 
-    [Header("Movement Types")]
+    [Header("Movement Attributes/Magnitudes")]
     public float movementSpeed = 6f;
-
-    [Header("Keybinds")]
-    [SerializeField]KeyCode jumpKey = KeyCode.Space;
-
     public float jumpForce = 10f;
-
     public float movementMultiplier = 10f;
     float groundedDrag = 6f;
     float notGroundedDrag = 1f;
+
+    [Header("Keybinds")]
+    [SerializeField]KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] KeyCode crouchKey = KeyCode.C;
+    float horizontalMove;
+    float verticalMove;
+
+    [Header("Player Attributes")]
     float playerHeight = 2f;
-    
+    Rigidbody rb;
+
+    [Header("Camera Orientation")]
     [SerializeField] Transform orientation;
     Vector3 moveDirection;
     Vector3 slopeMoveDirection;
 
 
-    float horizontalMove;
-    float verticalMove;
-
-    Rigidbody rb;
-
+    [Header("Detection for Ground")]
     public bool playerIsGrounded;
     [SerializeField] LayerMask groundMask;
     float distancetoGround = 0.4f;
-
     RaycastHit slopeDetect;
-
 
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
         Movement = new Movement(movementSpeed);
+        rb = GetComponent<Rigidbody>();
+        
         rb.freezeRotation = true;
 
 
@@ -49,14 +51,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        playerIsGrounded=Physics.CheckSphere(transform.position - new Vector3(0,1,0), distancetoGround, groundMask);
+        Movement = new Movement(movementSpeed);
+        playerIsGrounded =Physics.CheckSphere(transform.position - new Vector3(0,1,0), distancetoGround, groundMask);
         print(playerIsGrounded);
         playerInput();
         dragControl();
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeDetect.normal);
     }
-
+    
+    //Detects player input.
     void playerInput()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal");
@@ -68,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    //Detects whether player is actively on a slope or not.
     private bool slope()
     {
         if(Physics.Raycast(transform.position, Vector3.down, out slopeDetect, playerHeight / 2 + 0.5f))
@@ -86,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
+    //Adjusts the drag for the user for when theyre ground and mid air.
     void dragControl()
     {
         if (playerIsGrounded){
@@ -96,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Adds upwards force to user to jump.
     public void Jump(Rigidbody rb){
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
@@ -108,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    //Checks  possible user states and allows user to move around correctly for that state.
     void PlayerMover()
     {
         moveDirection = orientation.forward * Movement.calculate(horizontalMove, verticalMove).z + orientation.right * Movement.calculate(horizontalMove, verticalMove).x;

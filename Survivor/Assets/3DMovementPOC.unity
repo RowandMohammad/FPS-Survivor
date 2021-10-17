@@ -621,6 +621,7 @@ GameObject:
   - component: {fileID: 900658436}
   - component: {fileID: 900658437}
   - component: {fileID: 900658435}
+  - component: {fileID: 900658440}
   - component: {fileID: 900658438}
   - component: {fileID: 900658439}
   m_Layer: 0
@@ -643,10 +644,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 6
-  jumpKey: 32
   jumpForce: 10
   movementMultiplier: 10
+  jumpKey: 32
+  sprintKey: 304
+  crouchKey: 99
   orientation: {fileID: 1610272305}
+  playerIsGrounded: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -711,6 +715,21 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: -20, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &900658440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900658434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e227964ee0095418097c1ba1a4a060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprintSpeed: 10
+  walkSpeed: 6
+  crouchSpeed: 2
 --- !u!1 &1085107168
 GameObject:
   m_ObjectHideFlags: 0
