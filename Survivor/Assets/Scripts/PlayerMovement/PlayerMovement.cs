@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Detection for Ground")]
+    [SerializeField] Transform checkPlayerGrounded;
     public bool playerIsGrounded;
     [SerializeField] LayerMask groundMask;
     float distancetoGround = 0.4f;
@@ -51,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Movement = new Movement(movementSpeed);
-        playerIsGrounded =Physics.CheckSphere(transform.position - new Vector3(0,1,0), distancetoGround, groundMask);
+        playerIsGrounded =Physics.CheckSphere(checkPlayerGrounded.position, distancetoGround, groundMask);
         print(playerIsGrounded);
         playerInput();
         dragControl();
@@ -104,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Adds upwards force to user to jump.
     public void Jump(Rigidbody rb){
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
