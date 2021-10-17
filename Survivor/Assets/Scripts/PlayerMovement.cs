@@ -17,13 +17,12 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keybinds")]
     [SerializeField]KeyCode jumpKey = KeyCode.Space;
-    [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
-    [SerializeField] KeyCode crouchKey = KeyCode.C;
+
     float horizontalMove;
     float verticalMove;
 
     [Header("Player Attributes")]
-    float playerHeight = 2f;
+    public float playerHeight = 2f;
     Rigidbody rb;
 
     [Header("Camera Orientation")]
@@ -59,9 +58,9 @@ public class PlayerMovement : MonoBehaviour
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeDetect.normal);
     }
-    
+
     //Detects player input.
-    void playerInput()
+    public void playerInput()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");

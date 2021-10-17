@@ -17,8 +17,6 @@ namespace Tests
 
         }
         
-
-
         [Test]
         public void Moves_On_XAxis_For_Horizontal_Movement()
         {
@@ -39,7 +37,7 @@ namespace Tests
             PlayerMovement playerMovement = player().AddComponent<PlayerMovement>();
             Rigidbody rb = player().GetComponent<Rigidbody>();
             playerMovement.Jump(rb);
-            Assert.AreEqual(false, playerMovement.playerIsGrounded);
+            Assert.IsFalse(playerMovement.playerIsGrounded);
         }
 
         [Test]
@@ -65,6 +63,23 @@ namespace Tests
 
             playerMovement.movementSpeed = sprintAndCrouch.Walk(playerMovement.movementSpeed);
             Assert.AreEqual(sprintAndCrouch.walkSpeed, playerMovement.movementSpeed);
+        }
+
+
+        [Test]
+        public void Player_Collider_Shrinks_With_Crouch()
+        {
+            GameObject playerObject = player();
+            CapsuleCollider playerCollider = GameObject.Find("Capsule").GetComponent<CapsuleCollider>();
+            PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
+            SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
+            float preCrouchHeight = sprintAndCrouch.standingHeight;
+            float heightWhenCrouched = sprintAndCrouch.Crouch(sprintAndCrouch.crouchedHeightModifier);
+            Assert.AreEqual(1f, heightWhenCrouched);
+            Assert.AreEqual(2f, sprintAndCrouch.Crouch(preCrouchHeight));
+
+
+
         }
     }
 }
