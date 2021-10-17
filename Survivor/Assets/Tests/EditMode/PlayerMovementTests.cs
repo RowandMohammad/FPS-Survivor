@@ -53,6 +53,18 @@ namespace Tests
             Assert.AreEqual(10f, playerMovement.movementSpeed);
         }
 
+        [Test]
+        public void Walk_Speed_Returns_After_Sprint_Key_Released()
+        {
+            GameObject playerObject = player();
+            PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
+            SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
 
+            playerMovement.movementSpeed = sprintAndCrouch.Sprint(playerMovement.movementSpeed);
+            Assert.AreEqual(sprintAndCrouch.sprintSpeed, playerMovement.movementSpeed);
+
+            playerMovement.movementSpeed = sprintAndCrouch.Walk(playerMovement.movementSpeed);
+            Assert.AreEqual(sprintAndCrouch.walkSpeed, playerMovement.movementSpeed);
+        }
     }
 }
