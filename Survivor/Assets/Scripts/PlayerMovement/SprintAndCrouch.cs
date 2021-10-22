@@ -26,6 +26,10 @@ public class SprintAndCrouch : MonoBehaviour
     
     public CapsuleCollider playerCollider;
 
+    private Vector3 temp;
+    private Vector3 beforeTemp;
+    
+
 
     void Awake()
     {
@@ -74,6 +78,27 @@ public class SprintAndCrouch : MonoBehaviour
             
 
         }
+
+
+        
+    }
+    void FixedUpdate()
+    {
+        if (isCrouching)
+        {
+            temp = new Vector3(0f, crouchedHeightModifier, 0f);
+            cameraHeight.localPosition = Vector3.Lerp(cameraHeight.localPosition, temp, Time.deltaTime * 4f);
+            Debug.Log(cameraHeight.localPosition);
+
+        }
+        if (!isCrouching)
+        {
+            beforeTemp = new Vector3(0f, standingHeight, 0f);
+            cameraHeight.localPosition = Vector3.Lerp(cameraHeight.localPosition, beforeTemp, Time.deltaTime * 4f);
+            
+            Debug.Log(cameraHeight.localPosition);
+
+        }
     }
 
     public float Sprint(float currentSpeed)
@@ -93,7 +118,6 @@ public class SprintAndCrouch : MonoBehaviour
     public float Crouch(float height)
     {
         Vector3 lTemp = playerCollider.center;
-        cameraHeight.localPosition = new Vector3(0f, height, 0f);
         if (!isCrouching)
         {
             isCrouching = true;
