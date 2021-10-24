@@ -36,7 +36,7 @@ public class SprintAndCrouch : MonoBehaviour
         CrouchingCamera c1 = new CrouchingCamera();
         standingHeight = c1.standingHeight;
         playerMovement = GetComponent<PlayerMovement>();
-        playerCollider = GameObject.Find("Capsule").GetComponent<CapsuleCollider>();
+        playerCollider = GameObject.Find("Ethan").GetComponent<CapsuleCollider>();
 
 
     }
@@ -131,7 +131,7 @@ public class SprintAndCrouch : MonoBehaviour
         {
             isCrouching = false;
             playerCollider.height = 2f;
-            lTemp.y *= 0f;
+            lTemp.y += 0.5f;
             playerCollider.center = lTemp;
         }
 

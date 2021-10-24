@@ -12,7 +12,7 @@ namespace Tests
     {
         private GameObject player()
         {
-            GameObject myGameObject = GameObject.Find("First Person Player");
+            GameObject myGameObject = GameObject.Find("Ethan");
             return myGameObject;
 
         }
@@ -46,7 +46,7 @@ namespace Tests
             GameObject playerObject = player();
             PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
             SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
-            Assert.AreEqual(6f, playerMovement.movementSpeed);
+            Assert.AreEqual(5f, playerMovement.movementSpeed);
             playerMovement.movementSpeed = sprintAndCrouch.Sprint(playerMovement.movementSpeed);
             Assert.AreEqual(10f, playerMovement.movementSpeed);
         }
@@ -70,7 +70,7 @@ namespace Tests
         public void Player_Collider_Shrinks_With_Crouch()
         {
             GameObject playerObject = player();
-            CapsuleCollider playerCollider = GameObject.Find("Capsule").GetComponent<CapsuleCollider>();
+            CapsuleCollider playerCollider = GameObject.Find("Ethan").GetComponent<CapsuleCollider>();
             PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
             SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
             float preCrouchHeight = sprintAndCrouch.standingHeight;
