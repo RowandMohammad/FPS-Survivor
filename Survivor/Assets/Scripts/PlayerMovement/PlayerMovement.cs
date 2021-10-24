@@ -125,6 +125,12 @@ public class PlayerMovement : MonoBehaviour
     {
         moveDirection = orientation.forward * Movement.calculate(horizontalMove, verticalMove).z + orientation.right * Movement.calculate(horizontalMove, verticalMove).x;
         
+        float velocityZ = Vector3.Dot(Movement.calculate(horizontalMove, verticalMove), transform.forward);
+        float velocityX = Vector3.Dot(Movement.calculate(horizontalMove, verticalMove), transform.right);
+
+        _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
+        _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+
         if (playerIsGrounded){
             rb.AddForce(moveDirection * movementMultiplier, ForceMode.Acceleration);
             
