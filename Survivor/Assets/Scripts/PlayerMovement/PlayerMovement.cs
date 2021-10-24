@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Movement Movement;
+    Animator _animator;
     
 
     [Header("Movement Attributes/Magnitudes")]
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     float distancetoGround = 0.4f;
     RaycastHit slopeDetect;
+
+    void Awake() => _animator = GetComponent<Animator>();
 
 
     private void Start()

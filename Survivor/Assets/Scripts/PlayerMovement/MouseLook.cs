@@ -9,6 +9,7 @@ public class MouseLook : MonoBehaviour
 
     [SerializeField] Transform camera;
     [SerializeField] Transform orientation;
+    [SerializeField] Transform orientationOfCharacter;
 
     float mouseX;
     float mouseY;
@@ -30,6 +31,7 @@ public class MouseLook : MonoBehaviour
 
         camera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.transform.rotation= Quaternion.Euler(0,yRotation,0);
+        orientationOfCharacter.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
     void playerInput(){

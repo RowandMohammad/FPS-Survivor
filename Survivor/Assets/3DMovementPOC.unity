@@ -746,6 +746,7 @@ MonoBehaviour:
   ySens: 100
   camera: {fileID: 1085107170}
   orientation: {fileID: 1496877377}
+  orientationOfCharacter: {fileID: 2029648783}
 --- !u!114 &895563362
 MonoBehaviour:
   m_ObjectHideFlags: 0
