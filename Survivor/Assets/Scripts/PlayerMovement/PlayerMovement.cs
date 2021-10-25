@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        
+        animateObject();
         Movement = new Movement(movementSpeed);
         playerIsGrounded =Physics.CheckSphere(checkPlayerGrounded.position, distancetoGround, groundMask);
         print(playerIsGrounded);
@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        animateObject();
+        
         PlayerMover();
         
 

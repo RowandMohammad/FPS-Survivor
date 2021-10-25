@@ -28,6 +28,9 @@ public class SprintAndCrouch : MonoBehaviour
 
     private Vector3 temp;
     private Vector3 beforeTemp;
+
+    Animator _animator;
+    private bool isSprinting;
     
 
 
@@ -37,7 +40,7 @@ public class SprintAndCrouch : MonoBehaviour
         standingHeight = c1.standingHeight;
         playerMovement = GetComponent<PlayerMovement>();
         playerCollider = GameObject.Find("Ethan").GetComponent<CapsuleCollider>();
-
+        _animator = GetComponent<Animator>();
 
     }
     void Start()
@@ -51,9 +54,12 @@ public class SprintAndCrouch : MonoBehaviour
     void Update()
     {
         
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching)
         {
-            
+            isSprinting = true;
+
+
             playerMovement.movementSpeed = Sprint(playerMovement.movementSpeed);
 
 
@@ -61,9 +67,12 @@ public class SprintAndCrouch : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.LeftShift) && !isCrouching)
         {
+            isSprinting = false;
+
             playerMovement.movementSpeed = Walk(playerMovement.movementSpeed);
 
         }
+        animateObject();
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -84,6 +93,7 @@ public class SprintAndCrouch : MonoBehaviour
     }
     void FixedUpdate()
     {
+
         if (isCrouching)
         {
             temp = new Vector3(0f, crouchedHeightModifier, 0f);
@@ -136,6 +146,24 @@ public class SprintAndCrouch : MonoBehaviour
         }
 
         return playerCollider.height;
+
+    }
+
+    void animateObject()
+    {
+        if (isSprinting)
+        {
+            _animator.SetBool("isSprinting", true);
+
+        }
+        if (!isSprinting)
+        {
+            _animator.SetBool("isSprinting", false);
+
+        }
+
+
+
 
     }
 }
