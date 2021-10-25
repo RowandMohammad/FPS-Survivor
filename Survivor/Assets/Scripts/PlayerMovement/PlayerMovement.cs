@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     
 
     [Header("Movement Attributes/Magnitudes")]
-    public float movementSpeed = 5f;
+    public float movementSpeed = 2.5f;
     public float jumpForce = 7.5f;
     public float movementMultiplier = 10f;
     float groundedDrag = 6f;
@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        
         Movement = new Movement(movementSpeed);
         playerIsGrounded =Physics.CheckSphere(checkPlayerGrounded.position, distancetoGround, groundMask);
         print(playerIsGrounded);
@@ -116,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerMover();
+        animateObject();
 
 
     }
@@ -127,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
         
         float velocityZ = Vector3.Dot(Movement.calculate(horizontalMove, verticalMove), transform.forward);
         float velocityX = Vector3.Dot(Movement.calculate(horizontalMove, verticalMove), transform.right);
+        Debug.Log(velocityX);
 
         _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
@@ -144,6 +147,18 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection * movementMultiplier * 0.3f, ForceMode.Acceleration);  
         }
+
+    }
+    void animateObject()
+    {
+
+        float velocityZ = Vector3.Dot(Movement.calculate(horizontalMove, verticalMove), rb.transform.forward);
+        float velocityX = Vector3.Dot(Movement.calculate(horizontalMove, verticalMove), rb.transform.right);
+        Debug.Log(velocityX);
+
+        _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
+        _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+
 
     }
 
