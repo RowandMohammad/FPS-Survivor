@@ -13,7 +13,7 @@ public class SprintAndCrouch : MonoBehaviour
     public float crouchSpeed = 3f;
 
     [Header("State Heights")]
-    public float crouchedHeightModifier = -0.5f;
+    public float crouchedHeightModifier = -0.6f;
     public float standingHeight;
 
     [Header("Keybinds")]
@@ -96,7 +96,7 @@ public class SprintAndCrouch : MonoBehaviour
 
         if (isCrouching)
         {
-            temp = new Vector3(0f, crouchedHeightModifier, 0f);
+            temp = new Vector3(0.1f, crouchedHeightModifier, 0.75f);
             cameraHeight.localPosition = Vector3.Lerp(cameraHeight.localPosition, temp, Time.deltaTime * 4f);
             Debug.Log(cameraHeight.localPosition);
 
@@ -159,6 +159,16 @@ public class SprintAndCrouch : MonoBehaviour
         if (!isSprinting)
         {
             _animator.SetBool("isSprinting", false);
+
+        }
+        if (isCrouching)
+        {
+            _animator.SetBool("isCrouching", true);
+
+        }
+        if (!isCrouching)
+        {
+            _animator.SetBool("isCrouching", false);
 
         }
 
