@@ -48,7 +48,7 @@ namespace Tests
             SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
             Assert.AreEqual(5f, playerMovement.movementSpeed);
             playerMovement.movementSpeed = sprintAndCrouch.Sprint(playerMovement.movementSpeed);
-            Assert.AreEqual(10f, playerMovement.movementSpeed);
+            Assert.AreEqual(15f, playerMovement.movementSpeed);
         }
 
         [Test]
