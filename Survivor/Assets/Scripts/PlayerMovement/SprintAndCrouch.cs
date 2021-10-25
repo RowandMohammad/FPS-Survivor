@@ -8,9 +8,9 @@ public class SprintAndCrouch : MonoBehaviour
     private PlayerMovement playerMovement;
 
     [Header("State Speeds")]
-    public float sprintSpeed = 5f;
-    public float walkSpeed = 2.5f;
-    public float crouchSpeed = 1f;
+    public float sprintSpeed = 10f;
+    public float walkSpeed = 5f;
+    public float crouchSpeed = 3f;
 
     [Header("State Heights")]
     public float crouchedHeightModifier = -0.5f;

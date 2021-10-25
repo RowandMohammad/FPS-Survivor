@@ -303,9 +303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e227964ee0095418097c1ba1a4a060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprintSpeed: 5
-  walkSpeed: 2.5
-  crouchSpeed: 1
+  sprintSpeed: 10
+  walkSpeed: 5
+  crouchSpeed: 3
   crouchedHeightModifier: -0.5
   standingHeight: 0
   sprintKey: 304
