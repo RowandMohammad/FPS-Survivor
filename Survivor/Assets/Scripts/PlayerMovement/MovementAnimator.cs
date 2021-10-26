@@ -7,21 +7,21 @@ public class MovementAnimator : MonoBehaviour
     private PlayerMovement playerMovement;
     private Movement Movement;
     private SprintAndCrouch sprintAndCrouch;
-    Animator _animator;
+    public Animator _animator;
 
     [Header("Keybinds")]
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode crouchKey = KeyCode.C;
     [SerializeField] KeyCode jumpKey = KeyCode.Space;
 
-    void Awake()
+    public void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         sprintAndCrouch = GetComponent<SprintAndCrouch>();
         _animator = GetComponent<Animator>();
     }
 
-    void Start()
+    public void Start()
     {
         Movement = new Movement(playerMovement.movementSpeed);
     }
@@ -32,7 +32,7 @@ public class MovementAnimator : MonoBehaviour
  
     }
 
-    void animateMovementLocomotion()
+    public void animateMovementLocomotion()
     {
         float velocityZ = Vector3.Dot(Movement.calculate(playerMovement.horizontalMove, playerMovement.verticalMove), playerMovement.rb.transform.forward);
         float velocityX = Vector3.Dot(Movement.calculate(playerMovement.horizontalMove, playerMovement.verticalMove), playerMovement.rb.transform.right);

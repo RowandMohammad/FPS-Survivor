@@ -11,6 +11,10 @@ public class MovementAnimationTests
     private SprintAndCrouch sprintAndCrouch;
     private MovementAnimator animator;
 
+    //confirm that the animation happens
+    //check the duration of the animation
+    //check the frame rate of the animation
+
     [OneTimeSetUp]
     public void TestInitialize()
     {
@@ -18,6 +22,19 @@ public class MovementAnimationTests
         sprintAndCrouch = _setup.sprintAndCrouch();
         animator = _setup.animator();
     }
+
+    [Test]
+    public void IdleAnimationPlayingTest()
+    {
+        animator.Awake();
+        animator.Start();
+
+        Assert.AreEqual(true, animator._animator.GetCurrentAnimatorStateInfo(0).IsName("Movement Locomotion"));
+
+
+    }
+
+
 
 
 }
