@@ -7,11 +7,11 @@ namespace Tests
 {
     public class PlayerMovementTests
     {
-        TestSetup _setup = new TestSetup();
-        PlayerMovement playerMovement;
-        Rigidbody rb;
-        SprintAndCrouch sprintAndCrouch;
-        CapsuleCollider playerCollider;
+        private TestSetup _setup = new TestSetup();
+        private PlayerMovement playerMovement;
+        private Rigidbody rb;
+        private SprintAndCrouch sprintAndCrouch;
+        private CapsuleCollider playerCollider;
 
         [OneTimeSetUp]
         public void TestInitialize()
