@@ -10,13 +10,18 @@ namespace Tests
 
     public class PlayerMovementTests
     {
-        private GameObject player()
-        {
-            GameObject myGameObject = GameObject.Find("Ethan");
-            return myGameObject;
+        TestSetup _setup = new TestSetup();
+        PlayerMovement playerMovement;
+        Rigidbody rb;
 
+        [OneTimeSetUp]
+        public void TestInitialize()
+        {
+            playerMovement = _setup.playerMovement();
+            rb = _setup.rb();
         }
-        
+
+
         [Test]
         public void Moves_On_XAxis_For_Horizontal_Movement()
         {
@@ -34,8 +39,7 @@ namespace Tests
         [Test]
         public void Jump_in_Air()
         {
-            PlayerMovement playerMovement = player().AddComponent<PlayerMovement>();
-            Rigidbody rb = player().GetComponent<Rigidbody>();
+
             playerMovement.Jump(rb);
             Assert.IsFalse(playerMovement.playerIsGrounded);
         }
@@ -43,7 +47,8 @@ namespace Tests
         [Test]
         public void Sprint_Button_Changes_Movement_Speed()
         {
-            GameObject playerObject = player();
+           
+            GameObject playerObject = _setup.CreatePlayerForTest();
             PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
             SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
             Assert.AreEqual(5f, playerMovement.movementSpeed);
@@ -54,7 +59,8 @@ namespace Tests
         [Test]
         public void Walk_Speed_Returns_After_Sprint_Key_Released()
         {
-            GameObject playerObject = player();
+            
+            GameObject playerObject = _setup.CreatePlayerForTest();
             PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
             SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
 
@@ -69,7 +75,8 @@ namespace Tests
         [Test]
         public void Player_Collider_Shrinks_With_Crouch()
         {
-            GameObject playerObject = player();
+           
+            GameObject playerObject = _setup.CreatePlayerForTest();
             CapsuleCollider playerCollider = GameObject.Find("Ethan").GetComponent<CapsuleCollider>();
             PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
             SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
