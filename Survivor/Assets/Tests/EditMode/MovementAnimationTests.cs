@@ -34,7 +34,16 @@ public class MovementAnimationTests
 
     }
 
+    [Test]
+    public void IdleAnimationCorrectDurationTest()
+    {
+        animator.Awake();
+        animator.Start();
 
+        Assert.AreEqual(8.333334f, animator._animator.GetCurrentAnimatorStateInfo(0).length);
+
+
+    }
 
 
 }

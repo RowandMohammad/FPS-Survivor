@@ -29,10 +29,10 @@ public class MovementAnimator : MonoBehaviour
     void Update()
     {
         animateMovementLocomotion();
- 
+
     }
 
-    public void animateMovementLocomotion()
+    void animateMovementLocomotion()
     {
         float velocityZ = Vector3.Dot(Movement.calculate(playerMovement.horizontalMove, playerMovement.verticalMove), playerMovement.rb.transform.forward);
         float velocityX = Vector3.Dot(Movement.calculate(playerMovement.horizontalMove, playerMovement.verticalMove), playerMovement.rb.transform.right);
@@ -40,6 +40,5 @@ public class MovementAnimator : MonoBehaviour
         _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
     }
-
 
 }
