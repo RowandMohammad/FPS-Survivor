@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CrouchingCamera
 
-    
 {
     private GameObject camera;
     public readonly float standingHeight;
@@ -14,5 +13,4 @@ public class CrouchingCamera
         camera = GameObject.Find("Camera Holder");
         standingHeight = camera.transform.position.y;
     }
- 
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    [SerializeField]private float xSens = 100f;
-    [SerializeField]private float ySens = 100f;
+    [SerializeField] private float xSens = 100f;
+    [SerializeField] private float ySens = 100f;
 
     [SerializeField] Transform camera;
     [SerializeField] Transform orientation;
@@ -19,42 +19,28 @@ public class MouseLook : MonoBehaviour
     float xRotation;
     float yRotation;
 
-    private void Start() {
-
+    private void Start()
+    {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        
     }
-    private void Update() {
+    private void Update()
+    {
         playerInput();
 
         camera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.transform.rotation= Quaternion.Euler(0,yRotation,0);
+        orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
         orientationOfCharacter.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
-    void playerInput(){
+    void playerInput()
+    {
         mouseX = Input.GetAxisRaw("Mouse X");
         mouseY = Input.GetAxisRaw("Mouse Y");
 
-        yRotation+= mouseX * xSens * multiplier;
-        xRotation-= mouseY * ySens * multiplier;
+        yRotation += mouseX * xSens * multiplier;
+        xRotation -= mouseY * ySens * multiplier;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 75f);
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
 }
-

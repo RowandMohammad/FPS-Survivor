@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SprintAndCrouch : MonoBehaviour
 {
-
     private PlayerMovement playerMovement;
 
     [Header("State Speeds")]
@@ -23,7 +22,7 @@ public class SprintAndCrouch : MonoBehaviour
     private bool isCrouching;
 
     [SerializeField] Transform cameraHeight;
-    
+
     public CapsuleCollider playerCollider;
 
     private Vector3 temp;
@@ -31,8 +30,6 @@ public class SprintAndCrouch : MonoBehaviour
 
     Animator _animator;
     private bool isSprinting;
-    
-
 
     void Awake()
     {
@@ -41,28 +38,19 @@ public class SprintAndCrouch : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerCollider = GameObject.Find("Ethan").GetComponent<CapsuleCollider>();
         _animator = GetComponent<Animator>();
-
     }
     void Start()
     {
-        
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching)
         {
             isSprinting = true;
 
-
             playerMovement.movementSpeed = Sprint(playerMovement.movementSpeed);
-
-
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift) && !isCrouching)
@@ -70,7 +58,6 @@ public class SprintAndCrouch : MonoBehaviour
             isSprinting = false;
 
             playerMovement.movementSpeed = Walk(playerMovement.movementSpeed);
-
         }
         animateObject();
 
@@ -78,36 +65,27 @@ public class SprintAndCrouch : MonoBehaviour
         {
             Crouch(crouchedHeightModifier);
             playerMovement.movementSpeed = crouchSpeed;
-            
         }
         if (Input.GetKeyUp(KeyCode.C))
         {
             Crouch(standingHeight);
             playerMovement.movementSpeed = walkSpeed;
-            
-
         }
-
-
-        
     }
     void FixedUpdate()
     {
-
         if (isCrouching)
         {
             temp = new Vector3(0.1f, crouchedHeightModifier, 0.75f);
             cameraHeight.localPosition = Vector3.Lerp(cameraHeight.localPosition, temp, Time.deltaTime * 4f);
             Debug.Log(cameraHeight.localPosition);
-
         }
         if (!isCrouching)
         {
             beforeTemp = new Vector3(0f, standingHeight, 0f);
             cameraHeight.localPosition = Vector3.Lerp(cameraHeight.localPosition, beforeTemp, Time.deltaTime * 4f);
-            
-            Debug.Log(cameraHeight.localPosition);
 
+            Debug.Log(cameraHeight.localPosition);
         }
     }
 
@@ -115,14 +93,11 @@ public class SprintAndCrouch : MonoBehaviour
     {
         currentSpeed = sprintSpeed;
         return currentSpeed;
-        
-
     }
     public float Walk(float currentSpeed)
     {
         currentSpeed = walkSpeed;
         return currentSpeed;
-        
     }
 
     public float Crouch(float height)
@@ -134,8 +109,6 @@ public class SprintAndCrouch : MonoBehaviour
             playerCollider.height = 1f;
             lTemp.y -= 0.5f;
             playerCollider.center = lTemp;
-
-
         }
         else
         {
@@ -146,7 +119,6 @@ public class SprintAndCrouch : MonoBehaviour
         }
 
         return playerCollider.height;
-
     }
 
     void animateObject()
@@ -154,26 +126,18 @@ public class SprintAndCrouch : MonoBehaviour
         if (isSprinting)
         {
             _animator.SetBool("isSprinting", true);
-
         }
         if (!isSprinting)
         {
             _animator.SetBool("isSprinting", false);
-
         }
         if (isCrouching)
         {
             _animator.SetBool("isCrouching", true);
-
         }
         if (!isCrouching)
         {
             _animator.SetBool("isCrouching", false);
-
         }
-
-
-
-
     }
 }
