@@ -4,21 +4,24 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-
 public class TestSetup
 {
     public GameObject CreatePlayerForTest()
     {
-
         GameObject myGameObject = GameObject.Find("Ethan");
         return myGameObject;
     }
 
-
     public PlayerMovement playerMovement()
     {
-        PlayerMovement playerMovement = CreatePlayerForTest().AddComponent<PlayerMovement>();
+        PlayerMovement playerMovement = CreatePlayerForTest().GetComponent<PlayerMovement>();
         return playerMovement;
+    }
+
+    public SprintAndCrouch sprintAndCrouch()
+    {
+        SprintAndCrouch sprintAndCrouch = CreatePlayerForTest().GetComponent<SprintAndCrouch>(); ;
+        return sprintAndCrouch;
     }
 
     public Rigidbody rb()
@@ -27,5 +30,9 @@ public class TestSetup
         return rb;
     }
 
+    public CapsuleCollider playerCollider()
+    {
+        CapsuleCollider playerCollider = CreatePlayerForTest().GetComponent<CapsuleCollider>();
+        return playerCollider;
+    }
 }
-

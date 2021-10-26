@@ -3,43 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
 
-
 namespace Tests
 {
-
-
     public class PlayerMovementTests
     {
         TestSetup _setup = new TestSetup();
         PlayerMovement playerMovement;
         Rigidbody rb;
+        SprintAndCrouch sprintAndCrouch;
+        CapsuleCollider playerCollider;
 
         [OneTimeSetUp]
         public void TestInitialize()
         {
             playerMovement = _setup.playerMovement();
             rb = _setup.rb();
+            sprintAndCrouch = _setup.sprintAndCrouch();
+            playerCollider = _setup.playerCollider();
         }
-
 
         [Test]
         public void Moves_On_XAxis_For_Horizontal_Movement()
         {
             Assert.AreEqual(1, new Movement(1).calculate(1, 0).x, 0.1f);
-
         }
 
         [Test]
-        public void Moves_On_ZAxis_For_Vertical_Movement() 
+        public void Moves_On_ZAxis_For_Vertical_Movement()
         {
             Assert.AreEqual(1, new Movement(1).calculate(0, 1).z, 0.1f);
-
         }
 
         [Test]
         public void Jump_in_Air()
         {
-
             playerMovement.Jump(rb);
             Assert.IsFalse(playerMovement.playerIsGrounded);
         }
@@ -47,10 +44,6 @@ namespace Tests
         [Test]
         public void Sprint_Button_Changes_Movement_Speed()
         {
-           
-            GameObject playerObject = _setup.CreatePlayerForTest();
-            PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
-            SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
             Assert.AreEqual(5f, playerMovement.movementSpeed);
             playerMovement.movementSpeed = sprintAndCrouch.Sprint(playerMovement.movementSpeed);
             Assert.AreEqual(15f, playerMovement.movementSpeed);
@@ -59,11 +52,6 @@ namespace Tests
         [Test]
         public void Walk_Speed_Returns_After_Sprint_Key_Released()
         {
-            
-            GameObject playerObject = _setup.CreatePlayerForTest();
-            PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
-            SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
-
             playerMovement.movementSpeed = sprintAndCrouch.Sprint(playerMovement.movementSpeed);
             Assert.AreEqual(sprintAndCrouch.sprintSpeed, playerMovement.movementSpeed);
 
@@ -71,22 +59,13 @@ namespace Tests
             Assert.AreEqual(sprintAndCrouch.walkSpeed, playerMovement.movementSpeed);
         }
 
-
         [Test]
         public void Player_Collider_Shrinks_With_Crouch()
         {
-           
-            GameObject playerObject = _setup.CreatePlayerForTest();
-            CapsuleCollider playerCollider = GameObject.Find("Ethan").GetComponent<CapsuleCollider>();
-            PlayerMovement playerMovement = playerObject.GetComponent<PlayerMovement>();
-            SprintAndCrouch sprintAndCrouch = playerObject.GetComponent<SprintAndCrouch>();
             float preCrouchHeight = sprintAndCrouch.standingHeight;
             float heightWhenCrouched = sprintAndCrouch.Crouch(sprintAndCrouch.crouchedHeightModifier);
             Assert.AreEqual(1f, heightWhenCrouched);
             Assert.AreEqual(2f, sprintAndCrouch.Crouch(preCrouchHeight));
-
-
-
         }
     }
 }
