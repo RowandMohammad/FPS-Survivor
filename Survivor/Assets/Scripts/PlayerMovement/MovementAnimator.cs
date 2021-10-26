@@ -29,7 +29,9 @@ public class MovementAnimator : MonoBehaviour
     void Update()
     {
         animateMovementLocomotion();
-
+        animateJump();
+        animateSprinting();
+        animateCrouch();
     }
 
     void animateMovementLocomotion()
@@ -41,4 +43,40 @@ public class MovementAnimator : MonoBehaviour
         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
     }
 
+    void animateJump()
+    {
+        if (Input.GetKeyDown(jumpKey) && playerMovement.playerIsGrounded)
+        {
+            _animator.SetBool("isJumping", true);
+        }
+        if (Input.GetKeyUp(jumpKey) && !playerMovement.playerIsGrounded)
+        {
+            _animator.SetBool("isJumping", false);
+        }
+    }
+
+    void animateSprinting()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !sprintAndCrouch.isCrouching)
+        {
+            _animator.SetBool("isSprinting", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) && !sprintAndCrouch.isCrouching)
+        {
+            _animator.SetBool("isSprinting", false);
+        }
+    }
+
+    void animateCrouch()
+    {
+        if (sprintAndCrouch.isCrouching)
+        {
+            _animator.SetBool("isCrouching", true);
+        }
+        if (!sprintAndCrouch.isCrouching)
+        {
+            _animator.SetBool("isCrouching", false);
+        }
+    }
 }
