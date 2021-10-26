@@ -6,10 +6,17 @@ using UnityEngine.TestTools;
 
 public class MovementAnimationTests
 {
-    [Test]
-    public void MovementAnimationTestsSimplePasses()
+    private TestSetup _setup = new TestSetup();
+    private PlayerMovement playerMovement;
+    private SprintAndCrouch sprintAndCrouch;
+    private MovementAnimator animator;
+
+    [OneTimeSetUp]
+    public void TestInitialize()
     {
-        MovementAnimator movmentAnimator = new MovementAnimator();
+        playerMovement = _setup.playerMovement();
+        sprintAndCrouch = _setup.sprintAndCrouch();
+        animator = _setup.animator();
     }
 
 

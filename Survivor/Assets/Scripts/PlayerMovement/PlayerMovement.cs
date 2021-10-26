@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Movement Movement;
-    Animator _animator;
+
 
     [Header("Movement Attributes/Magnitudes")]
     public float movementSpeed = 2.5f;
@@ -18,12 +18,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     [SerializeField] KeyCode jumpKey = KeyCode.Space;
 
-    float horizontalMove;
-    float verticalMove;
+    public float horizontalMove;
+    public float verticalMove;
 
     [Header("Player Attributes")]
     public float playerHeight = 2f;
-    Rigidbody rb;
+    public Rigidbody rb;
 
     [Header("Camera Orientation")]
     [SerializeField] Transform orientation;
@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
     float distancetoGround = 0.4f;
     RaycastHit slopeDetect;
 
-    void Awake() => _animator = GetComponent<Animator>();
 
     private void Start()
     {
@@ -49,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        animateObject();
+    
         Movement = new Movement(movementSpeed);
         playerIsGrounded = Physics.CheckSphere(checkPlayerGrounded.position, distancetoGround, groundMask);
         print(playerIsGrounded);
@@ -129,23 +128,6 @@ public class PlayerMovement : MonoBehaviour
         else if (!playerIsGrounded)
         {
             rb.AddForce(moveDirection * movementMultiplier * 0.3f, ForceMode.Acceleration);
-        }
-    }
-    void animateObject()
-    {
-        float velocityZ = Vector3.Dot(Movement.calculate(horizontalMove, verticalMove), rb.transform.forward);
-        float velocityX = Vector3.Dot(Movement.calculate(horizontalMove, verticalMove), rb.transform.right);
-        Debug.Log(velocityX);
-        _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
-        _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
-
-        if (playerIsGrounded)
-        {
-            _animator.SetBool("isJumping", false);
-        }
-        if (!playerIsGrounded)
-        {
-            _animator.SetBool("isJumping", true);
         }
     }
 }

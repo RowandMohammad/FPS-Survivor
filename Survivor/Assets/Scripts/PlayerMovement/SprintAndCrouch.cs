@@ -19,7 +19,7 @@ public class SprintAndCrouch : MonoBehaviour
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode crouchKey = KeyCode.C;
 
-    private bool isCrouching;
+    public bool isCrouching;
 
     [SerializeField] Transform cameraHeight;
 
@@ -28,8 +28,7 @@ public class SprintAndCrouch : MonoBehaviour
     private Vector3 temp;
     private Vector3 beforeTemp;
 
-    Animator _animator;
-    private bool isSprinting;
+
 
     void Awake()
     {
@@ -37,7 +36,6 @@ public class SprintAndCrouch : MonoBehaviour
         standingHeight = c1.standingHeight;
         playerMovement = GetComponent<PlayerMovement>();
         playerCollider = GameObject.Find("Ethan").GetComponent<CapsuleCollider>();
-        _animator = GetComponent<Animator>();
     }
     void Start()
     {
@@ -48,18 +46,15 @@ public class SprintAndCrouch : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching)
         {
-            isSprinting = true;
+
 
             playerMovement.movementSpeed = Sprint(playerMovement.movementSpeed);
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift) && !isCrouching)
         {
-            isSprinting = false;
-
             playerMovement.movementSpeed = Walk(playerMovement.movementSpeed);
         }
-        animateObject();
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -120,24 +115,5 @@ public class SprintAndCrouch : MonoBehaviour
 
         return playerCollider.height;
     }
-
-    void animateObject()
-    {
-        if (isSprinting)
-        {
-            _animator.SetBool("isSprinting", true);
-        }
-        if (!isSprinting)
-        {
-            _animator.SetBool("isSprinting", false);
-        }
-        if (isCrouching)
-        {
-            _animator.SetBool("isCrouching", true);
-        }
-        if (!isCrouching)
-        {
-            _animator.SetBool("isCrouching", false);
-        }
-    }
 }
+

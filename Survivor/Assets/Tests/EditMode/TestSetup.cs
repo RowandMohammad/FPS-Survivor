@@ -35,4 +35,11 @@ public class TestSetup
         CapsuleCollider playerCollider = CreatePlayerForTest().GetComponent<CapsuleCollider>();
         return playerCollider;
     }
+
+
+    public MovementAnimator animator()
+    {
+        MovementAnimator animator = CreatePlayerForTest().GetComponent<MovementAnimator>();
+        return animator;
+    }
 }
