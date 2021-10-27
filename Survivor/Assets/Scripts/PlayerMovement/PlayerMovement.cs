@@ -9,11 +9,11 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Movement Attributes/Magnitudes")]
-    public float movementSpeed = 2.5f;
+    public float movementSpeed = 5f;
     public float jumpForce = 7.5f;
     public float movementMultiplier = 10f;
     float groundedDrag = 6f;
-    float notGroundedDrag = 2f;
+    float notGroundedDrag = 3f;
 
     [Header("Keybinds")]
     [SerializeField] KeyCode jumpKey = KeyCode.Space;
