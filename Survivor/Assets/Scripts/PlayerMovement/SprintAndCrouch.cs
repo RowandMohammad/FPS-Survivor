@@ -12,7 +12,7 @@ public class SprintAndCrouch : MonoBehaviour
     public float crouchSpeed = 3f;
 
     [Header("State Heights")]
-    public float crouchedHeightModifier = -0.5f;
+    public float crouchedHeightModifier = -0.3f;
     public float standingHeight;
 
     [Header("Keybinds")]
