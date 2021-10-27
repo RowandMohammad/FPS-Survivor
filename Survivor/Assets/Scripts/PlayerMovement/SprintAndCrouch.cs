@@ -12,13 +12,13 @@ public class SprintAndCrouch : MonoBehaviour
     public float crouchSpeed = 3f;
 
     [Header("State Heights")]
-    public float crouchedHeightModifier = -0.6f;
+    public float crouchedHeightModifier = -0.5f;
     public float standingHeight;
 
     [Header("Keybinds")]
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode crouchKey = KeyCode.C;
-
+    
     public bool isCrouching;
 
     [SerializeField] Transform cameraHeight;
@@ -58,7 +58,7 @@ public class SprintAndCrouch : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Crouch(crouchedHeightModifier);
+            Crouch(crouchedHeightModifier); 
             playerMovement.movementSpeed = crouchSpeed;
         }
         if (Input.GetKeyUp(KeyCode.C))
@@ -71,7 +71,7 @@ public class SprintAndCrouch : MonoBehaviour
     {
         if (isCrouching)
         {
-            temp = new Vector3(0.1f, crouchedHeightModifier, 0.75f);
+            temp = new Vector3(0.1f, crouchedHeightModifier, 1f);
             cameraHeight.localPosition = Vector3.Lerp(cameraHeight.localPosition, temp, Time.deltaTime * 4f);
             Debug.Log(cameraHeight.localPosition);
         }

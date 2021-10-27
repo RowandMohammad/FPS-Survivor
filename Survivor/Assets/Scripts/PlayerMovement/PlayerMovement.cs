@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    //Adjusts the drag for the user for when theyre ground and mid air.
+    //Adjusts the drag for the user for when theyre grounded and mid air.
     void dragControl()
     {
         if (playerIsGrounded)
