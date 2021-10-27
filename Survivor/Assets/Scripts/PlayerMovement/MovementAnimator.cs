@@ -49,10 +49,12 @@ public class MovementAnimator : MonoBehaviour
         {
             _animator.SetBool("isJumping", true);
         }
-        if (Input.GetKeyUp(jumpKey) && !playerMovement.playerIsGrounded)
+        if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
         {
             _animator.SetBool("isJumping", false);
+
         }
+
     }
 
     void animateSprinting()
