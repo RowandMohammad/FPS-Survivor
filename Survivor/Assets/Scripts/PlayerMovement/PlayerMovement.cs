@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Attributes/Magnitudes")]
     public float movementSpeed = 5f;
     public float jumpForce = 7.5f;
-    public float movementMultiplier = 10f;
+    public float movementMultiplier = 4f;
     float groundedDrag = 6f;
     float notGroundedDrag = 3f;
 
