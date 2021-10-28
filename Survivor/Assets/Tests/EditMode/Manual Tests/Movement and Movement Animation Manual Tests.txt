@@ -1,0 +1,12 @@
+Manual Tests for Play Mode
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Test 1
+
+Test : User should not be able to sprint on spot when holding sprint button.
+
+Outcome : Failed - User was able to sprint on the spot
+
+Refactor : Modify if condition so that user input on the x or z axis is required.
+
+Outcome : Pass
+------------------------------------------------------------------------------------------------------------------------------------------------------------
