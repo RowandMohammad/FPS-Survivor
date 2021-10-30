@@ -20,4 +20,14 @@ Refactor : Add nested if condition so that once a user is walking it checks if t
 
 Outcome : Pass
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+Test 3
+
+Test : User walk animation should be show backward animation when moving backwards
+
+Outcome : Failed - User still thinks its moving forward and shows walking forward animation
+
+Refactor : Create new motion field in movement locomotion blend tree for backwards motion
+
+Outcome : Pass
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 
