@@ -1,39 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
+    #region Private Fields
+
+    [SerializeField] private Transform camera;
+    private float mouseX;
+    private float mouseY;
+    private float multiplier = 0.01f;
+    [SerializeField] private Transform orientation;
+    [SerializeField] private Transform orientationOfCharacter;
+    private float xRotation;
     [SerializeField] private float xSens = 100f;
+    private float yRotation;
     [SerializeField] private float ySens = 100f;
 
-    [SerializeField] Transform camera;
-    [SerializeField] Transform orientation;
-    [SerializeField] Transform orientationOfCharacter;
+    #endregion Private Fields
 
-    float mouseX;
-    float mouseY;
 
-    float multiplier = 0.01f;
 
-    float xRotation;
-    float yRotation;
+    #region Private Methods
 
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-    private void Update()
-    {
-        playerInput();
-
-        camera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
-        orientationOfCharacter.transform.rotation = Quaternion.Euler(0, yRotation, 0);
-    }
-
-    void playerInput()
+    private void playerInput()
     {
         mouseX = Input.GetAxisRaw("Mouse X");
         mouseY = Input.GetAxisRaw("Mouse Y");
@@ -43,4 +31,21 @@ public class MouseLook : MonoBehaviour
 
         xRotation = Mathf.Clamp(xRotation, -90f, 75f);
     }
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void Update()
+    {
+        playerInput();
+
+        camera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        orientationOfCharacter.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+    }
+
+    #endregion Private Methods
 }

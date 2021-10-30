@@ -1,13 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AdjustCamera : MonoBehaviour
 {
-    [SerializeField] Transform positionOfCamera = null;
+    #region Private Fields
 
-    void Update()
+    [SerializeField] private Transform positionOfCamera = null;
+
+    #endregion Private Fields
+
+
+
+    #region Private Methods
+
+    private void Update()
     {
         transform.position = positionOfCamera.position;
     }
+
+    #endregion Private Methods
 }

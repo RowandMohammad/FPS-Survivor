@@ -2,14 +2,32 @@ using UnityEngine;
 
 public class Movement
 {
+    #region Public Fields
+
     public float movementSpeed;
 
-    Vector3 moveDirection;
+    #endregion Public Fields
+
+
+
+    #region Private Fields
+
+    private Vector3 moveDirection;
+
+    #endregion Private Fields
+
+    #region Public Constructors
 
     public Movement(float MovementSpeed)
     {
         movementSpeed = MovementSpeed;
     }
+
+    #endregion Public Constructors
+
+
+
+    #region Public Methods
 
     public Vector3 calculate(float horizontalMove, float verticalMove)
     {
@@ -19,4 +37,6 @@ public class Movement
         moveDirection = moveDirection.normalized * movementSpeed;
         return moveDirection;
     }
+
+    #endregion Public Methods
 }

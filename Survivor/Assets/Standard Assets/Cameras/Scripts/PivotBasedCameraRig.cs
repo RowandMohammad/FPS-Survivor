@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-
 
 namespace UnityStandardAssets.Cameras
 {
@@ -13,16 +11,28 @@ namespace UnityStandardAssets.Cameras
         // 		Pivot
         // 			Camera
 
+
+
+        #region Protected Fields
+
         protected Transform m_Cam; // the transform of the camera
-        protected Transform m_Pivot; // the point at which the camera pivots around
         protected Vector3 m_LastTargetPosition;
+        protected Transform m_Pivot;
+
+        #endregion Protected Fields
 
 
+
+        #region Protected Methods
+
+        // the point at which the camera pivots around
         protected virtual void Awake()
         {
             // find the camera in the object hierarchy
             m_Cam = GetComponentInChildren<Camera>().transform;
             m_Pivot = m_Cam.parent;
         }
+
+        #endregion Protected Methods
     }
 }

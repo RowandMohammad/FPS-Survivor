@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -6,21 +5,34 @@ namespace UnityStandardAssets.Vehicles.Ball
 {
     public class BallUserControl : MonoBehaviour
     {
+        #region Private Fields
+
         private Ball ball; // Reference to the ball controller.
 
+        private Transform cam;
+
+        // A reference to the main camera in the scenes transform
+        private Vector3 camForward;
+
+        // The current forward direction of the camera
+        private bool jump;
+
         private Vector3 move;
+
+        #endregion Private Fields
+
         // the world-relative desired move direction, calculated from the camForward and user input.
 
-        private Transform cam; // A reference to the main camera in the scenes transform
-        private Vector3 camForward; // The current forward direction of the camera
-        private bool jump; // whether the jump button is currently pressed
+        // whether the jump button is currently pressed
 
+
+
+        #region Private Methods
 
         private void Awake()
         {
             // Set up the reference.
             ball = GetComponent<Ball>();
-
 
             // get the transform of the main camera
             if (Camera.main != null)
@@ -35,6 +47,12 @@ namespace UnityStandardAssets.Vehicles.Ball
             }
         }
 
+        private void FixedUpdate()
+        {
+            // Call the Move function of the ball controller
+            ball.Move(move, jump);
+            jump = false;
+        }
 
         private void Update()
         {
@@ -49,21 +67,15 @@ namespace UnityStandardAssets.Vehicles.Ball
             {
                 // calculate camera relative direction to move:
                 camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1)).normalized;
-                move = (v*camForward + h*cam.right).normalized;
+                move = (v * camForward + h * cam.right).normalized;
             }
             else
             {
                 // we use world-relative directions in the case of no main camera
-                move = (v*Vector3.forward + h*Vector3.right).normalized;
+                move = (v * Vector3.forward + h * Vector3.right).normalized;
             }
         }
 
-
-        private void FixedUpdate()
-        {
-            // Call the Move function of the ball controller
-            ball.Move(move, jump);
-            jump = false;
-        }
+        #endregion Private Methods
     }
 }

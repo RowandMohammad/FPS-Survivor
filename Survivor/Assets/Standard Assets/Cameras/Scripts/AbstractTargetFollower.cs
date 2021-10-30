@@ -1,7 +1,7 @@
-using System;
 using UnityEngine;
 
 #pragma warning disable 649
+
 namespace UnityStandardAssets.Cameras
 {
     public abstract class AbstractTargetFollower : MonoBehaviour
@@ -19,7 +19,6 @@ namespace UnityStandardAssets.Cameras
 
         protected Rigidbody targetRigidbody;
 
-
         protected virtual void Start()
         {
             // if auto targeting is used, find the object tagged "Player"
@@ -31,7 +30,6 @@ namespace UnityStandardAssets.Cameras
             if (m_Target == null) return;
             targetRigidbody = m_Target.GetComponent<Rigidbody>();
         }
-
 
         private void FixedUpdate()
         {
@@ -47,7 +45,6 @@ namespace UnityStandardAssets.Cameras
             }
         }
 
-
         private void LateUpdate()
         {
             // we update from here if updatetype is set to Late, or in auto mode,
@@ -61,7 +58,6 @@ namespace UnityStandardAssets.Cameras
                 FollowTarget(Time.deltaTime);
             }
         }
-
 
         public void ManualUpdate()
         {
@@ -79,7 +75,6 @@ namespace UnityStandardAssets.Cameras
 
         protected abstract void FollowTarget(float deltaTime);
 
-
         public void FindAndTargetPlayer()
         {
             // auto target an object tagged player, if no target has been assigned
@@ -90,12 +85,10 @@ namespace UnityStandardAssets.Cameras
             }
         }
 
-
         public virtual void SetTarget(Transform newTransform)
         {
             m_Target = newTransform;
         }
-
 
         public Transform Target
         {

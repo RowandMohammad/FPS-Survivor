@@ -1,31 +1,26 @@
-using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D
 {
-    [RequireComponent(typeof (PlatformerCharacter2D))]
+    [RequireComponent(typeof(PlatformerCharacter2D))]
     public class Platformer2DUserControl : MonoBehaviour
     {
+        #region Private Fields
+
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
 
+        #endregion Private Fields
+
+
+
+        #region Private Methods
 
         private void Awake()
         {
             m_Character = GetComponent<PlatformerCharacter2D>();
         }
-
-
-        private void Update()
-        {
-            if (!m_Jump)
-            {
-                // Read the jump input in Update so button presses aren't missed.
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-            }
-        }
-
 
         private void FixedUpdate()
         {
@@ -36,5 +31,16 @@ namespace UnityStandardAssets._2D
             m_Character.Move(h, crouch, m_Jump);
             m_Jump = false;
         }
+
+        private void Update()
+        {
+            if (!m_Jump)
+            {
+                // Read the jump input in Update so button presses aren't missed.
+                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            }
+        }
+
+        #endregion Private Methods
     }
 }
