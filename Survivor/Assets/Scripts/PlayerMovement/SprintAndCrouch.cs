@@ -44,11 +44,21 @@ public class SprintAndCrouch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching && (Input.GetAxisRaw("Vertical")>= 0 || Input.GetAxisRaw("Horizontal") >= 0))                                                                      
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching &&  Input.GetAxis("Vertical") > 0)                                                                      
         {
 
 
             playerMovement.movementSpeed = Sprint(playerMovement.movementSpeed);
+        }
+
+        if (Input.GetAxis("Vertical") > 0 && !isCrouching )
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                playerMovement.movementSpeed = Sprint(playerMovement.movementSpeed);
+
+            }
+
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift) && !isCrouching)

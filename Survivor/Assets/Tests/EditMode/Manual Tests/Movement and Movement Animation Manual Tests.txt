@@ -6,7 +6,18 @@ Test : User should not be able to sprint on spot when holding sprint button.
 
 Outcome : Failed - User was able to sprint on the spot
 
-Refactor : Modify if condition so that user input on the x or z axis is required.
+Refactor : Modify if condition so that user input on the z axis is required.
 
 Outcome : Pass
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+Test 2
+
+Test : User should be able to sprint from walking movement
+
+Outcome : Failed - User had to stop walking to start sprinting
+
+Refactor : Add nested if condition so that once a user is walking it checks if the sprint button is pressed down
+
+Outcome : Pass
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+

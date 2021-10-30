@@ -68,14 +68,25 @@ public class MovementAnimator : MonoBehaviour
 
     void animateSprinting()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !sprintAndCrouch.isCrouching && (Input.GetAxisRaw("Vertical") >= 0 || Input.GetAxisRaw("Horizontal") >= 0))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !sprintAndCrouch.isCrouching &&  Input.GetAxis("Vertical") > 0)
         {
             
             _animator.SetBool("isSprinting", true);
             isSprinting = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift) && !sprintAndCrouch.isCrouching)
+        if (Input.GetAxis("Vertical") > 0 && !sprintAndCrouch.isCrouching)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                _animator.SetBool("isSprinting", true);
+                isSprinting = true;
+
+            }
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) && !sprintAndCrouch.isCrouching )
         {
             
             _animator.SetBool("isSprinting", false);
