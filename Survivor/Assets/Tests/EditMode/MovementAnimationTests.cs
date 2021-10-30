@@ -15,7 +15,6 @@ public class MovementAnimationTests
 
     //confirm that the animation happens
     //check the duration of the animation
-    //check the frame rate of the animation
 
     [OneTimeSetUp]
     public void TestInitialize()

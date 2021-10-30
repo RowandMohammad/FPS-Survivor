@@ -12,6 +12,9 @@ public class MovementAnimator : MonoBehaviour
     public bool isSprinting;
     public bool isJumping;
     GameObject player;
+    public float z;
+    public float x;
+
 
     [Header("Keybinds")]
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
@@ -46,8 +49,8 @@ public class MovementAnimator : MonoBehaviour
        
         Vector3 velocity = Movement.calculate(playerMovement.horizontalMove, playerMovement.verticalMove);
         float direction = Quaternion.LookRotation(playerMovement.rb.transform.forward).eulerAngles.y;
-        float z = velocity.z;
-        float x = velocity.x;
+        z = velocity.z;
+        x = velocity.x;
 
         if (direction <-90 && direction > 90)
 
@@ -94,6 +97,12 @@ public class MovementAnimator : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftShift) && !sprintAndCrouch.isCrouching )
         {
             
+            _animator.SetBool("isSprinting", false);
+            isSprinting = false;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift) && !sprintAndCrouch.isCrouching)
+        {
+
             _animator.SetBool("isSprinting", false);
             isSprinting = false;
         }

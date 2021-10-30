@@ -7,7 +7,7 @@ public class MouseLook : MonoBehaviour
     [SerializeField] private float xSens = 100f;
     [SerializeField] private float ySens = 100f;
 
-    [SerializeField] Transform camera;
+    [SerializeField] new Transform camera;
     [SerializeField] Transform orientation;
     [SerializeField] Transform orientationOfCharacter;
 

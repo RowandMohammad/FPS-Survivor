@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Movement Movement;
+    public Vector3 MoveDirection;
 
 
     [Header("Movement Attributes/Magnitudes")]
