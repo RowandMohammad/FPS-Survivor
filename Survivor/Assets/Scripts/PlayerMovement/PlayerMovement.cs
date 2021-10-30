@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(jumpKey) && playerIsGrounded && (Input.GetAxisRaw("Vertical") >= 0 || Input.GetAxisRaw("Horizontal") >= 0))
+        if (Input.GetKeyDown(jumpKey) && playerIsGrounded )
         {
             Jump(rb);
         }

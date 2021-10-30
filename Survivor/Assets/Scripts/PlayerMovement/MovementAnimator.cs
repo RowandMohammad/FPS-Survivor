@@ -11,6 +11,7 @@ public class MovementAnimator : MonoBehaviour
     public bool isSprintJump;
     public bool isSprinting;
     public bool isJumping;
+    GameObject player;
 
     [Header("Keybinds")]
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
@@ -22,6 +23,7 @@ public class MovementAnimator : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         sprintAndCrouch = GetComponent<SprintAndCrouch>();
         _animator = GetComponent<Animator>();
+        player = GameObject.Find("Ethan");
     }
 
     public void Start()
@@ -29,6 +31,7 @@ public class MovementAnimator : MonoBehaviour
         Movement = new Movement(playerMovement.movementSpeed);
     }
 
+    
     void Update()
     {
         animateMovementLocomotion();
@@ -40,11 +43,22 @@ public class MovementAnimator : MonoBehaviour
 
     void animateMovementLocomotion()
     {
-        float velocityZ = Vector3.Dot(Movement.calculate(playerMovement.horizontalMove, playerMovement.verticalMove), playerMovement.rb.transform.forward);
-        float velocityX = Vector3.Dot(Movement.calculate(playerMovement.horizontalMove, playerMovement.verticalMove), playerMovement.rb.transform.right);
+       
+        Vector3 velocity = Movement.calculate(playerMovement.horizontalMove, playerMovement.verticalMove);
+        float direction = Quaternion.LookRotation(playerMovement.rb.transform.forward).eulerAngles.y;
+        float z = velocity.z;
+        float x = velocity.x;
 
-        _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
-        _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+        if (direction <-90 && direction > 90)
+
+        {
+
+            z=-z; //flip the axis value
+            x = -x;
+
+        }
+        _animator.SetFloat("VelocityZ", z, 0.1f, Time.deltaTime);
+        _animator.SetFloat("VelocityX",z, 0.1f, Time.deltaTime);
     }
 
     void animateJump()

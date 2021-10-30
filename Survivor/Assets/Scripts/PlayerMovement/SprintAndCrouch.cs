@@ -12,7 +12,7 @@ public class SprintAndCrouch : MonoBehaviour
     public float crouchSpeed = 3f;
 
     [Header("State Heights")]
-    public float crouchedHeightModifier = -0.3f;
+    public float crouchedHeightModifier = -0.2f;
     public float standingHeight;
 
     [Header("Keybinds")]
@@ -27,8 +27,7 @@ public class SprintAndCrouch : MonoBehaviour
 
     private Vector3 temp;
     private Vector3 beforeTemp;
-
-
+    private bool isSprinting;
 
     void Awake()
     {
@@ -47,12 +46,14 @@ public class SprintAndCrouch : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching )                                                                      
         {
             playerMovement.movementSpeed = Sprint(playerMovement.movementSpeed);
+            isSprinting = true;
         }
 
 
         if (Input.GetKeyUp(KeyCode.LeftShift) && !isCrouching)
         {
             playerMovement.movementSpeed = Walk(playerMovement.movementSpeed);
+            isSprinting = false;
         }
 
         if (Input.GetKeyDown(KeyCode.C))

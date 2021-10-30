@@ -30,4 +30,14 @@ Refactor : Create new motion field in movement locomotion blend tree for backwar
 
 Outcome : Pass
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+Test 4
+
+Test : When player object rotates, forward and backward animations should be adjusted.
+
+Outcome : Failed - User doesnt realise player object has rotated and uses walk forward animation when trying to walk back
+
+Refactor : When the players rotation transform is less than -90 degress and more than 90 degrees, the velocity passed to the animator controller is inversed to negative
+
+Outcome : Pass
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 
