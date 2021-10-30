@@ -1,43 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    #region Private Fields
-
-    [SerializeField] private Transform camera;
-    private float mouseX;
-    private float mouseY;
-    private float multiplier = 0.01f;
-    [SerializeField] private Transform orientation;
-    [SerializeField] private Transform orientationOfCharacter;
-    private float xRotation;
     [SerializeField] private float xSens = 100f;
-    private float yRotation;
     [SerializeField] private float ySens = 100f;
 
-    #endregion Private Fields
+    [SerializeField] Transform camera;
+    [SerializeField] Transform orientation;
+    [SerializeField] Transform orientationOfCharacter;
 
+    float mouseX;
+    float mouseY;
 
+    float multiplier = 0.01f;
 
-    #region Private Methods
-
-    private void playerInput()
-    {
-        mouseX = Input.GetAxisRaw("Mouse X");
-        mouseY = Input.GetAxisRaw("Mouse Y");
-
-        yRotation += mouseX * xSens * multiplier;
-        xRotation -= mouseY * ySens * multiplier;
-
-        xRotation = Mathf.Clamp(xRotation, -90f, 75f);
-    }
+    float xRotation;
+    float yRotation;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
     private void Update()
     {
         playerInput();
@@ -47,5 +33,14 @@ public class MouseLook : MonoBehaviour
         orientationOfCharacter.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
-    #endregion Private Methods
+    void playerInput()
+    {
+        mouseX = Input.GetAxisRaw("Mouse X");
+        mouseY = Input.GetAxisRaw("Mouse Y");
+
+        yRotation += mouseX * xSens * multiplier;
+        xRotation -= mouseY * ySens * multiplier;
+
+        xRotation = Mathf.Clamp(xRotation, -90f, 75f);
+    }
 }

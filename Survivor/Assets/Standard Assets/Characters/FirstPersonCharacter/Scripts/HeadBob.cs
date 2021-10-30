@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityStandardAssets.Utility;
 
@@ -5,46 +6,33 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     public class HeadBob : MonoBehaviour
     {
-        #region Public Fields
-
         public Camera Camera;
-        public LerpControlledBob jumpAndLandingBob = new LerpControlledBob();
         public CurveControlledBob motionBob = new CurveControlledBob();
+        public LerpControlledBob jumpAndLandingBob = new LerpControlledBob();
         public RigidbodyFirstPersonController rigidbodyFirstPersonController;
-        [Range(0f, 1f)] public float RunningStrideLengthen;
         public float StrideInterval;
+        [Range(0f, 1f)] public float RunningStrideLengthen;
 
-        #endregion Public Fields
-
-
-
-        #region Private Fields
-
+       // private CameraRefocus m_CameraRefocus;
+        private bool m_PreviouslyGrounded;
         private Vector3 m_OriginalCameraPosition;
 
-        // private CameraRefocus m_CameraRefocus;
-        private bool m_PreviouslyGrounded;
-
-        #endregion Private Fields
-
-
-
-        #region Private Methods
 
         private void Start()
         {
             motionBob.Setup(Camera, StrideInterval);
             m_OriginalCameraPosition = Camera.transform.localPosition;
-            //     m_CameraRefocus = new CameraRefocus(Camera, transform.root.transform, Camera.transform.localPosition);
+       //     m_CameraRefocus = new CameraRefocus(Camera, transform.root.transform, Camera.transform.localPosition);
         }
+
 
         private void Update()
         {
-            //  m_CameraRefocus.GetFocusPoint();
+          //  m_CameraRefocus.GetFocusPoint();
             Vector3 newCameraPosition;
             if (rigidbodyFirstPersonController.Velocity.magnitude > 0 && rigidbodyFirstPersonController.Grounded)
             {
-                Camera.transform.localPosition = motionBob.DoHeadBob(rigidbodyFirstPersonController.Velocity.magnitude * (rigidbodyFirstPersonController.Running ? RunningStrideLengthen : 1f));
+                Camera.transform.localPosition = motionBob.DoHeadBob(rigidbodyFirstPersonController.Velocity.magnitude*(rigidbodyFirstPersonController.Running ? RunningStrideLengthen : 1f));
                 newCameraPosition = Camera.transform.localPosition;
                 newCameraPosition.y = Camera.transform.localPosition.y - jumpAndLandingBob.Offset();
             }
@@ -61,9 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = rigidbodyFirstPersonController.Grounded;
-            //  m_CameraRefocus.SetFocusPoint();
+          //  m_CameraRefocus.SetFocusPoint();
         }
-
-        #endregion Private Methods
     }
 }
