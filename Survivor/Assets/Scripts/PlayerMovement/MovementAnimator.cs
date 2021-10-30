@@ -56,12 +56,13 @@ public class MovementAnimator : MonoBehaviour
 
         {
 
-            z=-z; //flip the axis value
-            x = -x;
+            z=-z;
+            x = -x;//flip the axis value
+           
 
         }
         _animator.SetFloat("VelocityZ", z, 0.1f, Time.deltaTime);
-        _animator.SetFloat("VelocityX",z, 0.1f, Time.deltaTime);
+        _animator.SetFloat("VelocityX",x, 0.1f, Time.deltaTime);
     }
 
     void animateJump()
