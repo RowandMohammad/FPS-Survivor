@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform checkPlayerGrounded;
     public bool playerIsGrounded;
     [SerializeField] LayerMask groundMask;
-    float distancetoGround = 0.4f;
+    float distancetoGround = 0.1f;
     RaycastHit slopeDetect;
 
 

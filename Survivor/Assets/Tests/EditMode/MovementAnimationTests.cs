@@ -11,6 +11,7 @@ public class MovementAnimationTests
     private PlayerMovement playerMovement;
     private SprintAndCrouch sprintAndCrouch;
     private MovementAnimator animator;
+    private InputSimulator IS;
 
     //confirm that the animation happens
     //check the duration of the animation
@@ -22,6 +23,7 @@ public class MovementAnimationTests
         playerMovement = _setup.playerMovement();
         sprintAndCrouch = _setup.sprintAndCrouch();
         animator = _setup.animator();
+        IS = new InputSimulator();
     }
 
     [Test]
@@ -45,8 +47,6 @@ public class MovementAnimationTests
 
 
     }
-
-
 
 
 
