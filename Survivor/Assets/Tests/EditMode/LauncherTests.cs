@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using Photon.Pun;
 
 public class LauncherTests
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void LauncherTestsSimplePasses()
+    private Launcher launcher;
+
+    [OneTimeSetUp]
+    public void TestInitialize()
     {
-        Launcher test = new Launcher();
+        launcher = new Launcher();
+    }
+
+    [Test]
+    public void LauncherConnected()
+    {
+        launcher.Start();
+        Assert.AreEqual(true, PhotonNetwork.IsConnected);
     }
 }

@@ -6,9 +6,24 @@ using Photon.Pun;
 public class Launcher : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
+
+        PhotonNetwork.ConnectUsingSettings();
+        Debug.Log("Connecting to online server");
+
         
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+        Debug.Log("Successfuly connected to online server");
+    }
+
+    public override void OnJoinedLobby()
+    {
+        Debug.Log("Joined Lobby");
     }
 
     // Update is called once per frame
