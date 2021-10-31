@@ -61,6 +61,16 @@ public class MenuTesting
 
     }
 
+    [Test]
+    public void CheckTitleMenuIsClosedAfterOpening()
+    {
+        menuManager.menuOpen("title");
+        Assert.AreEqual(true, menuManager.menus[1].open);
+        menuManager.CloseMenu(menuManager.menus[1]);
+        Assert.AreEqual(false, menuManager.menus[1].open);
+
+
+    }
 
 
 }
