@@ -19,10 +19,13 @@ public class MenuTesting
     }
 
     [Test]
-    public void CheckLoadingMenuOpen()
+    public void CheckLoadingMenuInArray()
     {
         menuManager.menuOpen("loading");
         Assert.AreEqual("Loading Menu (Menu)", menuManager.menus[0].ToString());
+        
     }
+
+
 
 }
