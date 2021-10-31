@@ -42,6 +42,14 @@ public class MenuTesting
 
     }
 
+    [Test]
+    public void CheckTitleMenuIsOpened()
+    {
+        menuManager.menuOpen("title");
+        Assert.AreEqual(true, menuManager.menus[1].open);
+
+    }
+
 
 
 }
