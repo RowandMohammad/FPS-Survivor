@@ -1088,9 +1088,10 @@ MonoBehaviour:
   sprintSpeed: 15
   walkSpeed: 5
   crouchSpeed: 4
-  cameraHeight: {fileID: 668588512}
   crouchKey: 99
   sprintKey: 304
+  cameraHeight: {fileID: 668588512}
+  myCam: {fileID: 668588514}
 --- !u!114 &1338497706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1214,7 +1215,7 @@ ConstantForce:
   m_GameObject: {fileID: 1338497703}
   m_Enabled: 1
   m_Force: {x: 0, y: 0, z: 0}
-  m_RelativeForce: {x: 0, y: -5, z: 0}
+  m_RelativeForce: {x: 0, y: -10, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!1001 &1423585110
