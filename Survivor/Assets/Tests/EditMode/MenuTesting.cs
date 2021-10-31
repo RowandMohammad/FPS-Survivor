@@ -50,6 +50,17 @@ public class MenuTesting
 
     }
 
+    [Test]
+    public void CheckLoadingMenuIsClosedAfterOpening()
+    {
+        menuManager.menuOpen("loading");
+        Assert.AreEqual(true, menuManager.menus[0].open);
+        menuManager.CloseMenu(menuManager.menus[0]);
+        Assert.AreEqual(false, menuManager.menus[0].open);
+
+
+    }
+
 
 
 }
