@@ -34,6 +34,14 @@ public class MenuTesting
 
     }
 
+    [Test]
+    public void CheckLoadingMenuIsOpened()
+    {
+        menuManager.menuOpen("loading");
+        Assert.AreEqual(true, menuManager.menus[0].open);
+
+    }
+
 
 
 }
