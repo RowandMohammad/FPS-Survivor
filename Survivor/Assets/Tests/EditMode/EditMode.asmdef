@@ -5,7 +5,10 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Scripts",
-        "PhotonUnityNetworking"
+        "PhotonUnityNetworking",
+        "Unity.TextMeshPro",
+        "PhotonRealtime",
+        "PhotonUnityNetworking.Utilities.Culling.Editor"
     ],
     "includePlatforms": [
         "Editor"

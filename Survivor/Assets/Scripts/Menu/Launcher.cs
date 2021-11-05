@@ -2,13 +2,16 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
+using System.Collections.Generic;
 
-public class Launcher : MonoBehaviourPunCallbacks
+public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
 
-    [SerializeField] TMP_InputField inputtedRoomName;
+    [SerializeField] public TMP_InputField inputtedRoomName;
     [SerializeField] TMP_Text errorMessage;
     [SerializeField] TMP_Text nameOfRoom;
+   
+    public List<RoomInfo> roomLister;
 
     // Start is called before the first frame update
     public void Start()
@@ -46,7 +49,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         MenuManager.Instance.menuOpen("room");
         nameOfRoom.text = PhotonNetwork.CurrentRoom.Name;
-        
+
+
 
     }
 
@@ -55,6 +59,19 @@ public class Launcher : MonoBehaviourPunCallbacks
         errorMessage.text = "Room Creation has Failed: " + message;
         Debug.LogError("Room Creation has Failed: " + message);
         MenuManager.Instance.menuOpen("error");
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        MenuManager.Instance.menuOpen("loading");
+    }
+
+
+
+    public override void OnLeftRoom()
+    {
+        MenuManager.Instance.menuOpen("title");
     }
 
 
