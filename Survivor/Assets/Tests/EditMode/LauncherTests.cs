@@ -18,6 +18,7 @@ public class LauncherTests
     [Test]
     public void LauncherConnected()
     {
+        
         launcher.Start();
         Assert.AreEqual(true, PhotonNetwork.IsConnected);
     }

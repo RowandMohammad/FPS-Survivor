@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/3DMovementPOC.unity
+    path: Assets/Scenes/3DMovementPOC.unity
     guid: 684badbf397821842a0be8d37399c36a
   m_configObjects: {}
