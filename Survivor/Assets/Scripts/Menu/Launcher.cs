@@ -6,12 +6,20 @@ using System.Collections.Generic;
 
 public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
-
+    public static Launcher Instance;
+    [SerializeField] GameObject listedRoomObject;
+    [SerializeField] Transform listOfRoomInfo;
     [SerializeField] public TMP_InputField inputtedRoomName;
     [SerializeField] TMP_Text errorMessage;
     [SerializeField] TMP_Text nameOfRoom;
    
     public List<RoomInfo> roomLister;
+
+   
+    void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     public void Start()
@@ -45,6 +53,12 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         MenuManager.Instance.menuOpen("loading");
     }
 
+    public void JoinRoom(RoomInfo info)
+    {
+        PhotonNetwork.JoinRoom(info.Name);
+        MenuManager.Instance.menuOpen("loading");
+    }
+
     public override void OnJoinedRoom()
     {
         MenuManager.Instance.menuOpen("room");
@@ -75,9 +89,25 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
     }
 
 
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        foreach (Transform obj in listOfRoomInfo)
+        {
+            Destroy(obj.gameObject);
+        }
+
+        for (int i = 0; i < roomList.Count; i++)
+        {
+            if (roomList[i].RemovedFromList)
+                continue;
+            Instantiate(listedRoomObject, listOfRoomInfo).GetComponent<RoomObjectItem>().SetUp(roomList[i]);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
