@@ -14,7 +14,7 @@ public class MenuTesting
     public void TestInitialize()
     {
         menu = new Menu();
-        menuObject = GameObject.Find("Canvas");
+        menuObject = GameObject.Find("MenuCanvas");
         menuManager = menuObject.GetComponent<MenuManager>();
     }
 

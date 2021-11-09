@@ -1511,7 +1511,7 @@ GameObject:
   - component: {fileID: 1182322528}
   - component: {fileID: 1182322531}
   m_Layer: 5
-  m_Name: 'Button '
+  m_Name: FindGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 1227692673}
   - component: {fileID: 1227692672}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LeaveRoomButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1908,6 +1908,56 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1304319177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1304319178}
+  - component: {fileID: 1304319179}
+  m_Layer: 5
+  m_Name: RoomFinderMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1304319178
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304319177}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1423550094}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1304319179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304319177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c437933525403e49bee057a7c4071f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuName: findroom
+  open: 0
 --- !u!1 &1421349670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,7 +2025,7 @@ GameObject:
   - component: {fileID: 1423550090}
   - component: {fileID: 1423550089}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2091,6 +2141,7 @@ RectTransform:
   - {fileID: 797913149}
   - {fileID: 1421349671}
   - {fileID: 2081665356}
+  - {fileID: 1304319178}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2165,7 +2216,7 @@ GameObject:
   - component: {fileID: 1450411958}
   - component: {fileID: 1450411961}
   m_Layer: 5
-  m_Name: Button  (1)
+  m_Name: CreateGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2513,7 +2564,7 @@ GameObject:
   - component: {fileID: 1606942163}
   - component: {fileID: 1606942162}
   m_Layer: 5
-  m_Name: Button
+  m_Name: OkErrorButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2996,7 +3047,7 @@ GameObject:
   - component: {fileID: 1857019308}
   - component: {fileID: 1857019311}
   m_Layer: 5
-  m_Name: Button  (2)
+  m_Name: QuitGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

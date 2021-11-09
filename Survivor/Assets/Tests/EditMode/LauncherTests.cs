@@ -12,13 +12,19 @@ public class LauncherTests
     [OneTimeSetUp]
     public void TestInitialize()
     {
-        launcher = new Launcher();
+        var canvasobject = GameObject.Find("MenuCanvas");
+        launcher = canvasobject.AddComponent<Launcher>();
+        
+
     }
 
     [Test]
     public void LauncherConnected()
     {
         launcher.Start();
+        Debug.Log(PhotonNetwork.IsConnected);
         Assert.AreEqual(true, PhotonNetwork.IsConnected);
+        
+
     }
 }
