@@ -3,12 +3,15 @@ using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
     public static Launcher Instance;
     [SerializeField] GameObject listedRoomObject;
+    [SerializeField] GameObject listedPlayerObject;
     [SerializeField] Transform listOfRoomInfo;
+    [SerializeField] Transform listOfPlayerInfo;
     [SerializeField] public TMP_InputField inputtedRoomName;
     [SerializeField] TMP_Text errorMessage;
     [SerializeField] TMP_Text nameOfRoom;
@@ -41,6 +44,8 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         MenuManager.Instance.menuOpen("title");
         Debug.Log("Joined Lobby");
+        PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
+
     }
 
     public void CreateARoom()
@@ -64,7 +69,17 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         MenuManager.Instance.menuOpen("room");
         nameOfRoom.text = PhotonNetwork.CurrentRoom.Name;
 
+        Player[] joinedPlayers = PhotonNetwork.PlayerList;
+        foreach (Transform child in listOfPlayerInfo)
+        {
+            Destroy(child.gameObject);
+        }
 
+
+        for (int i = 0; i < joinedPlayers.Count(); i++)
+        {
+            Instantiate(listedPlayerObject, listOfPlayerInfo).GetComponent<PlayerObjectItem>().SetUp(joinedPlayers[i]); ;
+        }
 
     }
 
@@ -105,9 +120,8 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-
+        Instantiate(listedPlayerObject, listOfPlayerInfo).GetComponent<PlayerObjectItem>().SetUp(newPlayer);
     }
 }
