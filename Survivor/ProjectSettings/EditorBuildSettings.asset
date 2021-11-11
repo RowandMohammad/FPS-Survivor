@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 85d07f8aae74a384ea93d2cac870fcf4
+  - enabled: 1
+    path: Assets/Scenes/3DMovementPOC.unity
+    guid: 684badbf397821842a0be8d37399c36a
   m_configObjects: {}

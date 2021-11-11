@@ -15,7 +15,8 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
     [SerializeField] public TMP_InputField inputtedRoomName;
     [SerializeField] TMP_Text errorMessage;
     [SerializeField] TMP_Text nameOfRoom;
-   
+    [SerializeField] GameObject startGameButton;
+
     public List<RoomInfo> roomLister;
 
    
@@ -80,7 +81,7 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         {
             Instantiate(listedPlayerObject, listOfPlayerInfo).GetComponent<PlayerObjectItem>().SetUp(joinedPlayers[i]); ;
         }
-
+        startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -123,5 +124,14 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Instantiate(listedPlayerObject, listOfPlayerInfo).GetComponent<PlayerObjectItem>().SetUp(newPlayer);
+    }
+
+    public void StartGame()
+    {
+        PhotonNetwork.LoadLevel(1);
+    }
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 }
