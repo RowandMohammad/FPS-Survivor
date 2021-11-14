@@ -27,3 +27,13 @@ Refactor: Add a message box with a return to main menu button to let the user kn
 Outcome: Pass
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Test 4
+
+Test : User can get back to main menu from any menu screen
+
+Outcome : Fail - Create room screen doesnt allow users to go back
+
+Refactor: Add a return button on the create room screen so user can go back
+
+Outcome: Pass
+------------------------------------------------------------------------------------------------------------------------------------------------------------
