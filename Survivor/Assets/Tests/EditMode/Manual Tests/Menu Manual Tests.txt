@@ -10,3 +10,10 @@ Refactor : Add a loop to check through room player info if the user had a previo
 
 Outcome : Pass
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+Test 2
+
+Test : When a user creates a room, it should be shown to all users running a different instance of the game
+
+Outcome : Pass
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
