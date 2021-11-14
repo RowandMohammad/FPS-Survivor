@@ -16,4 +16,14 @@ Test : When a user creates a room, it should be shown to all users running a dif
 
 Outcome : Pass
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+Test 3
+
+Test : When a user tries to create a room with the same name, they should be shown a displayed error message.
+
+Outcome : Fail
+
+Refactor: Add a message box with a return to main menu button to let the user know what error hass occurred.
+
+Outcome: Pass
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 
