@@ -1,0 +1,12 @@
+Manual Tests for Multipllayer Menu Scene
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Test 1
+
+Test : When user leaves lobby it should be shown on other instances of running game
+
+Outcome : Failed - Users previous ID remains and another is added when they rejoin a lobby
+
+Refactor : Add a loop to check through room player info if the user had a previous object in this room and delete that object when they rejoin.
+
+Outcome : Pass
+------------------------------------------------------------------------------------------------------------------------------------------------------------

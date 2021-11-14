@@ -70,12 +70,12 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         MenuManager.Instance.menuOpen("room");
         nameOfRoom.text = PhotonNetwork.CurrentRoom.Name;
 
-        Player[] joinedPlayers = PhotonNetwork.PlayerList;
+
         foreach (Transform child in listOfPlayerInfo)
         {
             Destroy(child.gameObject);
         }
-
+        Player[] joinedPlayers = PhotonNetwork.PlayerList;
 
         for (int i = 0; i < joinedPlayers.Count(); i++)
         {
