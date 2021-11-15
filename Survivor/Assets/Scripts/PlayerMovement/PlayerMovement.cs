@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,9 +39,12 @@ public class PlayerMovement : MonoBehaviour
     float distancetoGround = 0.1f;
     RaycastHit slopeDetect;
 
+    PhotonView PV;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        PV = GetComponent<PhotonView>();
 
     }
 
@@ -55,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!PV.IsMine)
+            return;
     
         Movement = new Movement(movementSpeed);
         playerIsGrounded = Physics.CheckSphere(checkPlayerGrounded.position, distancetoGround, groundMask);

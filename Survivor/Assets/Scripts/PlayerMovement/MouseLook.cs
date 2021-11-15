@@ -34,6 +34,8 @@ public class MouseLook : MonoBehaviour
     }
     private void Update()
     {
+        if (!PV.IsMine)
+            return;
         playerInput();
 
         camera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);

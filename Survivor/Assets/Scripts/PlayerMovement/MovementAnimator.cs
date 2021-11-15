@@ -1,9 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementAnimator : MonoBehaviour
 {
+    PhotonView PV;
     private PlayerMovement playerMovement;
     private Movement Movement;
     private SprintAndCrouch sprintAndCrouch;
@@ -23,6 +25,7 @@ public class MovementAnimator : MonoBehaviour
 
     public void Awake()
     {
+        PV = GetComponent<PhotonView>();
         playerMovement = GetComponent<PlayerMovement>();
         sprintAndCrouch = GetComponent<SprintAndCrouch>();
         _animator = GetComponent<Animator>();
@@ -37,6 +40,8 @@ public class MovementAnimator : MonoBehaviour
     
     void Update()
     {
+        if (!PV.IsMine)
+            return;
         animateMovementLocomotion();
         animateJump();
         animateSprinting();

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class PlayerManager : MonoBehaviour
 {
 	PhotonView PV;
-	Vector3 spawn= new Vector3(0f, 0f, 0f);
+	Vector3 spawn= new Vector3(10f, 0f, 0f);
 	
 
 

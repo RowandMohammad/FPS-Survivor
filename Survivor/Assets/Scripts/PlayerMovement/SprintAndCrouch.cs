@@ -1,7 +1,9 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class SprintAndCrouch : MonoBehaviour
 {
+    PhotonView PV;
     #region Public Fields
 
     [Header("State Heights")]
@@ -82,6 +84,7 @@ public class SprintAndCrouch : MonoBehaviour
 
     private void Awake()
     {
+        PV = GetComponent<PhotonView>();
         CrouchingCamera c1 = new CrouchingCamera();
         standingHeight = c1.standingHeight;
         playerMovement = GetComponent<PlayerMovement>();
@@ -91,6 +94,9 @@ public class SprintAndCrouch : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!PV.IsMine)
+            return;
+
         if (isCrouching)
         {
             temp = new Vector3(0.1f, crouchedHeightModifier, 1f);
@@ -113,6 +119,9 @@ public class SprintAndCrouch : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!PV.IsMine)
+            return;
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching)
         {
             playerMovement.movementSpeed = Sprint(playerMovement.movementSpeed);
