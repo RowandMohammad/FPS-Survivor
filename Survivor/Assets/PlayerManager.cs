@@ -7,7 +7,8 @@ using UnityEngine.EventSystems;
 public class PlayerManager : MonoBehaviour
 {
 	PhotonView PV;
-	Vector3 SpawnPoint = new Vector3(434.792114f, 589.043701f, -17.8297749f);
+	Vector3 spawn= new Vector3(0f, 0f, 0f);
+	
 
 
 	void Awake()
@@ -26,7 +27,7 @@ public class PlayerManager : MonoBehaviour
 	void CreateController()
 	{
 
-		PhotonNetwork.Instantiate(Path.Combine("PhotonObjects", "PlayerObject"), SpawnPoint, Quaternion.identity);
+		PhotonNetwork.Instantiate(Path.Combine("PhotonObjects", "PlayerObject"), spawn, Quaternion.identity);
 	}
 
 

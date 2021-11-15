@@ -28,7 +28,7 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
     // Start is called before the first frame update
     public void Start()
     {
-
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
         Debug.Log("Connecting to online server");
 

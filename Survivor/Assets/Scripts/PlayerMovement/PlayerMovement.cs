@@ -38,11 +38,17 @@ public class PlayerMovement : MonoBehaviour
     float distancetoGround = 0.1f;
     RaycastHit slopeDetect;
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+
+    }
+
 
     private void Start()
     {
         Movement = new Movement(movementSpeed);
-        rb = GetComponent<Rigidbody>();
+        
 
         rb.freezeRotation = true;
     }

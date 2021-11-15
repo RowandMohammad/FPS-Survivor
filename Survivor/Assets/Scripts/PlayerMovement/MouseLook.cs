@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class MouseLook : MonoBehaviour
     [SerializeField] Transform orientation;
     [SerializeField] Transform orientationOfCharacter;
 
+    PhotonView PV;
+
     float mouseX;
     float mouseY;
 
@@ -18,6 +21,11 @@ public class MouseLook : MonoBehaviour
 
     float xRotation;
     float yRotation;
+
+    private void Awake()
+    {
+        PV = GetComponent<PhotonView>();
+    }
 
     private void Start()
     {
