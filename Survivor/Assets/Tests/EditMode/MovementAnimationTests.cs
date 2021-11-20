@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TestTools;
-using WindowsInput;
+
 
 public class MovementAnimationTests
 {
@@ -11,7 +12,7 @@ public class MovementAnimationTests
     private PlayerMovement playerMovement;
     private SprintAndCrouch sprintAndCrouch;
     private MovementAnimator animator;
-    private InputSimulator IS;
+   
 
     //confirm that the animation happens
     //check the duration of the animation
@@ -19,15 +20,18 @@ public class MovementAnimationTests
     [OneTimeSetUp]
     public void TestInitialize()
     {
+        EditorSceneManager.OpenScene("Assets/Scenes/MovementTestScene.unity");
+
         playerMovement = _setup.playerMovement();
         sprintAndCrouch = _setup.sprintAndCrouch();
         animator = _setup.animator();
-        IS = new InputSimulator();
+ 
     }
 
     [Test]
     public void IdleAnimationPlayingTest()
     {
+        
         animator.Awake();
         animator.Start();
 
@@ -39,6 +43,7 @@ public class MovementAnimationTests
     [Test]
     public void IdleAnimationCorrectDurationTest()
     {
+
         animator.Awake();
         animator.Start();
 

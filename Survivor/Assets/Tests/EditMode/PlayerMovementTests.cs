@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
+using UnityEditor.SceneManagement;
 
 namespace Tests
 {
@@ -16,6 +17,7 @@ namespace Tests
         [OneTimeSetUp]
         public void TestInitialize()
         {
+            EditorSceneManager.OpenScene("Assets/Scenes/MovementTestScene.unity");
             playerMovement = _setup.playerMovement();
             rb = _setup.rb();
             sprintAndCrouch = _setup.sprintAndCrouch();
@@ -48,6 +50,7 @@ namespace Tests
             playerMovement.movementSpeed = sprintAndCrouch.Sprint(playerMovement.movementSpeed);
             Assert.AreEqual(15f, playerMovement.movementSpeed);
         }
+         
 
         [Test]
         public void Walk_Speed_Returns_After_Sprint_Key_Released()
