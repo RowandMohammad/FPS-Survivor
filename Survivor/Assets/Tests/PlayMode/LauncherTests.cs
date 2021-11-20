@@ -30,5 +30,18 @@ public class LauncherTests
 
 
     }
+    [UnityTest]
+    public IEnumerator launcherIsConnected()
+    {
+        canvasObject = GameObject.Find("MenuCanvas");
+        launcher = canvasObject.AddComponent<Launcher>();
 
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
+
+        Debug.Log(PhotonNetwork.IsConnected);
+
+        Assert.AreEqual(true, PhotonNetwork.IsConnected);
+    }
 }
