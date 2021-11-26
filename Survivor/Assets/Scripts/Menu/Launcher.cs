@@ -16,6 +16,7 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
     [SerializeField] TMP_Text errorMessage;
     [SerializeField] TMP_Text nameOfRoom;
     [SerializeField] GameObject startGameButton;
+    public string roomName;
 
     public List<RoomInfo> roomLister;
 
@@ -31,14 +32,16 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
         Debug.Log("Connecting to online server");
-
         
+
+
     }
 
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
         Debug.Log("Successfuly connected to online server");
+        roomName = inputtedRoomName.text;
     }
 
     public override void OnJoinedLobby()
@@ -51,11 +54,12 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public void CreateARoom()
     {
-        if (string.IsNullOrEmpty(inputtedRoomName.text))
+        
+        if (string.IsNullOrEmpty(roomName))
         {
             return;
         }
-        PhotonNetwork.CreateRoom(inputtedRoomName.text);
+        PhotonNetwork.CreateRoom(roomName);
         MenuManager.Instance.menuOpen("loading");
     }
 
