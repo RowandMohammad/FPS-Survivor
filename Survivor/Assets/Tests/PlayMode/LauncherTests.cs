@@ -13,12 +13,14 @@ public class LauncherTests
     GameObject createRoomObjectText;
     private Menu menu;
     private MenuManager menuManager;
+    GameObject roomField;
 
 
     [OneTimeSetUp]
     public void TestInitialize()
     {
         PhotonNetwork.Disconnect();
+        
         EditorSceneManager.LoadScene("Assets/Scenes/Menu.unity");
         GameObject.Destroy(GameObject.Find("RoomManager"));
        
@@ -28,10 +30,10 @@ public class LauncherTests
     [UnityTest]
     public IEnumerator canvasObjectIsCreated()
     {
-        
 
-        Assert.AreEqual(true, GameObject.Find("MenuCanvas").activeInHierarchy);
         yield return new WaitForEndOfFrame();
+        Assert.AreEqual(true, GameObject.Find("MenuCanvas").activeInHierarchy);
+        yield return new WaitForSeconds(2f);
 
 
     }
@@ -39,13 +41,9 @@ public class LauncherTests
     public IEnumerator launcherIsConnected()
     {
         canvasObject = GameObject.Find("MenuCanvas");
-        
         launcher = canvasObject.AddComponent<Launcher>();
-        
 
         yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-
 
         Debug.Log(PhotonNetwork.IsConnected);
 
@@ -55,14 +53,9 @@ public class LauncherTests
     [UnityTest]
     public IEnumerator roomIsCreated()
     {
-        menuManager = canvasObject.GetComponent<MenuManager>();
         yield return new WaitForEndOfFrame();
-        menuManager.menuOpen("createroom");
-        yield return new WaitForEndOfFrame();
-        canvasObject.GetComponentInChildren<TMP_InputField>().text = "testRoom";
-        yield return new WaitForEndOfFrame();
-
-
+        launcher.nameOfRoomCreate = "test123";
+        yield return new WaitForSeconds(10f);
         Assert.DoesNotThrow(() => launcher.CreateARoom(), "Error creating a room");
         yield return null;
 
