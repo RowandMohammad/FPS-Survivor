@@ -31,7 +31,7 @@ public class LauncherTests
 
 
 
-    [UnityTest]
+    [UnityTest, Order(1)]
     public IEnumerator canvasObjectIsCreated()
     {
 
@@ -41,7 +41,7 @@ public class LauncherTests
 
 
     }
-    [UnityTest]
+    [UnityTest, Order(2)]
     public IEnumerator launcherIsConnected()
     {
         canvasObject = GameObject.Find("MenuCanvas");
@@ -54,15 +54,19 @@ public class LauncherTests
         Assert.AreEqual(true, PhotonNetwork.IsConnected);
     }
 
-    [UnityTest]
+    [UnityTest, Order(3)]
     public IEnumerator roomIsCreated()
     {
-        yield return new WaitForEndOfFrame();
+        
         launcher.nameOfRoomCreate = "test123";
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         Assert.DoesNotThrow(() => launcher.CreateARoom(), "Error creating a room");
-        yield return null;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
 
     }
+
+
 
 }
