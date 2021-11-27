@@ -5,6 +5,7 @@ using UnityEngine.TestTools;
 using Photon.Pun;
 using UnityEditor.SceneManagement;
 using TMPro;
+using Photon.Realtime;
 
 public class LauncherTests
 {
@@ -14,6 +15,7 @@ public class LauncherTests
     private Menu menu;
     private MenuManager menuManager;
     GameObject roomField;
+    public RoomInfo info;
 
 
     [OneTimeSetUp]
@@ -25,6 +27,8 @@ public class LauncherTests
         GameObject.Destroy(GameObject.Find("RoomManager"));
        
     }
+
+
 
 
     [UnityTest]
@@ -55,9 +59,10 @@ public class LauncherTests
     {
         yield return new WaitForEndOfFrame();
         launcher.nameOfRoomCreate = "test123";
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         Assert.DoesNotThrow(() => launcher.CreateARoom(), "Error creating a room");
         yield return null;
 
     }
+
 }
