@@ -1,74 +1,41 @@
-using UnityEngine;
 using Photon.Pun;
-using TMPro;
 using Photon.Realtime;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using UnityEngine;
 
 public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
+    #region Public Fields
+
     public static Launcher Instance;
-    [SerializeField] GameObject listedRoomObject;
-    [SerializeField] GameObject listedPlayerObject;
-    [SerializeField] Transform listOfRoomInfo;
-    [SerializeField] Transform listOfPlayerInfo;
     [SerializeField] public TMP_InputField inputtedRoomName;
-    [SerializeField] TMP_Text errorMessage;
-    [SerializeField] TMP_Text nameOfRoom;
-    [SerializeField] GameObject startGameButton;
     public string nameOfRoomCreate;
     public List<RoomInfo> roomLister;
 
-   
-    void Awake()
-    {
-        Instance = this;
-    }
+    #endregion Public Fields
 
-    // Start is called before the first frame update
-    public void Start()
-    {
-        PhotonNetwork.AutomaticallySyncScene = true;
-        if (!PhotonNetwork.IsConnected)
-        {
-            PhotonNetwork.ConnectUsingSettings();
-        }
-        
-        
-        Debug.Log("Connecting to online server");
 
-        
-    }
 
-    public override void OnConnectedToMaster()
-    {
-        PhotonNetwork.JoinLobby();
-        Debug.Log("Successfuly connected to online server");
-    }
+    #region Private Fields
 
-    public override void OnJoinedLobby()
-    {
-        MenuManager.Instance.menuOpen("title");
-        Debug.Log("Joined Lobby");
-        PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
+    [SerializeField] private TMP_Text errorMessage;
+    [SerializeField] private GameObject listedPlayerObject;
+    [SerializeField] private GameObject listedRoomObject;
+    [SerializeField] private Transform listOfPlayerInfo;
+    [SerializeField] private Transform listOfRoomInfo;
+    [SerializeField] private TMP_Text nameOfRoom;
+    [SerializeField] private GameObject startGameButton;
 
-    }
-    string roomName()
-    {
-        if (nameOfRoomCreate == "test123")
-        {
-            return nameOfRoomCreate;
-        }
-        else
-        {
-            return inputtedRoomName.text;
-        }
-        
-    }
+    #endregion Private Fields
+
+
+
+    #region Public Methods
 
     public void CreateARoom()
     {
-        
         if (string.IsNullOrEmpty(roomName()))
         {
             return;
@@ -83,11 +50,36 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         MenuManager.Instance.menuOpen("loading");
     }
 
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        MenuManager.Instance.menuOpen("loading");
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+        Debug.Log("Successfuly connected to online server");
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        errorMessage.text = "Room Creation has Failed: " + message;
+        Debug.LogError("Room Creation has Failed: " + message);
+        MenuManager.Instance.menuOpen("error");
+    }
+
+    public override void OnJoinedLobby()
+    {
+        MenuManager.Instance.menuOpen("title");
+        Debug.Log("Joined Lobby");
+        PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
+    }
+
     public override void OnJoinedRoom()
     {
         MenuManager.Instance.menuOpen("room");
         nameOfRoom.text = PhotonNetwork.CurrentRoom.Name;
-
 
         foreach (Transform child in listOfPlayerInfo)
         {
@@ -102,27 +94,20 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
-        errorMessage.text = "Room Creation has Failed: " + message;
-        Debug.LogError("Room Creation has Failed: " + message);
-        MenuManager.Instance.menuOpen("error");
-    }
-
-    public void LeaveRoom()
-    {
-        PhotonNetwork.LeaveRoom();
-        MenuManager.Instance.menuOpen("loading");
-    }
-
-
-
     public override void OnLeftRoom()
     {
         MenuManager.Instance.menuOpen("title");
     }
 
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+    }
 
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Instantiate(listedPlayerObject, listOfPlayerInfo).GetComponent<PlayerObjectItem>().SetUp(newPlayer);
+    }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
@@ -139,17 +124,45 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    // Start is called before the first frame update
+    public void Start()
     {
-        Instantiate(listedPlayerObject, listOfPlayerInfo).GetComponent<PlayerObjectItem>().SetUp(newPlayer);
+        PhotonNetwork.AutomaticallySyncScene = true;
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
+
+        Debug.Log("Connecting to online server");
     }
 
     public void StartGame()
     {
         PhotonNetwork.LoadLevel(1);
     }
-    public override void OnMasterClientSwitched(Player newMasterClient)
+
+    #endregion Public Methods
+
+
+
+    #region Private Methods
+
+    private void Awake()
     {
-        startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        Instance = this;
     }
+
+    private string roomName()
+    {
+        if (nameOfRoomCreate == "test123")
+        {
+            return nameOfRoomCreate;
+        }
+        else
+        {
+            return inputtedRoomName.text;
+        }
+    }
+
+    #endregion Private Methods
 }

@@ -1,23 +1,37 @@
 ﻿using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class RoomObjectItem : MonoBehaviour
 {
-	[SerializeField] TMP_Text text;
+    #region Public Fields
 
-	public RoomInfo info;
+    public RoomInfo info;
 
-	public void SetUp(RoomInfo _info)
-	{
-		info = _info;
-		text.text = _info.Name;
-	}
+    #endregion Public Fields
 
-	public void OnClick()
-	{
-		Launcher.Instance.JoinRoom(info);
-	}
+
+
+    #region Private Fields
+
+    [SerializeField] private TMP_Text text;
+
+    #endregion Private Fields
+
+
+
+    #region Public Methods
+
+    public void OnClick()
+    {
+        Launcher.Instance.JoinRoom(info);
+    }
+
+    public void SetUp(RoomInfo _info)
+    {
+        info = _info;
+        text.text = _info.Name;
+    }
+
+    #endregion Public Methods
 }

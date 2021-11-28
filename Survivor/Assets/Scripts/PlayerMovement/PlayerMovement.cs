@@ -1,79 +1,63 @@
 using Photon.Pun;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Movement Movement;
-    public Vector3 MoveDirection;
+    #region Public Fields
 
+    public float horizontalMove;
+    public float jumpForce = 7.5f;
+    public Vector3 MoveDirection;
+    public Movement Movement;
+    public float movementMultiplier = 4f;
 
     [Header("Movement Attributes/Magnitudes")]
     public float movementSpeed = 5f;
-    public float jumpForce = 7.5f;
-    public float movementMultiplier = 4f;
-    float groundedDrag = 6f;
-    float notGroundedDrag = 3f;
-
-    [Header("Keybinds")]
-    [SerializeField] KeyCode jumpKey = KeyCode.Space;
-
-    public float horizontalMove;
-    public float verticalMove;
 
     [Header("Player Attributes")]
     public float playerHeight = 2f;
-    public Rigidbody rb;
 
-    [Header("Camera Orientation")]
-    [SerializeField] Transform orientation;
-    Vector3 moveDirection;
-    Vector3 slopeMoveDirection;
+    public bool playerIsGrounded;
+    public Rigidbody rb;
+    public float verticalMove;
+
+    #endregion Public Fields
+
+
+
+    #region Private Fields
 
     [Header("Detection for Ground")]
-    [SerializeField] Transform checkPlayerGrounded;
-    public bool playerIsGrounded;
-    [SerializeField] LayerMask groundMask;
-    float distancetoGround = 0.1f;
-    RaycastHit slopeDetect;
+    [SerializeField] private Transform checkPlayerGrounded;
 
-    PhotonView PV;
+    private float distancetoGround = 0.1f;
+    private float groundedDrag = 6f;
+    [SerializeField] private LayerMask groundMask;
 
-    private void Awake()
+    [Header("Keybinds")]
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+
+    private Vector3 moveDirection;
+    private float notGroundedDrag = 3f;
+
+    [Header("Camera Orientation")]
+    [SerializeField] private Transform orientation;
+
+    private PhotonView PV;
+    private RaycastHit slopeDetect;
+    private Vector3 slopeMoveDirection;
+
+    #endregion Private Fields
+
+
+
+    #region Public Methods
+
+    //Adds upwards force to user to jump.
+    public void Jump(Rigidbody rb)
     {
-        rb = GetComponent<Rigidbody>();
-        PV = GetComponent<PhotonView>();
-
-    }
-
-
-    private void Start()
-    {
-        if (!PV.IsMine)
-        {
-            Destroy(rb);
-        }
-        Movement = new Movement(movementSpeed);
-
-        
-
-        rb.freezeRotation = true;
-    }
-
-    private void Update()
-    {
-        if (!PV.IsMine)
-            return;
-    
-        Movement = new Movement(movementSpeed);
-        playerIsGrounded = Physics.CheckSphere(checkPlayerGrounded.position, distancetoGround, groundMask);
-        print(playerIsGrounded);
-        playerInput();
-        dragControl();
-
-        slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeDetect.normal);
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
     //Detects player input.
@@ -82,9 +66,60 @@ public class PlayerMovement : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(jumpKey) && playerIsGrounded )
+        if (Input.GetKeyDown(jumpKey) && playerIsGrounded)
         {
             Jump(rb);
+        }
+    }
+
+    #endregion Public Methods
+
+
+
+    #region Private Methods
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        PV = GetComponent<PhotonView>();
+    }
+
+    //Adjusts the drag for the user for when theyre grounded and mid air.
+    private void dragControl()
+    {
+        if (playerIsGrounded)
+        {
+            rb.drag = groundedDrag;
+        }
+        else
+        {
+            rb.drag = notGroundedDrag;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (!PV.IsMine)
+            return;
+        PlayerMover();
+    }
+
+    //Checks  possible user states and allows user to move around correctly for that state.
+    private void PlayerMover()
+    {
+        moveDirection = orientation.forward * Movement.calculate(horizontalMove, verticalMove).z + orientation.right * Movement.calculate(horizontalMove, verticalMove).x;
+
+        if (playerIsGrounded)
+        {
+            rb.AddForce(moveDirection * movementMultiplier, ForceMode.Acceleration);
+        }
+        else if (playerIsGrounded && slope())
+        {
+            rb.AddForce(slopeMoveDirection * movementMultiplier, ForceMode.Acceleration);
+        }
+        else if (!playerIsGrounded)
+        {
+            rb.AddForce(moveDirection * movementMultiplier * 0.3f, ForceMode.Acceleration);
         }
     }
 
@@ -105,47 +140,30 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    //Adjusts the drag for the user for when theyre grounded and mid air.
-    void dragControl()
+    private void Start()
     {
-        if (playerIsGrounded)
+        if (!PV.IsMine)
         {
-            rb.drag = groundedDrag;
+            Destroy(rb);
         }
-        else
-        {
-            rb.drag = notGroundedDrag;
-        }
+        Movement = new Movement(movementSpeed);
+
+        rb.freezeRotation = true;
     }
 
-    //Adds upwards force to user to jump.
-    public void Jump(Rigidbody rb)
+    private void Update()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        if (!PV.IsMine)
+            return;
+
+        Movement = new Movement(movementSpeed);
+        playerIsGrounded = Physics.CheckSphere(checkPlayerGrounded.position, distancetoGround, groundMask);
+        print(playerIsGrounded);
+        playerInput();
+        dragControl();
+
+        slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeDetect.normal);
     }
 
-    private void FixedUpdate()
-    {
-        PlayerMover();
-    }
-
-    //Checks  possible user states and allows user to move around correctly for that state.
-    void PlayerMover()
-    {
-        moveDirection = orientation.forward * Movement.calculate(horizontalMove, verticalMove).z + orientation.right * Movement.calculate(horizontalMove, verticalMove).x;
-
-        if (playerIsGrounded)
-        {
-            rb.AddForce(moveDirection * movementMultiplier, ForceMode.Acceleration);
-        }
-        else if (playerIsGrounded && slope())
-        {
-            rb.AddForce(slopeMoveDirection * movementMultiplier, ForceMode.Acceleration);
-        }
-        else if (!playerIsGrounded)
-        {
-            rb.AddForce(moveDirection * movementMultiplier * 0.3f, ForceMode.Acceleration);
-        }
-    }
+    #endregion Private Methods
 }

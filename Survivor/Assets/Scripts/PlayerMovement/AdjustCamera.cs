@@ -1,17 +1,24 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AdjustCamera : MonoBehaviour
 {
-    [SerializeField] Transform positionOfCamera = null;
-    PhotonView PV;
+    #region Private Fields
+
+    [SerializeField] private Transform positionOfCamera = null;
+    private PhotonView PV;
+
+    #endregion Private Fields
+
+
+
+    #region Private Methods
 
     private void Awake()
     {
         PV = GetComponent<PhotonView>();
     }
+
     private void Start()
     {
         if (!PV.IsMine)
@@ -20,9 +27,10 @@ public class AdjustCamera : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
-       
         transform.position = positionOfCamera.position;
     }
+
+    #endregion Private Methods
 }

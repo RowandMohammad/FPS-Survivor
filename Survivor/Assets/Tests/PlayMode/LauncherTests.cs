@@ -1,46 +1,44 @@
-using System.Collections;
 using NUnit.Framework;
+using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Photon.Pun;
-using UnityEditor.SceneManagement;
-using TMPro;
-using Photon.Realtime;
 
 public class LauncherTests
 {
-    private Launcher launcher;
-    GameObject canvasObject;
-    GameObject createRoomObjectText;
-    private Menu menu;
-    private MenuManager menuManager;
-    GameObject roomField;
+    #region Public Fields
+
     public RoomInfo info;
 
-
-    [OneTimeSetUp]
-    public void TestInitialize()
-    {
-        PhotonNetwork.Disconnect();
-        
-        EditorSceneManager.LoadScene("Assets/Scenes/Menu.unity");
-        GameObject.Destroy(GameObject.Find("RoomManager"));
-       
-    }
+    #endregion Public Fields
 
 
 
+    #region Private Fields
+
+    private GameObject canvasObject;
+    private GameObject createRoomObjectText;
+    private Launcher launcher;
+    private Menu menu;
+    private MenuManager menuManager;
+    private GameObject roomField;
+
+    #endregion Private Fields
+
+
+
+    #region Public Methods
 
     [UnityTest, Order(1)]
     public IEnumerator canvasObjectIsCreated()
     {
-
         yield return new WaitForEndOfFrame();
         Assert.AreEqual(true, GameObject.Find("MenuCanvas").activeInHierarchy);
         yield return new WaitForSeconds(2f);
-
-
     }
+
     [UnityTest, Order(2)]
     public IEnumerator launcherIsConnected()
     {
@@ -57,16 +55,21 @@ public class LauncherTests
     [UnityTest, Order(3)]
     public IEnumerator roomIsCreated()
     {
-        
         launcher.nameOfRoomCreate = "test123";
         yield return new WaitForSeconds(2f);
         Assert.DoesNotThrow(() => launcher.CreateARoom(), "Error creating a room");
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
-
-
     }
 
+    [OneTimeSetUp]
+    public void TestInitialize()
+    {
+        PhotonNetwork.Disconnect();
 
+        EditorSceneManager.LoadScene("Assets/Scenes/Menu.unity");
+        GameObject.Destroy(GameObject.Find("RoomManager"));
+    }
 
+    #endregion Public Methods
 }

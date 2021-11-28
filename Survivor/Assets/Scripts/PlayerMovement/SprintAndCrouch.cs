@@ -3,21 +3,20 @@ using UnityEngine;
 
 public class SprintAndCrouch : MonoBehaviour
 {
-    PhotonView PV;
     #region Public Fields
 
     [Header("State Heights")]
     public float crouchedHeightModifier = -0.2f;
-    public float standingHeight;
 
+    public float crouchSpeed = 3f;
     public bool isCrouching;
     public CapsuleCollider playerCollider;
 
     [Header("State Speeds")]
     public float sprintSpeed = 15f;
+
+    public float standingHeight;
     public float walkSpeed = 5f;
-    public float crouchSpeed = 3f;
-    
 
     #endregion Public Fields
 
@@ -30,6 +29,7 @@ public class SprintAndCrouch : MonoBehaviour
     [SerializeField] private Transform cameraHeight;
     [SerializeField] private KeyCode crouchKey = KeyCode.C;
     private PlayerMovement playerMovement;
+    private PhotonView PV;
 
     [Header("Keybinds")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;

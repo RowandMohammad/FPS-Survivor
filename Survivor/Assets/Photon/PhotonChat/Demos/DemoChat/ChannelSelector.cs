@@ -4,17 +4,29 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 
 namespace Photon.Chat.Demo
 {
     public class ChannelSelector : MonoBehaviour, IPointerClickHandler
     {
+        #region Public Fields
+
         public string Channel;
+
+        #endregion Public Fields
+
+
+
+        #region Public Methods
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            ChatGui handler = FindObjectOfType<ChatGui>();
+            handler.ShowChannel(this.Channel);
+        }
 
         public void SetChannel(string channel)
         {
@@ -23,10 +35,6 @@ namespace Photon.Chat.Demo
             t.text = this.Channel;
         }
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            ChatGui handler = FindObjectOfType<ChatGui>();
-            handler.ShowChannel(this.Channel);
-        }
+        #endregion Public Methods
     }
 }

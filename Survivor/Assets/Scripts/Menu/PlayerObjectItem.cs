@@ -1,31 +1,39 @@
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class PlayerObjectItem : MonoBehaviourPunCallbacks
 {
-	[SerializeField] TMP_Text text;
-	Player player;
+    #region Private Fields
 
-	public void SetUp(Player _player)
-	{
-		player = _player;
-		text.text = _player.NickName;
-	}
+    private Player player;
+    [SerializeField] private TMP_Text text;
 
-	public override void OnPlayerLeftRoom(Player otherPlayer)
-	{
-		if (player == otherPlayer)
-		{
-			Destroy(gameObject);
-		}
-	}
+    #endregion Private Fields
 
-	public override void OnLeftRoom()
-	{
-		Destroy(gameObject);
-	}
+
+
+    #region Public Methods
+
+    public override void OnLeftRoom()
+    {
+        Destroy(gameObject);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (player == otherPlayer)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SetUp(Player _player)
+    {
+        player = _player;
+        text.text = _player.NickName;
+    }
+
+    #endregion Public Methods
 }

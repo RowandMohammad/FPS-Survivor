@@ -1,21 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
-using UnityEngine;
-using UnityEngine.TestTools;
-
 
 public class MovementAnimationTests
 {
+    #region Private Fields
+
     private TestSetup _setup = new TestSetup();
+    private MovementAnimator animator;
     private PlayerMovement playerMovement;
     private SprintAndCrouch sprintAndCrouch;
-    private MovementAnimator animator;
-   
+
+    #endregion Private Fields
 
     //confirm that the animation happens
     //check the duration of the animation
+
+
+
+    #region Public Methods
+
+    [Test]
+    public void IdleAnimationCorrectDurationTest()
+    {
+        animator.Awake();
+        animator.Start();
+
+        Assert.AreEqual(8.333334f, animator._animator.GetCurrentAnimatorStateInfo(0).length);
+    }
+
+    [Test]
+    public void IdleAnimationPlayingTest()
+    {
+        animator.Awake();
+        animator.Start();
+
+        Assert.AreEqual(true, animator._animator.GetCurrentAnimatorStateInfo(0).IsName("Movement Locomotion"));
+    }
 
     [OneTimeSetUp]
     public void TestInitialize()
@@ -25,39 +45,7 @@ public class MovementAnimationTests
         playerMovement = _setup.playerMovement();
         sprintAndCrouch = _setup.sprintAndCrouch();
         animator = _setup.animator();
- 
     }
 
-    [Test]
-    public void IdleAnimationPlayingTest()
-    {
-        
-        animator.Awake();
-        animator.Start();
-
-        Assert.AreEqual(true, animator._animator.GetCurrentAnimatorStateInfo(0).IsName("Movement Locomotion"));
-
-
-    }
-
-    [Test]
-    public void IdleAnimationCorrectDurationTest()
-    {
-
-        animator.Awake();
-        animator.Start();
-
-        Assert.AreEqual(8.333334f, animator._animator.GetCurrentAnimatorStateInfo(0).length);
-
-
-    }
-
-
-
-
-
-
-
-
-
+    #endregion Public Methods
 }
