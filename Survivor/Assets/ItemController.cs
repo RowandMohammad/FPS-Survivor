@@ -26,7 +26,28 @@ public class ItemController : MonoBehaviour
 				break;
 			}
 		}
-
+		if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
+		{
+			if (itemIndex >= items.Length - 1)
+			{
+				EquipItem(0);
+			}
+			else
+			{
+				EquipItem(itemIndex + 1);
+			}
+		}
+		else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+		{
+			if (itemIndex <= 0)
+			{
+				EquipItem(items.Length - 1);
+			}
+			else
+			{
+				EquipItem(itemIndex - 1);
+			}
+		}
 	}
 	void EquipItem(int _index)
 	{
