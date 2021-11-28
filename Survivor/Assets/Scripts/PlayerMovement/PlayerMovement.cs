@@ -51,7 +51,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        if (!PV.IsMine)
+        {
+            Destroy(rb);
+        }
         Movement = new Movement(movementSpeed);
+
         
 
         rb.freezeRotation = true;
