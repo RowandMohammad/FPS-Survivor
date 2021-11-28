@@ -18,8 +18,16 @@ public class ItemController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EquipItem(0);
-    }
+		for (int i = 0; i < items.Length; i++)
+		{
+			if (Input.GetKeyDown((i + 1).ToString()))
+			{
+				EquipItem(i);
+				break;
+			}
+		}
+
+	}
 	void EquipItem(int _index)
 	{
 		if (_index == previousItemIndex)
