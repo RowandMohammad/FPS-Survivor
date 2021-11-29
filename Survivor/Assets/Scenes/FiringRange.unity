@@ -6966,6 +6966,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5805499511210719751, guid: 0bf6089cf329bc0409e2d72cbfc57e22, type: 3}
     - {fileID: 3061391412295409360, guid: 0bf6089cf329bc0409e2d72cbfc57e22, type: 3}
+    - {fileID: 1245501669539840978, guid: 0bf6089cf329bc0409e2d72cbfc57e22, type: 3}
+    - {fileID: 6442819772133617365, guid: 0bf6089cf329bc0409e2d72cbfc57e22, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0bf6089cf329bc0409e2d72cbfc57e22, type: 3}
 --- !u!1 &1148980433 stripped
 GameObject:
@@ -9030,6 +9032,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.33, z: 0.2}
   m_Center: {x: 0, y: 1.675, z: 0}
+--- !u!114 &1445272641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445272636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb2d9f42d6959d4faae89892e52914e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &1455677123 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 103644, guid: a4c18952442944083b1fddc06ba477c2, type: 3}
@@ -10003,6 +10018,26 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &1624001501 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4260320095346780907, guid: 0bf6089cf329bc0409e2d72cbfc57e22, type: 3}
+  m_PrefabInstance: {fileID: 1143117121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1624001503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624001501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6181d6f9ddd3d84783d6b2b8aaba07e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 461388749}
+  - {fileID: 2025725448}
 --- !u!1001 &1624064595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10343,6 +10378,10 @@ PrefabInstance:
     - target: {fileID: 484706, guid: 39b43e271567b4134a12f482c52c8a0f, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6506392, guid: 39b43e271567b4134a12f482c52c8a0f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39b43e271567b4134a12f482c52c8a0f, type: 3}

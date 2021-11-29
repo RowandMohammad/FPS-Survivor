@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PrimaryWeapon
   m_EditorClassIdentifier: 
   itemName: PrimaryWeapon
+  damage: 40

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: SecondaryWeapon
   m_EditorClassIdentifier: 
   itemName: SecondaryWeapon
+  damage: 20

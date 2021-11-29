@@ -19,11 +19,12 @@ public class SingleFireShot : Weapon
 
 	void Shoot()
 	{
-		Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+		RaycastHit hit;
+		Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 		ray.origin = cam.transform.position;
-		if (Physics.Raycast(ray, out RaycastHit hit))
+		if (Physics.Raycast(ray, out hit))
 		{
-			Debug.Log("I hit " + hit.collider.gameObject.name);
+			hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((WeaponInfo)itemObjectInfo).damage);
 		}
 	}
 }
