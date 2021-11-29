@@ -32,15 +32,27 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     {
         
         health -= damage;
-        print(health);
-        _animator.SetInteger("takeDamageIndex", Random.Range(0, 2));
-        _animator.SetTrigger("takeDamage");
+        if (health <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            print(health);
+            _animator.SetInteger("takeDamageIndex", Random.Range(0, 3));
+            _animator.SetTrigger("takeDamage");
+        }
+  
 
 
+    }
 
-
-
-
+    private void Die()
+    {
+        _animator.SetTrigger("onDied");
+        Destroy(transform.parent.gameObject, 3f);
+        
+        
     }
 
     int animationRandomizer()
