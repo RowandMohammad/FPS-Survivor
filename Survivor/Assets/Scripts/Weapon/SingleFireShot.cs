@@ -4,8 +4,26 @@ using UnityEngine;
 
 public class SingleFireShot : Weapon
 {
-    public override void Use()
-    {
-        Debug.Log("using gun" + itemObjectInfo.itemName);
-    }
+	[SerializeField] Camera cam;
+
+
+	void Awake()
+	{
+		
+	}
+
+	public override void Use()
+	{
+		Shoot();
+	}
+
+	void Shoot()
+	{
+		Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+		ray.origin = cam.transform.position;
+		if (Physics.Raycast(ray, out RaycastHit hit))
+		{
+			Debug.Log("I hit " + hit.collider.gameObject.name);
+		}
+	}
 }
