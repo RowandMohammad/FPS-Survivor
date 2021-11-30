@@ -10,6 +10,8 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     public float health = 100f;
     [SerializeField] public Animator _animator;
     System.Random _random = new System.Random();
+    public delegate void ZombieKilled();
+    public static event ZombieKilled OnZombieKilled;
 
     private void awake()
     {
@@ -51,8 +53,12 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     {
         _animator.SetTrigger("onDied");
         Destroy(transform.parent.gameObject, 3f);
-        
-        
+        if (OnZombieKilled != null)
+        {
+            OnZombieKilled();
+        }
+
+
     }
 
     int animationRandomizer()
