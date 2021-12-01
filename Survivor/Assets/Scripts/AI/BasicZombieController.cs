@@ -34,16 +34,16 @@ public class BasicZombieController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        
-        
+        health -= damage;
+
         if (health <= 0 && isDead != true)
         {
             isDead = true;
             Die();
         }
-        if (health >0 && isDead != true)
+        if (health > 0 && isDead != true)
         {
-            health -= damage;
+            
             print(health);
             _animator.SetInteger("takeDamageIndex", Random.Range(0, 3));
             _animator.SetTrigger("takeDamage");
