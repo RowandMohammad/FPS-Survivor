@@ -26,7 +26,7 @@ public class SingleFireShot : Weapon
 		
 		if (Physics.Raycast(ray, out hit))
 		{
-			hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((WeaponInfo)itemObjectInfo).damage);
+			hit.collider.gameObject.GetComponentInParent<IDamageable>()?.TakeDamage(((WeaponInfo)itemObjectInfo).damage);
 			hitEffect.transform.position = hit.point;
 			hitEffect.transform.forward = hit.normal;
 			hitEffect.Emit(1);
