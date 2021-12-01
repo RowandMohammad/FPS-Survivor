@@ -23,7 +23,9 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
-        
+        setRigidbodyState(true);
+        setColliderState(false);
+        GetComponent<Animator>().enabled = true;
     }
 
     // Update is called once per frame
@@ -55,14 +57,44 @@ public class BasicZombieController : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        _animator.SetTrigger("onDied");
-        Destroy(transform.parent.gameObject, 3f);
+        GetComponent<Animator>().enabled = false;
+        setRigidbodyState(false);
+        setColliderState(true);
+        Destroy(gameObject, 3f);
         GetComponent<Collider>().enabled = false;
         if (OnZombieKilled != null)
         {
             OnZombieKilled();
         }
 
+
+    }
+    void setRigidbodyState(bool state)
+    {
+
+        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+
+        foreach (Rigidbody rigidbody in rigidbodies)
+        {
+            rigidbody.isKinematic = state;
+        }
+
+        GetComponent<Rigidbody>().isKinematic = !state;
+
+    }
+
+
+    void setColliderState(bool state)
+    {
+
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = state;
+        }
+
+        GetComponent<Collider>().enabled = !state;
 
     }
 

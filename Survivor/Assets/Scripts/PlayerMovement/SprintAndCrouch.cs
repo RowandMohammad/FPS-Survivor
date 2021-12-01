@@ -8,15 +8,15 @@ public class SprintAndCrouch : MonoBehaviour
     [Header("State Heights")]
     public float crouchedHeightModifier = -0.2f;
 
-    public float crouchSpeed = 3f;
+    public float crouchSpeed = 7.5f;
     public bool isCrouching;
     public CapsuleCollider playerCollider;
 
     [Header("State Speeds")]
-    public float sprintSpeed = 15f;
+    public float sprintSpeed = 20f;
 
     public float standingHeight;
-    public float walkSpeed = 5f;
+    public float walkSpeed = 10f;
 
     #endregion Public Fields
 

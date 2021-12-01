@@ -5,7 +5,7 @@ using UnityEngine;
 public class SingleFireShot : Weapon
 {
 	[SerializeField] Camera cam;
-	public ParticleSystem hitEffect;
+	
 
 
 	void Awake()
@@ -23,13 +23,10 @@ public class SingleFireShot : Weapon
 		RaycastHit hit;
 		Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 		ray.origin = cam.transform.position;
-		
+
 		if (Physics.Raycast(ray, out hit))
 		{
 			hit.collider.gameObject.GetComponentInParent<IDamageable>()?.TakeDamage(((WeaponInfo)itemObjectInfo).damage);
-			hitEffect.transform.position = hit.point;
-			hitEffect.transform.forward = hit.normal;
-			hitEffect.Emit(1);
 		}
 	}
 }
