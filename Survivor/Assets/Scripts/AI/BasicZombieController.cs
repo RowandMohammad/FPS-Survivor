@@ -10,6 +10,8 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     public float health = 100f;
     [SerializeField] public Animator _animator;
     System.Random _random = new System.Random();
+    private bool isDead;
+
     public delegate void ZombieKilled();
     public static event ZombieKilled OnZombieKilled;
 
@@ -33,13 +35,15 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         
-        health -= damage;
-        if (health <= 0)
+        
+        if (health <= 0 && isDead != true)
         {
+            isDead = true;
             Die();
         }
-        else
+        if (health >0 && isDead != true)
         {
+            health -= damage;
             print(health);
             _animator.SetInteger("takeDamageIndex", Random.Range(0, 3));
             _animator.SetTrigger("takeDamage");
@@ -53,6 +57,7 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     {
         _animator.SetTrigger("onDied");
         Destroy(transform.parent.gameObject, 3f);
+        GetComponent<Collider>().enabled = false;
         if (OnZombieKilled != null)
         {
             OnZombieKilled();
