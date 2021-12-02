@@ -7,7 +7,7 @@ using UnityEngine;
 public class CapsuleController : MonoBehaviour, IDamageable
 
 {
-    public float health = 100f;
+    public float health = 10f;
 
     System.Random _random = new System.Random();
     private bool isDead;
