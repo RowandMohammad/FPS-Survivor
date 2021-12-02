@@ -6,6 +6,8 @@ public class SingleFireShot : Weapon
 {
 	[SerializeField] Camera cam;
 	public GameObject hitEffect;
+	private Animator _animator;
+
 
 	
 	
@@ -13,7 +15,7 @@ public class SingleFireShot : Weapon
 
 	void Awake()
 	{
-		
+		_animator = GetComponentInChildren<Animator>();
 	}
 
 	public override void Use()
@@ -23,6 +25,7 @@ public class SingleFireShot : Weapon
 
 	void Shoot()
 	{
+		_animator.Play("shooting");
 		RaycastHit hit;
 		Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 		ray.origin = cam.transform.position;
