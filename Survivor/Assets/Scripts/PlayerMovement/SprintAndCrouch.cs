@@ -27,6 +27,8 @@ public class SprintAndCrouch : MonoBehaviour
     private MovementAnimator animator;
     private Vector3 beforeTemp;
     [SerializeField] private Transform cameraHeight;
+    [SerializeField] private Transform weaponHeight;
+
     [SerializeField] private KeyCode crouchKey = KeyCode.C;
     private PlayerMovement playerMovement;
     private PhotonView PV;
@@ -99,14 +101,16 @@ public class SprintAndCrouch : MonoBehaviour
 
         if (isCrouching)
         {
-            temp = new Vector3(0.1f, crouchedHeightModifier, 1f);
+            temp = new Vector3(0.1f, crouchedHeightModifier, 0.2f);
             cameraHeight.localPosition = Vector3.Lerp(cameraHeight.localPosition, temp, Time.deltaTime * 4f);
+            weaponHeight.localPosition = Vector3.Lerp(weaponHeight.localPosition, temp, Time.deltaTime * 4f);
             Debug.Log(cameraHeight.localPosition);
         }
         if (!isCrouching)
         {
             beforeTemp = new Vector3(0f, standingHeight, 0f);
             cameraHeight.localPosition = Vector3.Lerp(cameraHeight.localPosition, beforeTemp, Time.deltaTime * 4f);
+            weaponHeight.localPosition = Vector3.Lerp(weaponHeight.localPosition, beforeTemp, Time.deltaTime * 4f);
 
             Debug.Log(cameraHeight.localPosition);
         }
