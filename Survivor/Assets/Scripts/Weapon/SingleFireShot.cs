@@ -6,6 +6,8 @@ public class SingleFireShot : Weapon
 {
 	[SerializeField] Camera cam;
 	public GameObject hitEffect;
+
+	
 	
 
 
@@ -28,6 +30,7 @@ public class SingleFireShot : Weapon
 		if (Physics.Raycast(ray, out hit))
 		{
 			hit.collider.gameObject.GetComponentInParent<IDamageable>()?.TakeDamage(((WeaponInfo)itemObjectInfo).damage);
+
 			GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
 			Destroy(impactGO, 0.75f);
 		}
