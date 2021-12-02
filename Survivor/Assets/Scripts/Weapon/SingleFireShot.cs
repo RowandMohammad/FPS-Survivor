@@ -7,6 +7,7 @@ public class SingleFireShot : Weapon
 	[SerializeField] Camera cam;
 	public GameObject hitEffect;
 	private Animator _animator;
+	public AudioSource gunShoot;
 
 
 	
@@ -16,6 +17,7 @@ public class SingleFireShot : Weapon
 	void Awake()
 	{
 		_animator = GetComponentInChildren<Animator>();
+		
 	}
 
 	public override void Use()
@@ -26,6 +28,7 @@ public class SingleFireShot : Weapon
 	void Shoot()
 	{
 		_animator.Play("shooting");
+		gunShoot.Play();
 		RaycastHit hit;
 		Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 		ray.origin = cam.transform.position;
@@ -35,7 +38,7 @@ public class SingleFireShot : Weapon
 			hit.collider.gameObject.GetComponentInParent<IDamageable>()?.TakeDamage(((WeaponInfo)itemObjectInfo).damage);
 
 			GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-			Destroy(impactGO, 0.75f);
+			Destroy(impactGO, 0.5f);
 		}
 	}
 }
