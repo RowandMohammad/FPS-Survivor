@@ -7,6 +7,7 @@ public class WeaponInfo : ItemObjectInfo
 {
 
     public float damage;
+    public float fireRate;
     
 }
 

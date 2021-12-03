@@ -6,8 +6,25 @@ using UnityEngine;
 public class ItemController : MonoBehaviourPunCallbacks
 {
     [SerializeField] Item[] items;
-    int itemIndex;
-    int previousItemIndex = -1;
+    public int itemIndex;
+    public int previousItemIndex = -1;
+	public Animator pAnimator;
+	public Animator sAnimator;
+	void setAnimator()
+	{
+
+		Animator[] animators = GetComponentsInChildren<Animator>();
+		pAnimator = animators[0];
+		sAnimator = animators[1];
+
+
+	}
+	private void Awake()
+    {
+
+		setAnimator();
+
+	}
 
 
     // Start is called before the first frame update

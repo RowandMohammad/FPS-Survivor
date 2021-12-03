@@ -1183,7 +1183,7 @@ MonoBehaviour:
   itemObjectInfo: {fileID: 11400000, guid: 6d8f7dfadc9df8548b5ee0957b25bf78, type: 2}
   itemGameObject: {fileID: 4434745037768115999}
   cam: {fileID: 1690718225451639032}
-  hitEffect: {fileID: 1250507045210962, guid: 3fe0df07025a3e747855b1bb671fc04e, type: 3}
+  hitEffect: {fileID: 6780220558281953231, guid: 4ec55489e619b6b40aa01b703db09694, type: 3}
   animator: {fileID: 1433183093258568952}
   gunShoot: {fileID: 4021985750446234013}
 --- !u!1 &4924539759621089991
@@ -3244,9 +3244,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1813851199843174, guid: e838377b4dd58de40a70fed5052dcbc8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1853124922367492, guid: e838377b4dd58de40a70fed5052dcbc8, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066973507337886, guid: e838377b4dd58de40a70fed5052dcbc8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492716614756728, guid: e838377b4dd58de40a70fed5052dcbc8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0388
       objectReference: {fileID: 0}
     - target: {fileID: 4876543943414536, guid: e838377b4dd58de40a70fed5052dcbc8, type: 3}
       propertyPath: m_RootOrder
@@ -3333,6 +3345,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311299534469216, guid: 3efda7801c028544fb5079479b3f3978, type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311299534469216, guid: 3efda7801c028544fb5079479b3f3978, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1346825913808654, guid: 3efda7801c028544fb5079479b3f3978, type: 3}

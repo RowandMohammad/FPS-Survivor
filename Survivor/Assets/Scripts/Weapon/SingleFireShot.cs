@@ -8,6 +8,7 @@ public class SingleFireShot : Weapon
 	public GameObject hitEffect;
 	public Animator animator;
 	public AudioSource gunShoot;
+	private float nextFire;
 
 
 	
@@ -22,8 +23,12 @@ public class SingleFireShot : Weapon
 
 	public override void Use()
 	{
-		
-		Shoot();
+
+		if (Time.time > nextFire)
+		{
+			nextFire = Time.time + ((WeaponInfo)itemObjectInfo).fireRate;
+			Shoot();
+		}
 	}
 
 	void Shoot()
@@ -39,7 +44,7 @@ public class SingleFireShot : Weapon
 			hit.collider.gameObject.GetComponentInParent<IDamageable>()?.TakeDamage(((WeaponInfo)itemObjectInfo).damage);
 
 			GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-			Destroy(impactGO, 0.5f);
+			Destroy(impactGO, 0.125f);
 		}
 	}
 }
