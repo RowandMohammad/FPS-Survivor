@@ -10,7 +10,9 @@ public class ItemController : MonoBehaviourPunCallbacks
     public int previousItemIndex = -1;
 	public Animator pAnimator;
 	public Animator sAnimator;
-	void setAnimator()
+    private bool isSwitching;
+
+    void setAnimator()
 	{
 
 		Animator[] animators = GetComponentsInChildren<Animator>();
@@ -40,36 +42,50 @@ public class ItemController : MonoBehaviourPunCallbacks
 		{
 			if (Input.GetKeyDown((i + 1).ToString()))
 			{
+				isSwitching = true;
 				EquipItem(i);
+				isSwitching = false;
 				break;
 			}
 		}
 		if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
 		{
+			isSwitching = true;
 			if (itemIndex >= items.Length - 1)
 			{
+
 				EquipItem(0);
 			}
 			else
 			{
+				
 				EquipItem(itemIndex + 1);
+				
+				
 			}
+			isSwitching = false;
 		}
 		else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
 		{
+			isSwitching = true;
 			if (itemIndex <= 0)
 			{
+
+
 				EquipItem(items.Length - 1);
+				
 			}
 			else
 			{
 				EquipItem(itemIndex - 1);
 			}
+			isSwitching = false;
 		}
-		if (Input.GetMouseButton(0))
+		if (Input.GetMouseButton(0) && isSwitching == false)
 		{
 			items[itemIndex].Use();
 		}
+
 	}
 	void EquipItem(int _index)
 	{
@@ -79,13 +95,51 @@ public class ItemController : MonoBehaviourPunCallbacks
 		itemIndex = _index;
 
 		items[itemIndex].itemGameObject.SetActive(true);
+		
 
 		if (previousItemIndex != -1)
 		{
+			if (itemIndex == 0)
+			{
+				StartCoroutine(equipPrimary());
+				
+			}
+			if (itemIndex == 1)
+			{
+				StartCoroutine(equipSecondary());
+			}
+			
+
 			items[previousItemIndex].itemGameObject.SetActive(false);
 		}
 
 		previousItemIndex = itemIndex;
 
+	}
+
+
+	IEnumerator unequipPrimary()
+	{
+		pAnimator.Play("switchOut");
+		yield return new WaitForSeconds(pAnimator.GetCurrentAnimatorStateInfo(0).length);
+	}
+
+	IEnumerator unequipSecondary()
+	{
+		sAnimator.Play("switchOut");
+		yield return new WaitForSeconds(sAnimator.GetCurrentAnimatorStateInfo(0).length);
+	}
+
+	IEnumerator equipPrimary()
+	{
+
+		pAnimator.Play("switchIn");
+		yield return new WaitForSeconds(pAnimator.GetCurrentAnimatorStateInfo(0).length);
+	}
+	IEnumerator equipSecondary()
+    {
+		
+		sAnimator.Play("switchIn");
+		yield return new WaitForSeconds(sAnimator.GetCurrentAnimatorStateInfo(0).length);
 	}
 }
