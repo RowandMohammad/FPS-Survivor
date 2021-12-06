@@ -9,16 +9,18 @@ public class SingleFireShot : Weapon
 	public Animator animator;
 	public AudioSource gunShoot;
 	private float nextFire;
+	ScoreDisplay scoreDisplay;
 
 
-	
-	
 
 
-	void Awake()
+
+
+    void Awake()
 	{
-		
-		
+		scoreDisplay= GameObject.Find("ScoreBoard").GetComponent<ScoreDisplay>();
+
+
 	}
 
 	public override void Use()
@@ -42,7 +44,10 @@ public class SingleFireShot : Weapon
 		if (Physics.Raycast(ray, out hit))
 		{
 			hit.collider.gameObject.GetComponentInParent<IDamageable>()?.TakeDamage(((WeaponInfo)itemObjectInfo).damage);
-
+			if (hit.collider.gameObject.GetComponentInParent<IDamageable>() != null)
+			{ 
+				scoreDisplay.successfulHits += 1;
+			}
 			GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
 			Destroy(impactGO, 0.125f);
 		}

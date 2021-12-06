@@ -11,6 +11,7 @@ public class ItemController : MonoBehaviourPunCallbacks
 	public Animator pAnimator;
 	public Animator sAnimator;
     private bool isSwitching;
+    public int shootCounter;
 
     void setAnimator()
 	{
@@ -81,8 +82,10 @@ public class ItemController : MonoBehaviourPunCallbacks
 			}
 			isSwitching = false;
 		}
-		if (Input.GetMouseButton(0) && isSwitching == false)
+		if (Input.GetMouseButtonDown(0) && isSwitching == false)
 		{
+			shootCounter += 1;
+       
 			items[itemIndex].Use();
 		}
 
