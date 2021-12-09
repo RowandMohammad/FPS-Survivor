@@ -13455,6 +13455,18 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 4294967167
       objectReference: {fileID: 0}
+    - target: {fileID: 1690718225853899699, guid: 7e2800dbf1d2a60449fa6635f48ea9cb, type: 3}
+      propertyPath: cameraHeight
+      value: 
+      objectReference: {fileID: 1542312033}
+    - target: {fileID: 1690718225853899699, guid: 7e2800dbf1d2a60449fa6635f48ea9cb, type: 3}
+      propertyPath: weaponHeight
+      value: 
+      objectReference: {fileID: 1542312033}
+    - target: {fileID: 1690718225853899701, guid: 7e2800dbf1d2a60449fa6635f48ea9cb, type: 3}
+      propertyPath: crouchKey
+      value: 292
+      objectReference: {fileID: 0}
     - target: {fileID: 1690718226323885080, guid: 7e2800dbf1d2a60449fa6635f48ea9cb, type: 3}
       propertyPath: m_Name
       value: PlayerObject
@@ -13469,7 +13481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1690718226323885081, guid: 7e2800dbf1d2a60449fa6635f48ea9cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1690718226323885081, guid: 7e2800dbf1d2a60449fa6635f48ea9cb, type: 3}
       propertyPath: m_LocalPosition.z

@@ -29,7 +29,7 @@ public class SprintAndCrouch : MonoBehaviour
     [SerializeField] private Transform cameraHeight;
     [SerializeField] private Transform weaponHeight;
 
-    [SerializeField] private KeyCode crouchKey = KeyCode.C;
+    [SerializeField] private KeyCode crouchKey = KeyCode.F15;
     private PlayerMovement playerMovement;
     private PhotonView PV;
 
@@ -136,12 +136,12 @@ public class SprintAndCrouch : MonoBehaviour
             playerMovement.movementSpeed = Walk(playerMovement.movementSpeed);
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.F15))
         {
             Crouch(crouchedHeightModifier);
             playerMovement.movementSpeed = crouchSpeed;
         }
-        if (Input.GetKeyUp(KeyCode.C))
+        if (Input.GetKeyUp(KeyCode.F15))
         {
             Crouch(standingHeight);
             playerMovement.movementSpeed = walkSpeed;
