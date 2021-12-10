@@ -29,6 +29,9 @@ public class AdjustCamera : MonoBehaviour
 
     private void Update()
     {
+        if (!PV.IsMine)
+            return;
+
         transform.position = positionOfCamera.position;
     }
 

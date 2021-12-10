@@ -150,31 +150,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 0}
-  isSprintJump: 0
-  isSprinting: 0
   isJumping: 0
-  z: 0
+  isSprinting: 0
+  isSprintJump: 0
   x: 0
-  sprintKey: 304
+  z: 0
   crouchKey: 99
   jumpKey: 32
---- !u!114 &7511558982903145372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7277538586222588044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc8ad4ffa5b00fa44be943816a1303f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xSens: 100
-  ySens: 100
-  camera: {fileID: 7511558982985355988}
-  orientation: {fileID: 7511558983398902772}
-  orientationOfCharacter: {fileID: 8049289768008067638}
+  sprintKey: 304
 --- !u!114 &7511558982903145373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,21 +170,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d82f135325bffb469eb457c8c06e522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveDirection: {x: 0, y: 0, z: 0}
-  movementSpeed: 5
-  jumpForce: 10
-  movementMultiplier: 3
-  jumpKey: 32
   horizontalMove: 0
-  verticalMove: 0
+  jumpForce: 10
+  MoveDirection: {x: 0, y: 0, z: 0}
+  movementMultiplier: 3
+  movementSpeed: 5
   playerHeight: 2
-  rb: {fileID: 0}
-  orientation: {fileID: 7511558983398902772}
-  checkPlayerGrounded: {fileID: 7511558982284000568}
   playerIsGrounded: 0
+  rb: {fileID: 0}
+  verticalMove: 0
+  checkPlayerGrounded: {fileID: 7511558982284000568}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  jumpKey: 32
+  orientation: {fileID: 7511558983398902772}
+--- !u!114 &7511558982903145372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7277538586222588044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8ad4ffa5b00fa44be943816a1303f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 7511558982985355988}
+  orientation: {fileID: 7511558983398902772}
+  orientationOfCharacter: {fileID: 8049289768008067638}
+  xSens: 100
+  ySens: 100
 --- !u!114 &7511558982903145375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,12 +215,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crouchedHeightModifier: -0.5
-  standingHeight: 0
+  crouchSpeed: 4
   isCrouching: 0
   playerCollider: {fileID: 7511558982903145371}
   sprintSpeed: 15
+  standingHeight: 0
   walkSpeed: 5
-  crouchSpeed: 4
   cameraHeight: {fileID: 7511558982499573974}
   crouchKey: 99
   sprintKey: 304
