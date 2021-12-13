@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float playerHeight = 2f;
 
     public bool playerIsGrounded;
+    private Vector3 startPosition;
     public Rigidbody rb;
     public float verticalMove;
 
@@ -70,7 +72,15 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump(rb);
         }
+
+        //Resets player position back to original spawn
+        if (Input.GetKey(KeyCode.R))
+        {
+            gameObject.GetComponentInParent<Transform>().position = startPosition;
+        }
     }
+
+
 
     #endregion Public Methods
 
@@ -80,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        startPosition = transform.parent.position;
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
     }
