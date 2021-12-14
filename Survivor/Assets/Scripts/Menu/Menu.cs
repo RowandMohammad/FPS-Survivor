@@ -13,12 +13,14 @@ public class Menu : MonoBehaviour
 
     #region Public Methods
 
+    //Closes the menu.
     public void Close()
     {
         open = false;
         gameObject.SetActive(false);
     }
 
+    //Opens the menu.
     public void Open()
     {
         open = true;

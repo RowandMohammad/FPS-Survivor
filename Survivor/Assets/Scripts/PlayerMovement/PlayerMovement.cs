@@ -6,22 +6,25 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Public Fields
 
-    public float horizontalMove;
-    public float jumpForce = 7.5f;
-    public Vector3 MoveDirection;
-    public Movement Movement;
-    public float movementMultiplier = 4f;
-
     [Header("Movement Attributes/Magnitudes")]
     public float movementSpeed = 5f;
+    public float movementMultiplier = 4f;
+    public float jumpForce = 7.5f;
+    public float horizontalMove;
+    public Vector3 MoveDirection;
+    public Movement Movement;
+    private Vector3 startPosition;
+    public float verticalMove;
+    private float groundedDrag = 6f;
+    private Vector3 moveDirection;
+    private float notGroundedDrag = 3f;
 
     [Header("Player Attributes")]
     public float playerHeight = 2f;
 
     public bool playerIsGrounded;
-    private Vector3 startPosition;
+    
     public Rigidbody rb;
-    public float verticalMove;
 
     #endregion Public Fields
 
@@ -31,23 +34,20 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Detection for Ground")]
     [SerializeField] private Transform checkPlayerGrounded;
-
     private float distancetoGround = 0.1f;
-    private float groundedDrag = 6f;
+    private RaycastHit slopeDetect;
+    private Vector3 slopeMoveDirection;
     [SerializeField] private LayerMask groundMask;
 
     [Header("Keybinds")]
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
-    private Vector3 moveDirection;
-    private float notGroundedDrag = 3f;
 
     [Header("Camera Orientation")]
     [SerializeField] private Transform orientation;
 
     private PhotonView PV;
-    private RaycastHit slopeDetect;
-    private Vector3 slopeMoveDirection;
+
 
     #endregion Private Fields
 

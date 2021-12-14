@@ -14,16 +14,19 @@ public class MenuManager : MonoBehaviour
 
     #region Public Methods
 
+    //Called upon script being loaded
     public void Awake()
     {
         Instance = this;
     }
 
+    //Closes the currently open menu by Menu object type.
     public void CloseMenu(Menu menu)
     {
         menu.Close();
     }
 
+    //Opens the new menu by String and closes the currently open menu.
     public void menuOpen(string menuName)
     {
         for (int i = 0; i < menus.Length; i++)
@@ -39,6 +42,7 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    //Opens the new menu by Menu object type and closes the currently open menu.
     public void menuOpen(Menu menu)
     {
         for (int i = 0; i < menus.Length; i++)
