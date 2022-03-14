@@ -2467,7 +2467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -248}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1304319177
@@ -2631,12 +2631,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f816110def1a2847b85982f011ad238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listedRoomObject: {fileID: 2322588216624363621, guid: 755e0b304d2c98649a0a02cf781fd06f, type: 3}
-  listedPlayerObject: {fileID: 6618614454424121608, guid: 94e084ee8e3be3c408d190ccf2d3b82b, type: 3}
-  listOfRoomInfo: {fileID: 626164828}
-  listOfPlayerInfo: {fileID: 829428072}
   inputtedRoomName: {fileID: 265569560}
+  nameOfRoomCreate: 
   errorMessage: {fileID: 733316830}
+  listedPlayerObject: {fileID: 6618614454424121608, guid: 94e084ee8e3be3c408d190ccf2d3b82b, type: 3}
+  listedRoomObject: {fileID: 2322588216624363621, guid: 755e0b304d2c98649a0a02cf781fd06f, type: 3}
+  listOfPlayerInfo: {fileID: 829428072}
+  listOfRoomInfo: {fileID: 626164828}
   nameOfRoom: {fileID: 785128094}
   startGameButton: {fileID: 1636846318}
 --- !u!114 &1423550091
