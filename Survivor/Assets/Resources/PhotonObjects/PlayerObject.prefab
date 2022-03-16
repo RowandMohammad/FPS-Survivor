@@ -1252,6 +1252,7 @@ MonoBehaviour:
   previousItemIndex: -1
   pAnimator: {fileID: 0}
   sAnimator: {fileID: 0}
+  shootCounter: 0
 --- !u!1 &5463441933906845597
 GameObject:
   m_ObjectHideFlags: 0
