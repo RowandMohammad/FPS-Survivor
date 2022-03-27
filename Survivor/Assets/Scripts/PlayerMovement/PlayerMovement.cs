@@ -99,9 +99,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!PV.IsMine)
-            return;
-        PlayerMover();
+
     }
 
     //Checks  possible user states and allows user to move around correctly for that state.
@@ -142,10 +140,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        if (!PV.IsMine)
-        {
-            Destroy(rb);
-        }
+
         Movement = new Movement(movementSpeed);
 
         rb.freezeRotation = true;
@@ -153,8 +148,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!PV.IsMine)
-            return;
+ 
 
         Movement = new Movement(movementSpeed);
         playerIsGrounded = Physics.CheckSphere(checkPlayerGrounded.position, distancetoGround, groundMask);
