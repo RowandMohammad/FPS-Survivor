@@ -12,6 +12,7 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     private bool isDead;
     public GameObject player;
     public Animator enemyAnimator;
+    [SerializeField] float distanceToStop;
 
     private void awake()
     {
@@ -27,7 +28,17 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        GetComponent<NavMeshAgent>().destination = player.transform.position;
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        if(distanceToPlayer < distanceToStop)
+        {
+            StopBefore();
+        }
+        else
+        {
+            ChaseTarget();
+        }
+
+
         if (GetComponent<NavMeshAgent>().velocity.magnitude > 1)
         {
             enemyAnimator.SetBool("isRunning", true);
@@ -37,6 +48,17 @@ public class BasicZombieController : MonoBehaviour, IDamageable
         {
             enemyAnimator.SetBool("isRunning", false);
         }
+    }
+
+    private void ChaseTarget()
+    {
+        GetComponent<NavMeshAgent>().isStopped = false;
+        GetComponent<NavMeshAgent>().destination = player.transform.position;
+    }
+
+    private void StopBefore()
+    {
+        GetComponent<NavMeshAgent>().isStopped = true;
     }
 
     public void TakeDamage(float damage)
