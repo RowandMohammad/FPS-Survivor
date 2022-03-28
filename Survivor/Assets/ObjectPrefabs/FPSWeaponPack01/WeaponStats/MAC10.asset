@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd794b62991b3440a1ced5d22f1ede3, type: 3}
+  m_Name: MAC10
+  m_EditorClassIdentifier: 
+  itemName: MAC 10
+  weaponPrefab: {fileID: 1000013830719590, guid: c4735100010cd7e44ac3c9189bd22211, type: 3}
+  damage: 10
+  rof: 0.1
+  au_shot: {fileID: 8300000, guid: 42dc462760399f045a6950b4c7474e7a, type: 3}
+  magSize: 32
+  casing: {fileID: 1000010251007650, guid: 65815309d475ec8408744d614c4bc82b, type: 3}

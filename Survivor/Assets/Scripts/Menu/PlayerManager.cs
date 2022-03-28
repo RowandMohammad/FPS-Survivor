@@ -2,12 +2,33 @@ using Photon.Pun;
 using System.IO;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour, IDamageable 
 {
     #region Private Fields
+    [Header("Health Stats")]
+    [SerializeField] private float maxHealth = 100;
+    [SerializeField] private float timeBeforeRegen = 3;
+    [SerializeField] private float healthValueIncrement = 3;
+    [SerializeField] private float healthTimeIncrement = 0.1f;
+    private float currentHealth;
+    private Coroutine regeneratingHealth;
 
-    private PhotonView PV;
-    private Vector3 spawn = new Vector3(10f, 0f, 0f);
+
+
+     public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+            KillPlayer();
+        else if (regeneratingHealth != null)
+            StopCoroutine(regeneratingHealth);
+    }
+
+    private void KillPlayer()
+    {
+
+    }
 
     #endregion Private Fields
 
@@ -17,21 +38,20 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        PV = GetComponent<PhotonView>();
+        currentHealth = maxHealth;
+        
     }
 
     private void CreateController()
     {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonObjects", "PlayerObject"), spawn, Quaternion.identity);
+        
     }
 
     private void Start()
     {
-        if (PV.IsMine)
-        {
-            CreateController();
-        }
+    
     }
+
 
     #endregion Private Methods
 }
