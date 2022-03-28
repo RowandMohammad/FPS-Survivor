@@ -15,7 +15,7 @@ public class ZombieManager : MonoBehaviour
 
     void OnEnable()
     {
-        BasicZombieController.OnZombieKilled += SpawnNewEnemy;
+        
     }
 
 

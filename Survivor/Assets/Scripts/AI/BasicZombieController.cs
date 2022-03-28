@@ -2,36 +2,41 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class BasicZombieController : MonoBehaviour, IDamageable
 
 {
     public float health = 100f;
-    [SerializeField] public Animator _animator;
-    System.Random _random = new System.Random();
     private bool isDead;
-
-    public delegate void ZombieKilled();
-    public static event ZombieKilled OnZombieKilled;
+    public GameObject player;
+    public Animator enemyAnimator;
 
     private void awake()
     {
-        _animator = GetComponent<Animator>();
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        setRigidbodyState(true);
-        setColliderState(false);
-        GetComponent<Animator>().enabled = true;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        GetComponent<NavMeshAgent>().destination = player.transform.position;
+        if (GetComponent<NavMeshAgent>().velocity.magnitude > 1)
+        {
+            enemyAnimator.SetBool("isRunning", true);
+
+        }
+        else
+        {
+            enemyAnimator.SetBool("isRunning", false);
+        }
     }
 
     public void TakeDamage(float damage)
@@ -47,8 +52,7 @@ public class BasicZombieController : MonoBehaviour, IDamageable
         {
             
             print(health);
-            _animator.SetInteger("takeDamageIndex", Random.Range(0, 3));
-            _animator.SetTrigger("takeDamage");
+
         }
   
 
@@ -57,51 +61,9 @@ public class BasicZombieController : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        GetComponent<Animator>().enabled = false;
-        setRigidbodyState(false);
-        setColliderState(true);
-        Destroy(gameObject, 3f);
-        GetComponent<Collider>().enabled = false;
-        if (OnZombieKilled != null)
-        {
-            OnZombieKilled();
-        }
 
 
-    }
-    void setRigidbodyState(bool state)
-    {
 
-        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
-
-        foreach (Rigidbody rigidbody in rigidbodies)
-        {
-            rigidbody.isKinematic = state;
-        }
-
-        GetComponent<Rigidbody>().isKinematic = !state;
-
-    }
-
-
-    void setColliderState(bool state)
-    {
-
-        Collider[] colliders = GetComponentsInChildren<Collider>();
-
-        foreach (Collider collider in colliders)
-        {
-            collider.enabled = state;
-        }
-
-        GetComponent<Collider>().enabled = !state;
-
-    }
-
-    int animationRandomizer()
-    {
-        return _random.Next(1, 2);
-        
     }
 
 }
