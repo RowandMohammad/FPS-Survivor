@@ -1,4 +1,6 @@
 using Photon.Pun;
+using System;
+using System.Collections;
 using System.IO;
 using UnityEngine;
 
@@ -10,8 +12,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [SerializeField] private float timeBeforeRegen = 3;
     [SerializeField] private float healthValueIncrement = 3;
     [SerializeField] private float healthTimeIncrement = 0.1f;
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
     private Coroutine regeneratingHealth;
+
+
+    
 
 
 
@@ -23,11 +28,38 @@ public class PlayerManager : MonoBehaviour, IDamageable
             KillPlayer();
         else if (regeneratingHealth != null)
             StopCoroutine(regeneratingHealth);
+
+        regeneratingHealth = StartCoroutine(HealthRegenerate());
+    }
+
+    private void Update()
+    {
+        Debug.Log(currentHealth);
+    }
+
+    private IEnumerator HealthRegenerate()
+    {
+        yield return new WaitForSeconds(timeBeforeRegen);
+        WaitForSeconds waitingTime = new WaitForSeconds(healthTimeIncrement);
+
+        while (currentHealth < maxHealth)
+        {
+            currentHealth += healthValueIncrement;
+
+            if (currentHealth > maxHealth)
+                currentHealth = maxHealth;
+
+            yield return waitingTime;
+        }
+        regeneratingHealth = null;
+
     }
 
     private void KillPlayer()
     {
-
+        currentHealth = 0;
+        if (regeneratingHealth != null)
+            StopCoroutine(regeneratingHealth);
     }
 
     #endregion Private Fields

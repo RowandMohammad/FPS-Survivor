@@ -12,7 +12,12 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     private bool isDead;
     public GameObject player;
     public Animator enemyAnimator;
-    
+    [SerializeField] float distanceToStop;
+
+
+    [SerializeField] private float attackDamage;
+    private float lastAttackTime = 0;
+    private float attackInterval = 2;
 
     private void awake()
     {
@@ -28,7 +33,18 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        ChaseTarget();
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        if(distanceToPlayer < distanceToStop)
+        {
+            StopBefore();
+            AttackPlayer();
+            
+        }
+        else
+        {
+            ChaseTarget();
+        }
+
 
         if (GetComponent<NavMeshAgent>().velocity.magnitude > 1)
         {
@@ -41,11 +57,34 @@ public class BasicZombieController : MonoBehaviour, IDamageable
         }
     }
 
-    private void ChaseTarget()
+    private void AttackPlayer()
     {
-        GetComponent<NavMeshAgent>().destination = player.transform.position;
+        if(Time.time - lastAttackTime >= attackInterval)
+        {
+            lastAttackTime = Time.time;
+            player.GetComponent<IDamageable>()?.TakeDamage(attackDamage);
+        }
     }
 
+    private void ChaseTarget()
+    {
+        GetComponent<NavMeshAgent>().isStopped = false;
+        GetComponent<NavMeshAgent>().destination = player.transform.position;
+        RotateToTarget();
+    }
+
+    private void RotateToTarget()
+    {
+        Vector3 direction = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+        transform.rotation = rotation;
+
+    }
+
+    private void StopBefore()
+    {
+        GetComponent<NavMeshAgent>().isStopped = true;
+    }
 
     public void TakeDamage(float damage)
     {
