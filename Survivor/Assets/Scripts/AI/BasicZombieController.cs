@@ -13,6 +13,8 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     public GameObject player;
     public Animator enemyAnimator;
     [SerializeField] float distanceToStop;
+    public GameObject rightFist;
+    public GameObject leftFist;
 
 
     [SerializeField] private float attackDamage;
@@ -33,6 +35,7 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
+        GetComponent<NavMeshAgent>().enabled = true;
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         if(distanceToPlayer < distanceToStop)
         {
@@ -62,23 +65,29 @@ public class BasicZombieController : MonoBehaviour, IDamageable
         if(Time.time - lastAttackTime >= attackInterval)
         {
             lastAttackTime = Time.time;
-            player.GetComponent<IDamageable>()?.TakeDamage(attackDamage);
+            enemyAnimator.SetInteger("AttackIndex", Random.Range(0, 4));
+            enemyAnimator.SetTrigger("Attack");
+
+
         }
+    }
+
+
+    private void activateFist()
+    {
+        rightFist.GetComponent<SphereCollider>().enabled = true;
+    }
+
+    private void deactivateFist()
+    {
+        rightFist.GetComponent<SphereCollider>().enabled = false;
     }
 
     private void ChaseTarget()
     {
         GetComponent<NavMeshAgent>().isStopped = false;
         GetComponent<NavMeshAgent>().destination = player.transform.position;
-        RotateToTarget();
-    }
-
-    private void RotateToTarget()
-    {
-        Vector3 direction = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
-        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-        transform.rotation = rotation;
-
+       
     }
 
     private void StopBefore()
@@ -101,8 +110,6 @@ public class BasicZombieController : MonoBehaviour, IDamageable
             print(health);
 
         }
-  
-
 
     }
 

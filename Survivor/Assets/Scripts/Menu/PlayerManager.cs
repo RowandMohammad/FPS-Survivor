@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -21,13 +22,16 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [Header("Health VFX/SFX")]
     [SerializeField] private Image hurtImage = null;
     [SerializeField] private AudioClip[] hurtSounds;
-
+    Color color;
     private AudioSource healthAudioSource;
+
+    private bool hasCollide = false;
 
 
     private void Start()
     {
         healthAudioSource = GetComponent<AudioSource>();
+        color = hurtImage.color;
 
     }
 
@@ -35,27 +39,36 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-
         currentHealth -= damage;
 
         if (currentHealth <= 0)
+        {
             KillPlayer();
+        }
         else if (regeneratingHealth != null)
+        {
             StopCoroutine(regeneratingHealth);
-
-        regeneratingHealth = StartCoroutine(HealthRegenerate());
+        }
+ 
         StartCoroutine(HurtFlash());
+        regeneratingHealth = StartCoroutine(HealthRegenerate());
 
 
     }
 
+
+
     IEnumerator HurtFlash()
     {
         hurtImage.enabled = true;
+        color.a = 1f;
+        hurtImage.color = color;
         healthAudioSource.clip = hurtSounds[Random.Range(0, hurtSounds.Length)];
         healthAudioSource.PlayOneShot(healthAudioSource.clip);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.5f);
         hurtImage.enabled = false;
+
+
     }
 
 
@@ -72,13 +85,14 @@ public class PlayerManager : MonoBehaviour, IDamageable
         while (currentHealth < maxHealth)
         {
             currentHealth += healthValueIncrement;
-
+            
             if (currentHealth > maxHealth)
                 currentHealth = maxHealth;
 
             yield return waitingTime;
         }
         regeneratingHealth = null;
+
 
     }
 
@@ -87,6 +101,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         currentHealth = 0;
         if (regeneratingHealth != null)
             StopCoroutine(regeneratingHealth);
+        SceneManager.LoadScene(3);
     }
 
     #endregion Private Fields
@@ -101,9 +116,24 @@ public class PlayerManager : MonoBehaviour, IDamageable
         
     }
 
-    private void CreateController()
+    IEnumerator collisionDetection()
     {
-        
+        yield return new WaitForSeconds(1f);
+        hasCollide = false;
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "ZombieFist")
+        {
+            if (hasCollide == false)
+            {
+                hasCollide = true;
+                TakeDamage(20);
+                StartCoroutine(collisionDetection());
+            }
+        }
     }
 
 
