@@ -1,8 +1,11 @@
 using Photon.Pun;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class PlayerManager : MonoBehaviour, IDamageable 
 {
@@ -15,13 +18,24 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [SerializeField] private float currentHealth;
     private Coroutine regeneratingHealth;
 
+    [Header("Health VFX/SFX")]
+    [SerializeField] private Image hurtImage = null;
+    [SerializeField] private AudioClip[] hurtSounds;
 
-    
+    private AudioSource healthAudioSource;
 
 
-
-     public void TakeDamage(float damage)
+    private void Start()
     {
+        healthAudioSource = GetComponent<AudioSource>();
+
+    }
+
+
+
+    public void TakeDamage(float damage)
+    {
+
         currentHealth -= damage;
 
         if (currentHealth <= 0)
@@ -30,7 +44,20 @@ public class PlayerManager : MonoBehaviour, IDamageable
             StopCoroutine(regeneratingHealth);
 
         regeneratingHealth = StartCoroutine(HealthRegenerate());
+        StartCoroutine(HurtFlash());
+
+
     }
+
+    IEnumerator HurtFlash()
+    {
+        hurtImage.enabled = true;
+        healthAudioSource.clip = hurtSounds[Random.Range(0, hurtSounds.Length)];
+        healthAudioSource.PlayOneShot(healthAudioSource.clip);
+        yield return new WaitForSeconds(3f);
+        hurtImage.enabled = false;
+    }
+
 
     private void Update()
     {
@@ -79,10 +106,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         
     }
 
-    private void Start()
-    {
-    
-    }
+
 
 
     #endregion Private Methods
