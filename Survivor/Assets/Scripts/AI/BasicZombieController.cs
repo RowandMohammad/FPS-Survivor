@@ -8,6 +8,10 @@ using Random = UnityEngine.Random;
 public class BasicZombieController : MonoBehaviour, IEnemyDamageable
 
 {
+
+    [Header("Health VFX/SFX")]
+    [SerializeField] private AudioClip[] hurtSounds;
+    private AudioSource healthAudioSource;
     public float health = 100f;
     private bool isDead;
     public GameObject player;
@@ -30,12 +34,13 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        healthAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<NavMeshAgent>().enabled = true;
+        
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         if(distanceToPlayer < distanceToStop)
         {
@@ -97,7 +102,10 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
 
     public void TakeDamage(float damage)
     {
+        GetComponent<NavMeshAgent>().enabled = false;
         health -= damage;
+        enemyAnimator.SetInteger("HitIndex", Random.Range(0, 4));
+        enemyAnimator.SetTrigger("isHit");
 
         if (health <= 0 && isDead != true)
         {
@@ -110,7 +118,13 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
             print(health);
 
         }
+        
 
+    }
+
+    private void animEnd()
+    {
+        GetComponent<NavMeshAgent>().enabled = true;
     }
 
     private void Die()

@@ -8,6 +8,7 @@ public class WeaponScript : Weapon
 	CharacterController co;
 	AudioSource au;
 	[SerializeField] Camera cam;
+	public GameObject hitEffect;
 
 	//Sound played when firing
 	public AudioClip au_shot;
@@ -208,6 +209,8 @@ public class WeaponScript : Weapon
 			if (hit.collider.gameObject.GetComponent<IEnemyDamageable>() != null)
 			{
 				hit.collider.gameObject.GetComponent<IEnemyDamageable>()?.TakeDamage(weaponDamage);
+				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+				Destroy(impactGO, 0.125f);
 			}
 			//Creates bullet collision effect with objects.
 
