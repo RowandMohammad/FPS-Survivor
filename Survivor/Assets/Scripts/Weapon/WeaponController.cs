@@ -17,6 +17,8 @@ public class WeaponController : Weapon
 	//Bullets currently in the magazine
 	public int mag;
 
+	public GameObject crosshair;
+
 	//Define what type of reload the weapon uses
 	public enum ReloadType
 	{
@@ -72,6 +74,7 @@ public class WeaponController : Weapon
 	// Update is called once per frame
 	void Update()
 	{
+		crosshair.SetActive(true);
 		//If the shot timer is greater than zero, reduce it by 1 per second
 		if (shotTimer > 0)
 			shotTimer -= Time.deltaTime;
@@ -99,6 +102,7 @@ public class WeaponController : Weapon
 		{
 			//Check if we should be aiming
 			aiming = Input.GetKey(KeyCode.Mouse1);
+			crosshair.SetActive(false);
 
 			//Shooting logic
 			if (mag > 0)

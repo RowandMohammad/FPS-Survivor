@@ -58,9 +58,10 @@ public class WeaponScript : Weapon
 
 	//Particles for muzzle flash
 	ParticleSystem[] ps;
+    public GameObject crosshair;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		a = gameObject.GetComponentInChildren<Animator> ();
 		au = gameObject.GetComponent<AudioSource> ();
 
@@ -71,6 +72,13 @@ public class WeaponScript : Weapon
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (aiming)
+			crosshair.SetActive(false);
+        else
+        {
+			crosshair.SetActive(true);
+		}
 		//If the shot timer is greater than zero, reduce it by 1 per second
 		if (shotTimer > 0)
 			shotTimer -= Time.deltaTime;
@@ -95,6 +103,7 @@ public class WeaponScript : Weapon
 		if (targetSpeed != 2) {
 			//Check if we should be aiming
 			aiming = Input.GetKey (KeyCode.Mouse1);
+
 
 			//Shooting logic
 			if (mag > 0) {
@@ -169,7 +178,9 @@ public class WeaponScript : Weapon
 	void Shoot () {
 		//Play the correct shooting animation
 		if (aiming)
-			a.CrossFade ("AimShoot", 0.02f, 0, 0);
+        {
+			a.CrossFade("AimShoot", 0.02f, 0, 0);
+		}
 		else
 			a.CrossFade ("Shoot", 0.02f, 0, 0);
 
