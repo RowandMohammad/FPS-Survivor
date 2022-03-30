@@ -7,6 +7,7 @@ public class WeaponScript : Weapon
 	Animator a;
 	CharacterController co;
 	AudioSource au;
+	[SerializeField] Camera cam;
 
 	//Sound played when firing
 	public AudioClip au_shot;
@@ -15,6 +16,8 @@ public class WeaponScript : Weapon
 	public int magSize = 7;
 	//Bullets currently in the magazine
 	public int mag;
+
+	public int weaponDamage;
 
 	//Define what type of reload the weapon uses
 	public enum ReloadType {
@@ -181,6 +184,22 @@ public class WeaponScript : Weapon
 		//Emit particles for muzzle flash
 		for (int i = 0;i < ps.Length;i++) {
 			ps[i].Emit (10);
+		}
+
+		RaycastHit hit;
+		Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+		ray.origin = cam.transform.position;
+
+		//Detects if the players hits a damageable target and increases the score.
+		if (Physics.Raycast(ray, out hit))
+		{
+
+			if (hit.collider.gameObject.GetComponent<IEnemyDamageable>() != null)
+			{
+				hit.collider.gameObject.GetComponent<IEnemyDamageable>()?.TakeDamage(weaponDamage);
+			}
+			//Creates bullet collision effect with objects.
+
 		}
 	}
 

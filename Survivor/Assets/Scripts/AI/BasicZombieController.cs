@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class BasicZombieController : MonoBehaviour, IDamageable
+public class BasicZombieController : MonoBehaviour, IEnemyDamageable
 
 {
     public float health = 100f;
@@ -116,6 +116,7 @@ public class BasicZombieController : MonoBehaviour, IDamageable
     private void Die()
     {
 
+        Destroy(gameObject);
 
 
     }
