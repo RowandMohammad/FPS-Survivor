@@ -12,6 +12,8 @@ public class Spawner : MonoBehaviour
 
     public GameObject enemyBasicPrefab;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,8 +37,8 @@ public class Spawner : MonoBehaviour
         {
             GameObject spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-            Instantiate(enemyBasicPrefab, spawnPoint.transform.position, Quaternion.identity);
-
+            GameObject zombieSpawned = Instantiate(enemyBasicPrefab, spawnPoint.transform.position, Quaternion.identity);
+            zombieSpawned.GetComponent<BasicZombieController>().spawner = GetComponent<Spawner>();
             enemiesAlive++;
         }
    

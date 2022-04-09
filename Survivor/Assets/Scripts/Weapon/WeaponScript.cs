@@ -205,13 +205,19 @@ public class WeaponScript : Weapon
 		//Detects if the players hits a damageable target and increases the score.
 		if (Physics.Raycast(ray, out hit))
 		{
-
-			if (hit.collider.gameObject.GetComponent<IEnemyDamageable>() != null)
+			if (hit.collider.tag == "Head")
+			{
+				hit.collider.gameObject.GetComponentInParent<IEnemyDamageable>()?.TakeDamage(weaponDamage * 5);
+				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+				Destroy(impactGO, 0.125f);
+			}
+			else if (hit.collider.gameObject.GetComponent<IEnemyDamageable>() != null)
 			{
 				hit.collider.gameObject.GetComponent<IEnemyDamageable>()?.TakeDamage(weaponDamage);
 				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
 				Destroy(impactGO, 0.125f);
 			}
+
 			//Creates bullet collision effect with objects.
 
 		}

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ZombieFist
   - Zombie
+  - Head
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,7 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
     [SerializeField] float distanceToStop;
     public GameObject rightFist;
     public GameObject leftFist;
+    public Spawner spawner;
 
 
     [SerializeField] private float attackDamage;
@@ -131,6 +132,7 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
     {
 
         Destroy(gameObject);
+        spawner.enemiesAlive--;
 
 
     }

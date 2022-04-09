@@ -18,6 +18,10 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [SerializeField] private float healthTimeIncrement = 0.1f;
     [SerializeField] private float currentHealth;
     private Coroutine regeneratingHealth;
+    public float chipSpeed = 2f;
+    private float lerpTimer;
+    public Image frontHealthBar;
+    public Image backHealthBar;
 
     [Header("Health VFX/SFX")]
     [SerializeField] private Image hurtImage = null;
@@ -56,6 +60,37 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     }
 
+    public void UpdateHealthUI()
+    {
+        float fillF = frontHealthBar.fillAmount;
+        float fillB = backHealthBar.fillAmount;
+        float hFraction = currentHealth / maxHealth;
+
+        if (fillB > hFraction)
+        {
+            frontHealthBar.fillAmount = hFraction;
+            backHealthBar.color = Color.red;
+            lerpTimer += Time.deltaTime;
+            float percentComplete = lerpTimer / chipSpeed;
+            percentComplete = percentComplete * percentComplete;
+            backHealthBar.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
+
+        }
+        if (fillF < hFraction)
+        {
+            backHealthBar.color = Color.green;
+            backHealthBar.fillAmount = hFraction;
+            
+            lerpTimer += Time.deltaTime;
+            float percentComplete = lerpTimer / chipSpeed;
+            percentComplete = percentComplete * percentComplete;
+            backHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthBar.fillAmount, percentComplete);
+
+        }
+
+
+    }
+
 
 
     IEnumerator HurtFlash()
@@ -75,6 +110,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     private void Update()
     {
         Debug.Log(currentHealth);
+        UpdateHealthUI();
     }
 
     private IEnumerator HealthRegenerate()
