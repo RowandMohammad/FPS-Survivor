@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     private float lerpTimer;
     public Image frontHealthBar;
     public Image backHealthBar;
+    public TextMeshProUGUI healthNumber;
 
     [Header("Health VFX/SFX")]
     [SerializeField] private Image hurtImage = null;
@@ -62,10 +64,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public void UpdateHealthUI()
     {
+
         float fillF = frontHealthBar.fillAmount;
         float fillB = backHealthBar.fillAmount;
         float hFraction = currentHealth / maxHealth;
-
+        healthNumber.text = currentHealth.ToString("0");
         if (fillB > hFraction)
         {
             frontHealthBar.fillAmount = hFraction;
@@ -84,7 +87,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
             lerpTimer += Time.deltaTime;
             float percentComplete = lerpTimer / chipSpeed;
             percentComplete = percentComplete * percentComplete;
-            backHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthBar.fillAmount, percentComplete);
+            frontHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthBar.fillAmount, percentComplete);
 
         }
 
@@ -115,6 +118,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     private IEnumerator HealthRegenerate()
     {
+        lerpTimer = 0;
         yield return new WaitForSeconds(timeBeforeRegen);
         WaitForSeconds waitingTime = new WaitForSeconds(healthTimeIncrement);
 

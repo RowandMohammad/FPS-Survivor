@@ -9,6 +9,9 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
 
 {
 
+    public float addScoreAmount = 10;
+    GameManagerController gameController;
+
     [Header("Health VFX/SFX")]
     [SerializeField] private AudioClip[] hurtSounds;
     private AudioSource healthAudioSource;
@@ -36,6 +39,7 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
     {
         player = GameObject.FindGameObjectWithTag("Player");
         healthAudioSource = GetComponent<AudioSource>();
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerController>();
     }
 
     // Update is called once per frame
@@ -130,11 +134,10 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
 
     private void Die()
     {
-
-        Destroy(gameObject);
+        gameController.AddScore(addScoreAmount);
         spawner.enemiesAlive--;
-
-
+        Destroy(gameObject);
+        
     }
 
 }

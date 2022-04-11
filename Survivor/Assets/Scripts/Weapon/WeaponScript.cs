@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class WeaponScript : Weapon
 {
@@ -7,16 +8,25 @@ public class WeaponScript : Weapon
 	Animator a;
 	CharacterController co;
 	AudioSource au;
+
 	[SerializeField] Camera cam;
 	public GameObject hitEffect;
+	public TextMeshProUGUI currentMag;
+	public TextMeshProUGUI totalAmmoText;
+	public TextMeshProUGUI weaponName;
 
 	//Sound played when firing
 	public AudioClip au_shot;
+	public AudioClip au_rel;
+	public AudioClip au_shotSingle;
+	public string name;
 
 	//Maximum size of the magazine
 	public int magSize = 7;
 	//Bullets currently in the magazine
 	public int mag;
+
+	public int totalAmmo;
 
 	public int weaponDamage;
 
@@ -74,6 +84,9 @@ public class WeaponScript : Weapon
 	// Update is called once per frame
 	void Update () {
 
+		currentMag.text = mag.ToString("0");
+		totalAmmoText.text = totalAmmo.ToString("0");
+		weaponName.text = name;
 		if (aiming)
 			crosshair.SetActive(false);
         else
@@ -139,16 +152,18 @@ public class WeaponScript : Weapon
 		//Reload logic
 		if (loadType == ReloadType.Magazine) {
 			//Check if we should be reloading
-			reloading = Input.GetKey (KeyCode.R);
+			reloading = Input.GetKey (KeyCode.R) && totalAmmo > 0;
 		} else {
 			//Start reloading when the R key is pressed
-			if (Input.GetKey (KeyCode.R)) {
+			if (Input.GetKey (KeyCode.R) && totalAmmo > 0) {
 				reloading = true;
+
+
 			}
 			//We want to keep reloading if the key is released, however
 
 			//If there magazine is full, or there are any interruptions, stop reloading
-			if (mag == magSize || Input.GetKey (KeyCode.Mouse0) || Input.GetKey (KeyCode.Mouse1)) {
+			if (mag == magSize || Input.GetKey (KeyCode.Mouse0) || Input.GetKey (KeyCode.Mouse1) || totalAmmo==0) {
 				reloading = false;
 			}
 
@@ -192,6 +207,7 @@ public class WeaponScript : Weapon
 		//Play the shot sound if there is one
 		if (au_shot != null && au != null)
 			au.PlayOneShot (au_shot);
+		    au.PlayOneShot (au_shotSingle);
 
 		//Emit particles for muzzle flash
 		for (int i = 0;i < ps.Length;i++) {
@@ -209,13 +225,13 @@ public class WeaponScript : Weapon
 			{
 				hit.collider.gameObject.GetComponentInParent<IEnemyDamageable>()?.TakeDamage(weaponDamage * 5);
 				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-				Destroy(impactGO, 0.125f);
+				Destroy(impactGO, 0.25f);
 			}
 			else if (hit.collider.gameObject.GetComponent<IEnemyDamageable>() != null)
 			{
 				hit.collider.gameObject.GetComponent<IEnemyDamageable>()?.TakeDamage(weaponDamage);
 				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-				Destroy(impactGO, 0.125f);
+				Destroy(impactGO, 0.25f);
 			}
 
 			//Creates bullet collision effect with objects.
@@ -225,15 +241,37 @@ public class WeaponScript : Weapon
 
 	public void LoadMag () {
 		//Refil the magazine
-		mag = magSize;
+
+		int tempAmmo = magSize - mag; ;
+		if (totalAmmo >= 0){
+			if (au_rel != null && au != null)
+				au.PlayOneShot(au_rel);
+
+			mag = magSize;
+			totalAmmo = totalAmmo - tempAmmo;
+
+			NoAmmo(false);
+		}
+        else
+        {
+			NoAmmo(true);
+        }
+		
 
 		//Update the empty magazine animation
-		NoAmmo (false);
+		
 	}
 
 	public void LoadSingle () {
 		//Add ammo
-		mag++;
+		if (totalAmmo > 0)
+        {
+			if (au_rel != null && au != null)
+				au.PlayOneShot(au_rel);
+			mag++;
+			totalAmmo--;
+		}
+        
 	}
 
 	public void Eject () {
