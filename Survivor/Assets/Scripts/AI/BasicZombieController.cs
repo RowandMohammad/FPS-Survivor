@@ -23,6 +23,9 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
     public GameObject rightFist;
     public GameObject leftFist;
     public Spawner spawner;
+    public AudioSource au;
+    public AudioClip hurtSound;
+
 
 
     [SerializeField] private float attackDamage;
@@ -40,6 +43,7 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         player = GameObject.FindGameObjectWithTag("Player");
         healthAudioSource = GetComponent<AudioSource>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerController>();
+        au = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -112,6 +116,7 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         enemyAnimator.SetInteger("HitIndex", Random.Range(0, 4));
         enemyAnimator.SetTrigger("isHit");
 
+
         if (health <= 0 && isDead != true)
         {
             isDead = true;
@@ -119,7 +124,9 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         }
         if (health > 0 && isDead != true)
         {
-            
+            if (hurtSound != null && au != null)
+                au.PlayOneShot(hurtSound);
+
             print(health);
 
         }

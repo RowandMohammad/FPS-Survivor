@@ -14,11 +14,15 @@ public class WeaponScript : Weapon
 	public TextMeshProUGUI currentMag;
 	public TextMeshProUGUI totalAmmoText;
 	public TextMeshProUGUI weaponName;
+	public GameObject hitMarker;
 
 	//Sound played when firing
 	public AudioClip au_shot;
 	public AudioClip au_rel;
 	public AudioClip au_shotSingle;
+	public AudioClip au_hitmarker;
+
+
 	public string name;
 
 	//Maximum size of the magazine
@@ -165,6 +169,7 @@ public class WeaponScript : Weapon
 			//If there magazine is full, or there are any interruptions, stop reloading
 			if (mag == magSize || Input.GetKey (KeyCode.Mouse0) || Input.GetKey (KeyCode.Mouse1) || totalAmmo==0) {
 				reloading = false;
+
 			}
 
 			//The current ammo is increased by animation events
@@ -186,10 +191,15 @@ public class WeaponScript : Weapon
 			a.SetBool ("grounded", true);
 	}
 
-	public override void Use()
+	private void HitActive()
+    {
+		hitMarker.SetActive(true);
+    }
+	private void HitDisable()
 	{
-
+		hitMarker.SetActive(false);
 	}
+
 
 	void Shoot () {
 		//Play the correct shooting animation
@@ -225,13 +235,21 @@ public class WeaponScript : Weapon
 			{
 				hit.collider.gameObject.GetComponentInParent<IEnemyDamageable>()?.TakeDamage(weaponDamage * 5);
 				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-				Destroy(impactGO, 0.25f);
+				Destroy(impactGO, 0.4f);
+				HitActive();
+				au.PlayOneShot(au_hitmarker);
+				Invoke("HitDisable", 0.15f);
+
+
 			}
 			else if (hit.collider.gameObject.GetComponent<IEnemyDamageable>() != null)
 			{
 				hit.collider.gameObject.GetComponent<IEnemyDamageable>()?.TakeDamage(weaponDamage);
 				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-				Destroy(impactGO, 0.25f);
+				Destroy(impactGO, 0.4f);
+				HitActive();
+				au.PlayOneShot(au_hitmarker);
+				Invoke("HitDisable", 0.15f);
 			}
 
 			//Creates bullet collision effect with objects.
@@ -242,35 +260,67 @@ public class WeaponScript : Weapon
 	public void LoadMag () {
 		//Refil the magazine
 
-		int tempAmmo = magSize - mag; ;
+		int tempAmmo = magSize - mag;
+		
 		if (totalAmmo >= 0){
 			if (au_rel != null && au != null)
 				au.PlayOneShot(au_rel);
 
-			mag = magSize;
+			
+			if (totalAmmo + mag < 7)
+            {
+				mag = mag + totalAmmo;
+            }
+            else
+            {
+				mag = magSize;
+
+			}
+			
+
+
+
+
 			totalAmmo = totalAmmo - tempAmmo;
+			if (totalAmmo <= 0)
+			{
+				totalAmmo = 0;
+			}
+
 
 			NoAmmo(false);
 		}
+
         else
         {
 			NoAmmo(true);
         }
 		
 
+
 		//Update the empty magazine animation
 		
 	}
 
-	public void LoadSingle () {
+	public void LoadSingle()
+	{
 		//Add ammo
 		if (totalAmmo > 0)
-        {
+		{
+
 			if (au_rel != null && au != null)
+			{
 				au.PlayOneShot(au_rel);
+			}
+
 			mag++;
 			totalAmmo--;
+
 		}
+	
+
+		
+		
         
 	}
 
@@ -306,4 +356,10 @@ public class WeaponScript : Weapon
 		else
 			a.SetLayerWeight (1, 0);
 	}
+
+    public override void Use()
+    {
+        throw new System.NotImplementedException();
+    }
 }
+
