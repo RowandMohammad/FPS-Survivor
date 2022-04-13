@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
     private AudioSource healthAudioSource;
 
     private bool hasCollide = false;
+    public GameObject popUp;
+    public GameObject parentObject;
 
 
     private void Start()
@@ -175,6 +177,15 @@ public class PlayerManager : MonoBehaviour, IDamageable
             }
         }
     }
+   
+
+    public void PopUpActive()
+    {
+        Instantiate(popUp, transform.position, Quaternion.identity, parentObject.transform);
+        
+    }
+
+
 
 
 

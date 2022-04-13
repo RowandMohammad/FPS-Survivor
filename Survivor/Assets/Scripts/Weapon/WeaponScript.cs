@@ -74,6 +74,7 @@ public class WeaponScript : Weapon
 	//Particles for muzzle flash
 	ParticleSystem[] ps;
     public GameObject crosshair;
+    
 
     // Use this for initialization
     void Start () {
@@ -195,10 +196,13 @@ public class WeaponScript : Weapon
     {
 		hitMarker.SetActive(true);
     }
+
 	private void HitDisable()
 	{
 		hitMarker.SetActive(false);
 	}
+
+
 
 
 	void Shoot () {
@@ -231,25 +235,32 @@ public class WeaponScript : Weapon
 		//Detects if the players hits a damageable target and increases the score.
 		if (Physics.Raycast(ray, out hit))
 		{
-			if (hit.collider.tag == "Head")
+			if (hit.collider.tag == "Head" && !hit.collider.gameObject.GetComponentInParent<BasicZombieController>().isDead)
 			{
-				hit.collider.gameObject.GetComponentInParent<IEnemyDamageable>()?.TakeDamage(weaponDamage * 5);
-				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-				Destroy(impactGO, 0.4f);
 				HitActive();
 				au.PlayOneShot(au_hitmarker);
-				Invoke("HitDisable", 0.15f);
+				
+				hit.collider.gameObject.GetComponentInParent<IEnemyDamageable>()?.TakeDamage(weaponDamage * 2);
+				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+				Destroy(impactGO, 0.4f);
+
+				Invoke("HitDisable", 0.3f);
+
 
 
 			}
-			else if (hit.collider.gameObject.GetComponent<IEnemyDamageable>() != null)
+			else if (hit.collider.tag == "Zombie" && !hit.collider.gameObject.GetComponentInParent<BasicZombieController>().isDead)
 			{
-				hit.collider.gameObject.GetComponent<IEnemyDamageable>()?.TakeDamage(weaponDamage);
-				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-				Destroy(impactGO, 0.4f);
 				HitActive();
 				au.PlayOneShot(au_hitmarker);
-				Invoke("HitDisable", 0.15f);
+				
+
+				hit.collider.gameObject.GetComponentInParent<IEnemyDamageable>()?.TakeDamage(weaponDamage);
+				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+				Destroy(impactGO, 0.4f);
+
+				Invoke("HitDisable", 0.3f);
+
 			}
 
 			//Creates bullet collision effect with objects.

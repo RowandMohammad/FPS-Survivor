@@ -9,14 +9,14 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
 
 {
 
-    public float addScoreAmount = 10;
+    public float addScoreAmount = 100;
     GameManagerController gameController;
 
     [Header("Health VFX/SFX")]
     [SerializeField] private AudioClip[] hurtSounds;
     private AudioSource healthAudioSource;
     public float health = 100f;
-    private bool isDead;
+    public bool isDead;
     public GameObject player;
     public Animator enemyAnimator;
     [SerializeField] float distanceToStop;
@@ -24,13 +24,14 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
     public GameObject leftFist;
     public Spawner spawner;
     public AudioSource au;
-    public AudioClip hurtSound;
+    
 
 
 
     [SerializeField] private float attackDamage;
     private float lastAttackTime = 0;
     private float attackInterval = 2;
+    public AudioClip au_death;
 
     private void awake()
     {
@@ -44,6 +45,9 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         healthAudioSource = GetComponent<AudioSource>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerController>();
         au = gameObject.GetComponent<AudioSource>();
+        setRigidbodyState(true);
+        
+        GetComponent<Animator>().enabled = true;
     }
 
     // Update is called once per frame
@@ -124,8 +128,8 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         }
         if (health > 0 && isDead != true)
         {
-            if (hurtSound != null && au != null)
-                au.PlayOneShot(hurtSound);
+            healthAudioSource.clip = hurtSounds[Random.Range(0, hurtSounds.Length)];
+            healthAudioSource.PlayOneShot(healthAudioSource.clip);
 
             print(health);
 
@@ -139,12 +143,59 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         GetComponent<NavMeshAgent>().enabled = true;
     }
 
+
+
     private void Die()
     {
+        au.PlayOneShot(au_death);
+        GetComponent<Animator>().enabled = false;
         gameController.AddScore(addScoreAmount);
         spawner.enemiesAlive--;
-        Destroy(gameObject);
         
+        setRigidbodyState(false);
+        player.GetComponent<PlayerManager>().PopUpActive();
+
+        
+        
+
+
+        if (gameObject != null)
+        {
+            Destroy(gameObject, 3f);
+        }
+
+        
+
+
+    }
+
+    void setRigidbodyState(bool state)
+    {
+
+        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+
+        foreach (Rigidbody rigidbody in rigidbodies)
+        {
+            rigidbody.isKinematic = state;
+        }
+
+        GetComponent<Rigidbody>().isKinematic = !state;
+
+    }
+
+
+    void setColliderState(bool state)
+    {
+
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = state;
+        }
+
+        GetComponent<Collider>().enabled = !state;
+
     }
 
 }
