@@ -11,6 +11,7 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
 
     public float addScoreAmount = 100;
     GameManagerController gameController;
+    Spawner spawner;
 
     [Header("Health VFX/SFX")]
     [SerializeField] private AudioClip[] hurtSounds;
@@ -22,8 +23,10 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
     [SerializeField] float distanceToStop;
     public GameObject rightFist;
     public GameObject leftFist;
-    public Spawner spawner;
+    
     public AudioSource au;
+    public bool isHeadshot;
+    public float damageAmount = 20f;
     
 
 
@@ -46,13 +49,14 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerController>();
         au = gameObject.GetComponent<AudioSource>();
         setRigidbodyState(true);
-        
+        spawner  = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
         GetComponent<Animator>().enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         if(distanceToPlayer < distanceToStop)
@@ -76,11 +80,15 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         {
             enemyAnimator.SetBool("isRunning", false);
         }
+        if (spawner.round > 1)
+        {
+            damageAmount = 40f;
+        }
     }
 
     private void AttackPlayer()
     {
-        if(Time.time - lastAttackTime >= attackInterval)
+        if(Time.time - lastAttackTime >= attackInterval )
         {
             lastAttackTime = Time.time;
             enemyAnimator.SetInteger("AttackIndex", Random.Range(0, 4));
@@ -149,11 +157,21 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
     {
         au.PlayOneShot(au_death);
         GetComponent<Animator>().enabled = false;
-        gameController.AddScore(addScoreAmount);
-        spawner.enemiesAlive--;
+        
+        
         
         setRigidbodyState(false);
-        player.GetComponent<PlayerManager>().PopUpActive();
+        if (isHeadshot)
+        {
+            player.GetComponent<PlayerManager>().PopUpHeadShotActive();
+            gameController.AddScore(150);
+        }
+        else
+        {
+            player.GetComponent<PlayerManager>().PopUpActive();
+            gameController.AddScore(addScoreAmount);
+        }
+        
 
         
         

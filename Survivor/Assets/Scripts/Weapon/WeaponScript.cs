@@ -237,10 +237,12 @@ public class WeaponScript : Weapon
 		{
 			if (hit.collider.tag == "Head" && !hit.collider.gameObject.GetComponentInParent<BasicZombieController>().isDead)
 			{
+				hit.collider.gameObject.GetComponentInParent<BasicZombieController>().isHeadshot = true;
 				HitActive();
 				au.PlayOneShot(au_hitmarker);
 				
 				hit.collider.gameObject.GetComponentInParent<IEnemyDamageable>()?.TakeDamage(weaponDamage * 2);
+				
 				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
 				Destroy(impactGO, 0.4f);
 
@@ -251,11 +253,13 @@ public class WeaponScript : Weapon
 			}
 			else if (hit.collider.tag == "Zombie" && !hit.collider.gameObject.GetComponentInParent<BasicZombieController>().isDead)
 			{
+				hit.collider.gameObject.GetComponentInParent<BasicZombieController>().isHeadshot = false;
 				HitActive();
 				au.PlayOneShot(au_hitmarker);
 				
 
 				hit.collider.gameObject.GetComponentInParent<IEnemyDamageable>()?.TakeDamage(weaponDamage);
+				
 				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
 				Destroy(impactGO, 0.4f);
 

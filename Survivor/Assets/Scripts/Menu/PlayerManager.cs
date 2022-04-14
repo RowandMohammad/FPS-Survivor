@@ -34,7 +34,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     private bool hasCollide = false;
     public GameObject popUp;
     public GameObject parentObject;
-
+    public GameObject popUpH;
 
     private void Start()
     {
@@ -146,6 +146,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         SceneManager.LoadScene(3);
     }
 
+
     #endregion Private Fields
 
 
@@ -167,12 +168,12 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "ZombieFist")
+        if(other.gameObject.tag == "ZombieFist" && !other.gameObject.GetComponentInParent<BasicZombieController>().isDead)
         {
             if (hasCollide == false)
             {
                 hasCollide = true;
-                TakeDamage(20);
+                TakeDamage(other.gameObject.GetComponentInParent<BasicZombieController>().damageAmount);
                 StartCoroutine(collisionDetection());
             }
         }
@@ -182,6 +183,12 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public void PopUpActive()
     {
         Instantiate(popUp, transform.position, Quaternion.identity, parentObject.transform);
+        
+        
+    }
+    public void PopUpHeadShotActive()
+    {
+        Instantiate(popUpH, transform.position, Quaternion.identity, parentObject.transform);
         
     }
 
