@@ -57,7 +57,7 @@ public class Spawner : MonoBehaviour
     void roundCompleted()
     {
         round++;
-        roundModifier();
+        roundModifier(); 
         updateRoundUI();
         playerAudio.PlayOneShot(roundSong);
         state = SpawnState.COUNTING;
@@ -70,7 +70,7 @@ public class Spawner : MonoBehaviour
     {
         if (round > 1)
         {
-            waves[nextWave].count = waves[nextWave].count + 5;
+            waves[nextWave].count = waves[nextWave].count + 4;
         }
     }
     void Update()

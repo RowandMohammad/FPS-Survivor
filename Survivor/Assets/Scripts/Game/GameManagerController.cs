@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManagerController : MonoBehaviour
 {
+    public AudioSource playerAudio;
+    public AudioClip backgroundSong;
 
     float currScore = 0;
     [SerializeField] TextMeshProUGUI scoreText;
