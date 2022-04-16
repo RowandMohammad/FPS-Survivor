@@ -5,16 +5,21 @@ using UnityEngine;
 
 public class GameManagerController : MonoBehaviour
 {
-    public AudioSource playerAudio;
-    public AudioClip backgroundSong;
+  
 
     float currScore = 0;
-    [SerializeField] TextMeshProUGUI scoreText;
+  
+    public TextMeshProUGUI scoreText;
+
+
     // Start is called before the first frame update
     void Start()
     {
         currScore = 0;
+        scoreText = GameObject.FindGameObjectWithTag("ScoreText").GetComponent<TextMeshProUGUI>();
         UpdateScoreUI();
+        
+        
 
     }
 

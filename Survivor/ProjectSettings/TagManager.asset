@@ -8,6 +8,8 @@ TagManager:
   - Zombie
   - Head
   - Spawner
+  - RoundText
+  - ScoreText
   layers:
   - Default
   - TransparentFX

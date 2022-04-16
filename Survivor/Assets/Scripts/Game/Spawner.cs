@@ -35,6 +35,7 @@ public class Spawner : MonoBehaviour
     public AudioClip roundSong;
     void Start()
     {
+        roundText = GameObject.FindGameObjectWithTag("Roundtext").GetComponent<TextMeshProUGUI>();
         waveCountdown = timeBetweenWaves;
         playerAudio = GameObject.Find("Player").GetComponent<AudioSource>();
         playerAudio.PlayOneShot(begginingSong);

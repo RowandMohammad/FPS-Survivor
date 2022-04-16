@@ -1081,7 +1081,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3022885634927120639}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 0, z: 27.22}
+  m_LocalPosition: {x: 50, y: 1, z: 27.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2504075582869753164}
@@ -1150,8 +1150,9 @@ MonoBehaviour:
   distanceToStop: 2
   rightFist: {fileID: 4009699453565351347}
   leftFist: {fileID: 2531014262904881403}
-  spawner: {fileID: 0}
   au: {fileID: 0}
+  isHeadshot: 0
+  damageAmount: 20
   attackDamage: 15
   au_death: {fileID: 8300000, guid: d46dd75a64a4bf445be264e95f1c7595, type: 3}
 --- !u!195 &2680235143422497875
