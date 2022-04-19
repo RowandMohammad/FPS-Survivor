@@ -4,7 +4,7 @@ using TMPro;
 
 public class WeaponScript : Weapon
 {
-
+	ScoreDisplay scoreDisplay;
 	Animator a;
 	CharacterController co;
 	AudioSource au;
@@ -85,6 +85,7 @@ public class WeaponScript : Weapon
 		mag = magSize;
 
 		ps = gameObject.GetComponentsInChildren<ParticleSystem> ();
+		scoreDisplay = GameObject.FindGameObjectWithTag("ScoreBoard").GetComponent<ScoreDisplay>();
 	}
 	
 	// Update is called once per frame
@@ -267,10 +268,26 @@ public class WeaponScript : Weapon
 				Invoke("HitDisable", 0.3f);
 
 			}
+			else if (hit.collider.tag == "Capsule")
+            {
+				scoreDisplay.successfulHits += 1;
+				HitActive();
+				au.PlayOneShot(au_hitmarker);
+
+
+				hit.collider.gameObject.GetComponent<IEnemyDamageable>()?.TakeDamage(weaponDamage);
+
+				GameObject impactGO = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+				Destroy(impactGO, 0.4f);
+
+				Invoke("HitDisable", 0.3f);
+
+			}
 
 			//Creates bullet collision effect with objects.
 
 		}
+		scoreDisplay.shootCounter += 1;
 	}
 
 	public void LoadMag () {

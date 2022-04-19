@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -54,6 +55,11 @@ public class MenuManager : MonoBehaviour
     public void GameClose()
     {
         Application.Quit();
+    }
+
+    public void FiringRange()
+    {
+        SceneManager.LoadScene("FiringRange");
     }
 
     #endregion Public Methods

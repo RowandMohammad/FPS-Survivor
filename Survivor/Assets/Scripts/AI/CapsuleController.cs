@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CapsuleController : MonoBehaviour, IDamageable
+public class CapsuleController : MonoBehaviour, IEnemyDamageable
 
 {
     public float health = 10f;

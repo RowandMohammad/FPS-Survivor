@@ -10,15 +10,16 @@ public class ScoreDisplay : MonoBehaviour
 
     [SerializeField] private Text scoreDisplay;
     [SerializeField] private Text accuracyDisplay;
-    ItemController gunScript;
+    WeaponScript gunScript;
     public int accuracyPercent;
     public int successfulHits;
+    public int shootCounter;
 
     // Start is called before the first frame update
     void Start()
     {
         accuracyPercent =0;
-        gunScript = GameObject.Find("ItemHolder").GetComponent<ItemController>();
+        gunScript = GameObject.Find("Weapon").GetComponent<WeaponScript>();
         
     }
 
@@ -27,17 +28,17 @@ public class ScoreDisplay : MonoBehaviour
     {
         scoreDisplay.text = "Score: " + successfulHits.ToString();
         accuracyDisplay.text = "Accuracy: " + accuracyPercent.ToString() + "%";
-        if (gunScript.shootCounter>0)
+        if (shootCounter>0)
         {
-            accuracyPercent = (int)Math.Round((double)(100 * successfulHits) / gunScript.shootCounter);
+            accuracyPercent = (int)Math.Round((double)(100 * successfulHits) / shootCounter);
 
         }
 
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             successfulHits = 0;
-            gunScript.shootCounter = 0;
+            shootCounter = 0;
             accuracyPercent = 0;
         }
 

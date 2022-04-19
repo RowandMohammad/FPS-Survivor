@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame.unity
     guid: eed687f13321add4ca571c8f300b8ba5
+  - enabled: 1
+    path: Assets/Scenes/FiringRange.unity
+    guid: 31d5180cf20ea7b428877d4a5af7758c
   m_configObjects: {}

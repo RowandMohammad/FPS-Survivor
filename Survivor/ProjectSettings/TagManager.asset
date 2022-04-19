@@ -12,6 +12,8 @@ TagManager:
   - ScoreText
   - GameOverScreen
   - Weapon
+  - ScoreBoard
+  - Capsule
   layers:
   - Default
   - TransparentFX
