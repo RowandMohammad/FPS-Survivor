@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class BasicZombieController : MonoBehaviour, IEnemyDamageable
@@ -17,12 +18,14 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
     [SerializeField] private AudioClip[] hurtSounds;
     private AudioSource healthAudioSource;
     public float health = 100f;
+    private float maxHealth = 100f;
     public bool isDead;
     public GameObject player;
     public Animator enemyAnimator;
     [SerializeField] float distanceToStop;
     public GameObject rightFist;
     public GameObject leftFist;
+    public Slider slider;
     
     public AudioSource au;
     public bool isHeadshot;
@@ -51,6 +54,8 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         setRigidbodyState(true);
         spawner  = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
         GetComponent<Animator>().enabled = true;
+        slider.maxValue = maxHealth;
+        slider.value = health;
     }
 
     // Update is called once per frame
@@ -80,10 +85,17 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         {
             enemyAnimator.SetBool("isRunning", false);
         }
-        if (spawner.round > 1)
+        if (spawner.round > 4)
         {
             damageAmount = 40f;
         }
+        if (spawner.round > 8)
+        {
+            damageAmount = 50f;
+            GetComponent<NavMeshAgent>().speed = 6f;
+        }
+
+        slider.transform.LookAt(player.transform);
     }
 
     private void AttackPlayer()
@@ -127,6 +139,7 @@ public class BasicZombieController : MonoBehaviour, IEnemyDamageable
         health -= damage;
         enemyAnimator.SetInteger("HitIndex", Random.Range(0, 4));
         enemyAnimator.SetTrigger("isHit");
+        slider.value = health;
 
 
         if (health <= 0 && isDead != true)

@@ -127,6 +127,8 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
     // Start is called before the first frame update
     public void Start()
     {
+        Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.None;
         PhotonNetwork.AutomaticallySyncScene = true;
         if (!PhotonNetwork.IsConnected)
         {
@@ -149,7 +151,10 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     private void Awake()
     {
+        Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.None;
         Instance = this;
+
     }
 
     private string roomName()

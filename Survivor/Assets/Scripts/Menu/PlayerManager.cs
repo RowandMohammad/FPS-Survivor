@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 {
     #region Private Fields
     [Header("Health Stats")]
-    [SerializeField] private float maxHealth = 100;
+    [SerializeField] public float maxHealth = 100;
     [SerializeField] private float timeBeforeRegen = 3;
     [SerializeField] private float healthValueIncrement = 3;
     [SerializeField] private float healthTimeIncrement = 0.1f;
@@ -24,6 +24,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public Image frontHealthBar;
     public Image backHealthBar;
     public TextMeshProUGUI healthNumber;
+
+    public GameManagerController gameController;
 
     [Header("Health VFX/SFX")]
     [SerializeField] private Image hurtImage = null;
@@ -38,8 +40,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.Locked;
         healthAudioSource = GetComponent<AudioSource>();
         color = hurtImage.color;
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerController>();
 
     }
 
@@ -118,7 +123,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         UpdateHealthUI();
     }
 
-    private IEnumerator HealthRegenerate()
+    public IEnumerator HealthRegenerate()
     {
         lerpTimer = 0;
         yield return new WaitForSeconds(timeBeforeRegen);
@@ -143,7 +148,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         currentHealth = 0;
         if (regeneratingHealth != null)
             StopCoroutine(regeneratingHealth);
-        SceneManager.LoadScene(3);
+        gameController.GameOver();
     }
 
 

@@ -31,6 +31,7 @@ public class WeaponScript : Weapon
 	public int mag;
 
 	public int totalAmmo;
+	public int maxAmmo;
 
 	public int weaponDamage;
 

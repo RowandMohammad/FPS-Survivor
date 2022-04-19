@@ -29,13 +29,15 @@ public class Spawner : MonoBehaviour
     private float searchCountdown = 1f;
     public GameObject[] spawnPoints;
 
-    public TextMeshProUGUI roundText;
+    public GameObject roundText;
+    public TextMeshProUGUI roundTextTMP;
     public AudioSource playerAudio;
     public AudioClip begginingSong;
     public AudioClip roundSong;
     void Start()
     {
-        roundText = GameObject.FindGameObjectWithTag("Roundtext").GetComponent<TextMeshProUGUI>();
+        roundText = GameObject.FindGameObjectWithTag("RoundText");
+        roundTextTMP = roundText.GetComponent<TextMeshProUGUI>();
         waveCountdown = timeBetweenWaves;
         playerAudio = GameObject.Find("Player").GetComponent<AudioSource>();
         playerAudio.PlayOneShot(begginingSong);
@@ -51,7 +53,7 @@ public class Spawner : MonoBehaviour
 
     void invokeRoundNumber()
     {
-        roundText.text = round.ToString("0");
+        roundTextTMP.text = round.ToString("0");
 
     }
 
@@ -71,7 +73,7 @@ public class Spawner : MonoBehaviour
     {
         if (round > 1)
         {
-            waves[nextWave].count = waves[nextWave].count + 4;
+            waves[nextWave].count = waves[nextWave].count + 3;
         }
     }
     void Update()
