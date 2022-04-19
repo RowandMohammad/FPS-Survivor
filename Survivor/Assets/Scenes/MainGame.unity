@@ -312,7 +312,7 @@ MonoBehaviour:
     count: 5
     spawnRate: 1
   round: 1
-  timeBetweenWaves: 1
+  timeBetweenWaves: 18
   waveCountdown: 0
   state: 2
   spawnPoints:

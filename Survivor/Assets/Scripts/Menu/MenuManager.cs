@@ -51,5 +51,10 @@ public class MenuManager : MonoBehaviour
         menu.Open();
     }
 
+    public void GameClose()
+    {
+        Application.Quit();
+    }
+
     #endregion Public Methods
 }
