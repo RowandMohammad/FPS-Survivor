@@ -21,7 +21,7 @@ public class MutantManager : MonoBehaviour
     public Transform Target;
     public float RadiusAroundTarget = 5f;
     public List<MutantController> Units = new List<MutantController>();
-    public List<MutantController> list = new List<MutantController>();
+    public List<MutantController> baseUnits = new List<MutantController>();
     public float playerHealth = 100f;
 
 
@@ -39,9 +39,9 @@ public class MutantManager : MonoBehaviour
 
     private void Update()
     {
-        if (playerHealth <= 40 && list.Count < 1)
+        if (playerHealth <= 40 && baseUnits.Count < 1)
         {
-            list.Add(Units[Units.Count - 1]);
+            baseUnits.Add(Units[Units.Count - 1]);
             Units.Remove(Units[Units.Count - 1]);
         }
         MakeAgentsCircleTarget();

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Enemy))]
+[DefaultExecutionOrder(1)]
 public class MutantController : MonoBehaviour
 {
 
@@ -13,6 +14,7 @@ public class MutantController : MonoBehaviour
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
+        MutantManager.Instance.Units.Add(this);
         Enemy = GetComponent<Enemy>();
     }
 
