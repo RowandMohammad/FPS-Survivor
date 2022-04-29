@@ -5,23 +5,73 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class AILineOfSightController : MonoBehaviour
 {
-    [HideInInspector]
-    public Transform Player;
-    public LayerMask HidableLayers;
-    public EnemyLineOfSightChecker LineOfSightChecker;
+    #region Public Fields
+
     public NavMeshAgent Agent;
+
+    public LayerMask HidableLayers;
+
     [Range(-1, 1)]
     [Tooltip("Lower is a better hiding spot")]
     public float HideSensitivity = 0;
-    [Range(1, 10)]
-    public float MinPlayerDistance = 5f;
+
+    public EnemyLineOfSightChecker LineOfSightChecker;
+
     [Range(0, 5f)]
     public float MinObstacleHeight = 1.25f;
+
+    [Range(1, 10)]
+    public float MinPlayerDistance = 5f;
+
+    [HideInInspector]
+    public Transform Player;
+
     [Range(0.01f, 1f)]
     public float UpdateFrequency = 0.25f;
 
+    #endregion Public Fields
+
+
+
+    #region Private Fields
+
+    private Collider[] Colliders = new Collider[10];
     private Coroutine MovementCoroutine;
-    private Collider[] Colliders = new Collider[10]; // more is less performant, but more options
+
+    #endregion Private Fields
+
+    // more is less performant, but more options
+
+
+
+    #region Public Methods
+
+    //Comapres and Sorts the colliders.
+    public int ColliderArraySortComparer(Collider A, Collider B)
+    {
+        if (A == null && B != null)
+        {
+            return 1;
+        }
+        else if (A != null && B == null)
+        {
+            return -1;
+        }
+        else if (A == null && B == null)
+        {
+            return 0;
+        }
+        else
+        {
+            return Vector3.Distance(Agent.transform.position, A.transform.position).CompareTo(Vector3.Distance(Agent.transform.position, B.transform.position));
+        }
+    }
+
+    #endregion Public Methods
+
+
+
+    #region Private Methods
 
     private void Awake()
     {
@@ -31,6 +81,7 @@ public class AILineOfSightController : MonoBehaviour
         LineOfSightChecker.OnLoseSight += HandleLoseSight;
     }
 
+    //Event Handler when Agent gains sight of player
     private void HandleGainSight(Transform Target)
     {
         if (MovementCoroutine != null)
@@ -41,6 +92,7 @@ public class AILineOfSightController : MonoBehaviour
         MovementCoroutine = StartCoroutine(Hide(Target));
     }
 
+    //Event handler when Agent loses sight of player
     private void HandleLoseSight(Transform Target)
     {
         if (MovementCoroutine != null)
@@ -50,6 +102,8 @@ public class AILineOfSightController : MonoBehaviour
         Player = null;
     }
 
+
+    //Coroutine to hide player from user.
     private IEnumerator Hide(Transform Target)
     {
         WaitForSeconds Wait = new WaitForSeconds(UpdateFrequency);
@@ -116,23 +170,5 @@ public class AILineOfSightController : MonoBehaviour
         }
     }
 
-    public int ColliderArraySortComparer(Collider A, Collider B)
-    {
-        if (A == null && B != null)
-        {
-            return 1;
-        }
-        else if (A != null && B == null)
-        {
-            return -1;
-        }
-        else if (A == null && B == null)
-        {
-            return 0;
-        }
-        else
-        {
-            return Vector3.Distance(Agent.transform.position, A.transform.position).CompareTo(Vector3.Distance(Agent.transform.position, B.transform.position));
-        }
-    }
+    #endregion Private Methods
 }

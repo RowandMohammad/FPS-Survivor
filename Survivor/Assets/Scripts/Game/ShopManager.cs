@@ -1,60 +1,46 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    public float healthPrice = 5000;
-    public float ammoPrice = 200;
+    #region Public Fields
 
+    public float ammoPrice = 200;
+    public bool AmmoStation;
+    public float healthPrice = 5000;
+    public bool HealthStation;
+    public Text priceNumber;
     public Text priceText;
 
-    public Text priceNumber;
-
-    PlayerManager playerManager;
-
-    bool playerIsInReach = false;
-
-    public bool HealthStation;
-    public bool AmmoStation;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (HealthStation)
-        {
-            priceNumber.text =  healthPrice.ToString();
-        }
-        if (AmmoStation)
-        {
-            priceNumber.text = ammoPrice.ToString();
-        }
+    #endregion Public Fields
 
 
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (playerIsInReach)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                BuyShop();
-            }
-        }
-    }
+    #region Private Fields
 
+    private bool playerIsInReach = false;
+    private PlayerManager playerManager;
+
+    #endregion Private Fields
+
+
+
+    #region Public Methods
+
+    //BuyShop is called when interacting wiht shops
     public void BuyShop()
     {
         BuyHealth();
         BuyAmmo();
-
     }
 
+    #endregion Public Methods
+
+
+
+    #region Private Methods
+
+    //Enables player to replenish ammo at the shop
     private void BuyAmmo()
     {
         if (AmmoStation)
@@ -65,48 +51,35 @@ public class ShopManager : MonoBehaviour
                 playerManager.gameController.currScore -= ammoPrice;
                 WeaponScript weaponScript = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponScript>();
                 weaponScript.totalAmmo = weaponScript.maxAmmo;
-
-
             }
-
             else
 
             {
-
                 Debug.Log("Poor");
-
             }
-
         }
     }
 
-    void BuyHealth()
+    //Enables player to replenish health at the shop
+    private void BuyHealth()
     {
         if (HealthStation)
         {
             if (playerManager.gameController.currScore >= healthPrice)
 
             {
-
-
                 playerManager.gameController.currScore -= healthPrice;
                 playerManager.maxHealth = 250f;
-
-
             }
-
             else
 
             {
-
                 Debug.Log("Poor");
-
             }
-
         }
-
     }
 
+    //Detects whether player comes into reach distance to interact with shop
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -116,10 +89,9 @@ public class ShopManager : MonoBehaviour
             playerIsInReach = true;
             playerManager = other.GetComponent<PlayerManager>();
         }
-
-
     }
 
+    //Detects whether player leaves the reach distance to interact with shop
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -127,13 +99,33 @@ public class ShopManager : MonoBehaviour
             priceNumber.gameObject.SetActive(false);
             priceText.gameObject.SetActive(false);
             playerIsInReach = false;
-            
         }
-
-
     }
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        if (HealthStation)
+        {
+            priceNumber.text = healthPrice.ToString();
+        }
+        if (AmmoStation)
+        {
+            priceNumber.text = ammoPrice.ToString();
+        }
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if (playerIsInReach)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                BuyShop();
+            }
+        }
+    }
+
+    #endregion Private Methods
 }
-
-
-
-

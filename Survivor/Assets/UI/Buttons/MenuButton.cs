@@ -1,28 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MenuButton : MonoBehaviour
 {
-	[SerializeField] MenuButtonController menuButtonController;
-	[SerializeField] Animator animator;
-	[SerializeField] AnimatorFunctions animatorFunctions;
-	[SerializeField] int thisIndex;
+    #region Private Fields
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private AnimatorFunctions animatorFunctions;
+    [SerializeField] private MenuButtonController menuButtonController;
+    [SerializeField] private int thisIndex;
+
+    #endregion Private Fields
+
+
+
+    #region Private Methods
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-		if(menuButtonController.index == thisIndex)
-		{
-			animator.SetBool ("Selected", true);
-			if(Input.GetAxis ("Submit") == 1){
-				animator.SetBool ("Pressed", true);
-			}else if (animator.GetBool ("Pressed")){
-				animator.SetBool ("Pressed", false);
-				animatorFunctions.disableOnce = true;
-			}
-		}else{
-			animator.SetBool ("Selected", false);
-		}
+        if (menuButtonController.index == thisIndex)
+        {
+            animator.SetBool("Selected", true);
+            if (Input.GetAxis("Submit") == 1)
+            {
+                animator.SetBool("Pressed", true);
+            }
+            else if (animator.GetBool("Pressed"))
+            {
+                animator.SetBool("Pressed", false);
+                animatorFunctions.disableOnce = true;
+            }
+        }
+        else
+        {
+            animator.SetBool("Selected", false);
+        }
     }
+
+    #endregion Private Methods
 }

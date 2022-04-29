@@ -5,11 +5,31 @@ using UnityEngine.AI;
 [DefaultExecutionOrder(1)]
 public class MutantController : MonoBehaviour
 {
+    #region Private Fields
+
+    private NavMeshAgent Agent;
+
+    private Enemy Enemy;
 
     [SerializeField]
-    Transform Target;
-    private Enemy Enemy;
-    private NavMeshAgent Agent;
+    private Transform Target;
+
+    #endregion Private Fields
+
+
+
+    #region Internal Methods
+
+    internal void MoveTo(Vector3 vector3)
+    {
+        Agent.SetDestination(vector3);
+    }
+
+    #endregion Internal Methods
+
+
+
+    #region Private Methods
 
     private void Awake()
     {
@@ -20,15 +40,15 @@ public class MutantController : MonoBehaviour
 
     private void Update()
     {
-
         Agent.enabled = true;
         Agent.SetDestination(Target.position);
         Enemy.ChangeState(StateEnemy.Chase);
- 
 
         if (Agent.enabled && Agent.remainingDistance < Agent.radius)
         {
             Enemy.ChangeState(StateEnemy.Idle);
         }
     }
+
+    #endregion Private Methods
 }

@@ -5,24 +5,49 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Enemy))]
 public class AgentDestructible : MonoBehaviour
 {
-    [SerializeField]
-    private int DestructibleObjectCheckRate = 10;
-    [SerializeField]
-    private float CheckDistance = 1f;
+    #region Private Fields
+
     [SerializeField]
     private NavMeshAgent Agent;
+
+    private Coroutine AttackCoroutine;
+
+    private Coroutine CheckCoroutine;
+
     [SerializeField]
-    private float DestructibleAttackDelay = 1f;
+    private float CheckDistance = 1f;
+
     [SerializeField]
     private int DestructibleAttackDamage = 10;
+
+    [SerializeField]
+    private float DestructibleAttackDelay = 1f;
+
     [SerializeField]
     private LayerMask DestructibleLayers;
+
+    [SerializeField]
+    private int DestructibleObjectCheckRate = 10;
 
     private Enemy Enemy;
     private NavMeshPath OriginalPath;
 
-    private Coroutine CheckCoroutine;
-    private Coroutine AttackCoroutine;
+    #endregion Private Fields
+
+
+
+    #region Private Methods
+    //Destroys wall to reconfigure AI Path.
+    private IEnumerator AttackDestructible(DestructibleWall Destructible)
+    {
+        WaitForSeconds Wait = new WaitForSeconds(DestructibleAttackDelay);
+        while (Destructible != null)
+        {
+            Destructible.TakeDamage(DestructibleAttackDamage);
+
+            yield return Wait;
+        }
+    }
 
     private void Awake()
     {
@@ -30,22 +55,7 @@ public class AgentDestructible : MonoBehaviour
         Enemy.OnStateChange += HandleStateChange;
     }
 
-    private void HandleStateChange(StateEnemy OldState, StateEnemy NewState)
-    {
-        if (NewState == StateEnemy.Chase)
-        {
-            if (CheckCoroutine != null)
-            {
-                StopCoroutine(CheckCoroutine);
-            }
-            if (AttackCoroutine != null)
-            {
-                StopCoroutine(AttackCoroutine);
-            }
-            CheckCoroutine = StartCoroutine(CheckForDestructibleObjects());
-        }
-    }
-
+    //Coroutine to check if the AI can destroy objects
     private IEnumerator CheckForDestructibleObjects()
     {
         yield return null;
@@ -97,14 +107,21 @@ public class AgentDestructible : MonoBehaviour
         }
     }
 
-    private IEnumerator AttackDestructible(DestructibleWall Destructible)
+    private void HandleStateChange(StateEnemy OldState, StateEnemy NewState)
     {
-        WaitForSeconds Wait = new WaitForSeconds(DestructibleAttackDelay);
-        while (Destructible != null)
+        if (NewState == StateEnemy.Chase)
         {
-            Destructible.TakeDamage(DestructibleAttackDamage);
-
-            yield return Wait;
+            if (CheckCoroutine != null)
+            {
+                StopCoroutine(CheckCoroutine);
+            }
+            if (AttackCoroutine != null)
+            {
+                StopCoroutine(AttackCoroutine);
+            }
+            CheckCoroutine = StartCoroutine(CheckForDestructibleObjects());
         }
     }
+
+    #endregion Private Methods
 }

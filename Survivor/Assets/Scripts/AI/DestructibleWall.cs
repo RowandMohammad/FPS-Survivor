@@ -2,17 +2,39 @@ using UnityEngine;
 
 public class DestructibleWall : MonoBehaviour, IDamageable
 {
-    [SerializeField]
-    private ParticleSystem DestroySystem;
+    #region Public Fields
 
     public float Health;
 
-    public delegate void DestryEvent();
     public DestryEvent OnDestroy;
 
-    public delegate void TakeDamageEvent(float Damage, float Health);
     public TakeDamageEvent OnTakeDamage;
 
+    #endregion Public Fields
+
+
+
+    #region Private Fields
+
+    [SerializeField]
+    private ParticleSystem DestroySystem;
+
+    #endregion Private Fields
+
+
+
+    #region Public Delegates
+
+    public delegate void DestryEvent();
+
+    public delegate void TakeDamageEvent(float Damage, float Health);
+
+    #endregion Public Delegates
+
+
+
+    #region Public Methods
+    //Handles destrcutible wall taking damage.
     public void TakeDamage(float Damage)
     {
         Health -= Damage;
@@ -39,4 +61,6 @@ public class DestructibleWall : MonoBehaviour, IDamageable
             OnTakeDamage?.Invoke(Damage, Health);
         }
     }
+
+    #endregion Public Methods
 }

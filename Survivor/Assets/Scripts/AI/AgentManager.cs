@@ -4,9 +4,17 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshSurface))]
 public class AgentManager : MonoBehaviour
 {
-    private NavMeshSurface Surface;
+    #region Private Fields
 
     private static AgentManager _Instance;
+    private NavMeshSurface Surface;
+
+    #endregion Private Fields
+
+
+
+    #region Public Properties
+
     public static AgentManager Instance
     {
         get
@@ -19,6 +27,24 @@ public class AgentManager : MonoBehaviour
             _Instance = value;
         }
     }
+
+    #endregion Public Properties
+
+
+
+    #region Public Methods
+
+    //Creates new navigation mesh surface for AI to route around.
+    public void BakeNavMesh()
+    {
+        Surface.BuildNavMesh();
+    }
+
+    #endregion Public Methods
+
+
+
+    #region Private Methods
 
     private void Awake()
     {
@@ -33,8 +59,5 @@ public class AgentManager : MonoBehaviour
         Instance = this;
     }
 
-    public void BakeNavMesh()
-    {
-        Surface.BuildNavMesh();
-    }
+    #endregion Private Methods
 }

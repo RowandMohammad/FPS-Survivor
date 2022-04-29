@@ -19,7 +19,7 @@ namespace Tests
 
 
         #region Public Methods
-
+        //Tests whether player jumping function is working correctly
         [Test]
         public void Jump_in_Air()
         {
@@ -27,18 +27,22 @@ namespace Tests
             Assert.IsFalse(playerMovement.playerIsGrounded);
         }
 
+
+        //Test whether player is moving correctly on the X axis
         [Test]
         public void Moves_On_XAxis_For_Horizontal_Movement()
         {
             Assert.AreEqual(1, new Movement(1).calculate(1, 0).x, 0.1f);
         }
 
+        //Test whether player is moving correctly on the Z axis
         [Test]
         public void Moves_On_ZAxis_For_Vertical_Movement()
         {
             Assert.AreEqual(1, new Movement(1).calculate(0, 1).z, 0.1f);
         }
 
+        //Test whether player collider shrinks as the player crouches
         [Test]
         public void Player_Collider_Shrinks_With_Crouch()
         {
@@ -48,6 +52,7 @@ namespace Tests
             Assert.AreEqual(2f, sprintAndCrouch.Crouch(preCrouchHeight));
         }
 
+        //Tests whether the sprint function is working
         [Test]
         public void Sprint_Button_Changes_Movement_Speed()
         {
@@ -66,6 +71,7 @@ namespace Tests
             playerCollider = _setup.playerCollider();
         }
 
+        //Tests whehter the players stop sprinting after key is released.
         [Test]
         public void Walk_Speed_Returns_After_Sprint_Key_Released()
         {

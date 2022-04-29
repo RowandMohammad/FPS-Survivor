@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="OnStartDelete.cs" company="Exit Games GmbH">
-//   Part of: Photon Unity Utilities, 
+//   Part of: Photon Unity Utilities,
 // </copyright>
 // <summary>
 //  This component will destroy the GameObject it is attached to (in Start()).
@@ -15,10 +15,14 @@ namespace Photon.Chat.UtilityScripts
     /// <summary>This component will destroy the GameObject it is attached to (in Start()).</summary>
     public class OnStartDelete : MonoBehaviour
     {
+        #region Private Methods
+
         // Use this for initialization
         private void Start()
         {
             Destroy(this.gameObject);
         }
+
+        #endregion Private Methods
     }
 }

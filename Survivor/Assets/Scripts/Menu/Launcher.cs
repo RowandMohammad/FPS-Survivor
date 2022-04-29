@@ -138,6 +138,7 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         Debug.Log("Connecting to online server");
     }
 
+    // Called to start game.
     public void StartGame()
     {
         PhotonNetwork.LoadLevel(1);
@@ -154,7 +155,6 @@ public class Launcher : MonoBehaviourPunCallbacks, ILobbyCallbacks
         Time.timeScale = 1.0f;
         Cursor.lockState = CursorLockMode.None;
         Instance = this;
-
     }
 
     private string roomName()

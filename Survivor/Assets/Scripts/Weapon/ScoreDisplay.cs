@@ -1,39 +1,47 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreDisplay : MonoBehaviour
 {
+    #region Public Fields
 
-    [SerializeField] private Text scoreDisplay;
-    [SerializeField] private Text accuracyDisplay;
-    WeaponScript gunScript;
     public int accuracyPercent;
-    public int successfulHits;
     public int shootCounter;
+    public int successfulHits;
+
+    #endregion Public Fields
+
+
+
+    #region Private Fields
+
+    [SerializeField] private Text accuracyDisplay;
+    private WeaponScript gunScript;
+    [SerializeField] private Text scoreDisplay;
+
+    #endregion Private Fields
+
+
+
+    #region Private Methods
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        accuracyPercent =0;
+        accuracyPercent = 0;
         gunScript = GameObject.Find("Weapon").GetComponent<WeaponScript>();
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         scoreDisplay.text = "Score: " + successfulHits.ToString();
         accuracyDisplay.text = "Accuracy: " + accuracyPercent.ToString() + "%";
-        if (shootCounter>0)
+        if (shootCounter > 0)
         {
             accuracyPercent = (int)Math.Round((double)(100 * successfulHits) / shootCounter);
-
         }
-
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -41,11 +49,7 @@ public class ScoreDisplay : MonoBehaviour
             shootCounter = 0;
             accuracyPercent = 0;
         }
-
-
-
-
-
-
     }
+
+    #endregion Private Methods
 }
